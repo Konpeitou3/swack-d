@@ -37,4 +37,58 @@ public class UsersDAO extends BaseDAO {
 		return user;
 	}
 
+	public String maxSelect() throws SwackException {
+		String sql = "SELECT MAX(USERID) FROM USERS";
+		User user = null;
+		String userId = null;
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pStmt.executeQuery();
+			userId = rs.getString("USERID");
+
+			// "U****" の部分を取得
+			String numberPart = userId.substring(1); // "****" 部分を取得
+
+			try {
+				// "****" 部分を整数に変換してプラス1し、文字列に戻す
+				int number = Integer.parseInt(numberPart) + 1;
+				String newNumberPart = String.format("%04d", number); // 4桁の数字にフォーマット
+
+				// 新しい文字列を生成
+				String newString = "U" + newNumberPart;
+
+				// 結果を出力
+				System.out.println(newString);
+			} catch (NumberFormatException e) {
+				System.out.println("数字の変換エラーが発生しました。");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return userId;
+	}
+
+	public User insert(String username, String mailAddress, String password) throws SwackException {
+
+		//自動採番
+		String userid = maxSelect();
+
+		String sql = "INSERT INTO users (userid, username,mailaddress, password) VALUES(?,?,?,?);";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, userid);
+			pStmt.setString(2, username);
+			pStmt.setString(3, mailAddress);
+			pStmt.setString(4, password);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return null;
+	}
+
 }
