@@ -52,6 +52,25 @@ public class SignUpServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		System.out.println(password);
 
+		//入力値判定
+		StringBuilder errorMsg = new StringBuilder();
+
+		if (username == null || username.length() == 0) {
+			errorMsg.append("ユーザ名が入力されていません<br>");
+		}
+		if (mailaddress == null || mailaddress.length() == 0) {
+			errorMsg.append("メールアドレスが入力されていません<br>");
+		}
+		if (password == null || password.length() == 0) {
+			errorMsg.append("パスワードが入力されていません<br>");
+		}
+		if (errorMsg.length() > 0) {
+			// エラー
+			request.setAttribute("errorMsg", errorMsg.toString());
+			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+			return;
+		}
+
 		//DAOを使用
 		try {
 			UsersDAO usersDao = new UsersDAO();
@@ -62,6 +81,7 @@ public class SignUpServlet extends HttpServlet {
 		} catch (SwackException e) {
 			// エラー処理
 			e.printStackTrace();
+			errorMsg.append("処理が正常に動きませんでした");
 			request.getRequestDispatcher("WEB-INF/jsp/signup.jsp").forward(request, response);
 			return;
 		}
