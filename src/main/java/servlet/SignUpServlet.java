@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.UsersDAO;
+import exception.SwackException;
+
 /**
  * Servlet implementation class SignUpServlet
  */
@@ -37,22 +40,26 @@ public class SignUpServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	/*protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 値を受け取る
 		String username = request.getParameter("userName");
 		String mailaddress = request.getParameter("mailAddress");
 		String password = request.getParameter("password");
-		
+
 		//DAOを使用
 		try {
 			UsersDAO usersDao = new UsersDAO();
-			usersDao.insert(username,mailaddress,password);
+			usersDao.insert(username, mailaddress, password);
+
 		} catch (SwackException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		
-	}*/
+
+		response.sendRedirect("LoginServlet");
+		return;
+
+	}
 
 }
