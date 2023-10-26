@@ -14,6 +14,9 @@ public class Messages {
 	public static final String ERR_DB_PROCESS = "データベースの処理中にエラーが発生しました";
 	public static final String ERR_DB_CLOSE = "データベースからの切断時にエラーが発生しました";
 
+	/**処理内容 */
+	public static final String ERR_USERID_ADD = "データベースからの切断時にエラーが発生しました";
+
 	/** ログイン */
 	public static final String ERR_SESSION_TIMEOUT = "ログイン情報の取得に失敗しました。再度ログインしてください。";
 	public static final String ERR_LOGIN_PARAM_MISTAKE = "メールアドレス、またはパスワードに誤りがあります。入力項目を確認し、再度ログインしてください。";

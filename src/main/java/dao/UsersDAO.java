@@ -61,7 +61,8 @@ public class UsersDAO extends BaseDAO {
 				// 結果を出力
 				System.out.println(newString);
 			} catch (NumberFormatException e) {
-				System.out.println("数字の変換エラーが発生しました。");
+				e.printStackTrace();
+				throw new SwackException(ERR_USERID_ADD, e);
 			}
 
 		} catch (SQLException e) {
