@@ -33,7 +33,6 @@ public class LoginServlet extends HttpServlet {
 			return;
 		} else {
 			// 未ログインの場合は、ログイン画面に遷移
-			request.setAttribute("errorMsg", ERR_SESSION_TIMEOUT);
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 			return;
 		}
