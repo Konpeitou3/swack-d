@@ -40,12 +40,14 @@ public class UsersDAO extends BaseDAO {
 	public String maxSelect() throws SwackException {
 		String sql = "SELECT MAX(USERID) AS MAXID FROM USERS ;";
 		String userId = null;
+		String newId = null;
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			ResultSet rs = pStmt.executeQuery();
-			System.out.println(rs);
-			userId = rs.getString("MAXID");
+			if (rs.next()) {
+				userId = rs.getString("MAXID");
+			}
 
 			// "U****" の部分を取得
 			String numberPart = userId.substring(1); // "****" 部分を取得
@@ -56,10 +58,8 @@ public class UsersDAO extends BaseDAO {
 				String newNumberPart = String.format("%04d", number); // 4桁の数字にフォーマット
 
 				// 新しい文字列を生成
-				String newString = "U" + newNumberPart;
+				newId = "U" + newNumberPart;
 
-				// 結果を出力
-				System.out.println(newString);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 				throw new SwackException(ERR_USERID_ADD, e);
@@ -69,14 +69,14 @@ public class UsersDAO extends BaseDAO {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
-		return userId;
+		return newId;
 	}
 
 	public User insert(String username, String mailAddress, String password) throws SwackException {
 
 		//自動採番
 		String userid = maxSelect();
-		System.out.println(userid);
+		System.out.println("nextuserid:" + userid);
 
 		String sql = "INSERT INTO users (userid, username,mailaddress, password) VALUES(?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {
@@ -86,6 +86,7 @@ public class UsersDAO extends BaseDAO {
 			pStmt.setString(3, mailAddress);
 			pStmt.setString(4, password);
 
+			pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
