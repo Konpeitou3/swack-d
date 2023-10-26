@@ -53,8 +53,10 @@ public class SignUpServlet extends HttpServlet {
 			usersDao.insert(username, mailaddress, password);
 
 		} catch (SwackException e) {
-			// TODO 自動生成された catch ブロック
+			// エラー処理
 			e.printStackTrace();
+			response.sendRedirect("signup.jsp");
+			return;
 		}
 
 		response.sendRedirect("LoginServlet");
