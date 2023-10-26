@@ -25,7 +25,18 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+			// ログイン済の場合は、通常の処理を続行
+			response.sendRedirect("MainServlet?roomId=R0000");
+			return;
+		} else {
+			// 未ログインの場合は、ログイン画面に遷移
+			request.setAttribute("errorMsg", ERR_SESSION_TIMEOUT);
+			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+			return;
+		}
 	}
 
 	@Override
