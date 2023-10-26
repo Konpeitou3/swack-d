@@ -38,14 +38,14 @@ public class UsersDAO extends BaseDAO {
 	}
 
 	public String maxSelect() throws SwackException {
-		String sql = "SELECT MAX(USERID) FROM USERS";
-		User user = null;
+		String sql = "SELECT MAX(USERID) AS MAXID FROM USERS ;";
 		String userId = null;
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			ResultSet rs = pStmt.executeQuery();
-			userId = rs.getString("USERID");
+			System.out.println(rs);
+			userId = rs.getString("MAXID");
 
 			// "U****" の部分を取得
 			String numberPart = userId.substring(1); // "****" 部分を取得
@@ -76,6 +76,7 @@ public class UsersDAO extends BaseDAO {
 
 		//自動採番
 		String userid = maxSelect();
+		System.out.println(userid);
 
 		String sql = "INSERT INTO users (userid, username,mailaddress, password) VALUES(?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {

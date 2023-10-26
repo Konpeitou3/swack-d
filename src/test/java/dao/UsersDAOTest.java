@@ -32,6 +32,18 @@ class UsersDAOTest {
 		User userF = usersDAO.select("taro@swack.com", "password");
 		assertNull(userF);
 	}
+	//	@Test
+	//	void testInsertSuccess() throws SwackException {
+	//		User userT = usersDAO.insert("saburo@swack.com", "swack0001");
+	//		System.out.println("testSelectSuccess():" + userT.toString());
+	//		assertNotNull(userT);
+	//	}
+	//
+	//	@Test
+	//	void testInsertFailure() throws SwackException {
+	//		User userF = usersDAO.select("taro@swack.com", "password");
+	//		assertNull(userF);
+	//	}
 
 	//@Test
 	void testExists() {
