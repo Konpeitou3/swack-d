@@ -19,6 +19,12 @@
 	text-align: center;
 }
 
+.card .error {
+	background-color: pink;
+	color: red;
+	
+}
+
 .card input{
 	margin: 5px auto;
 	padding: 5px;

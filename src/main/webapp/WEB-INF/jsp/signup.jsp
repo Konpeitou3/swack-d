@@ -17,6 +17,7 @@
 	<div class="card">
 		<h3 class="subtitle">Swackワークスペースに参加する</h3>
 		<h4>氏名、メールアドレス、パスワードを入力してください。</h4>
+		<p class="error">${errorMsg}</p>
 		<form action="SignUpServlet" method="post">
 		<input type="text" name="userName" placeholder="情報太郎"><br>
 		<input type="email" name="mailAddress" placeholder="xxx@xxx.xx"><br>
