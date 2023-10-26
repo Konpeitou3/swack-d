@@ -44,23 +44,27 @@ public class SignUpServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 値を受け取る
 		String username = request.getParameter("userName");
+		System.out.println(username);
+
 		String mailaddress = request.getParameter("mailAddress");
+		System.out.println(mailaddress);
+
 		String password = request.getParameter("password");
+		System.out.println(password);
 
 		//DAOを使用
 		try {
 			UsersDAO usersDao = new UsersDAO();
 			usersDao.insert(username, mailaddress, password);
+			response.sendRedirect("LoginServlet");
+			return;
 
 		} catch (SwackException e) {
 			// エラー処理
 			e.printStackTrace();
-			response.sendRedirect("signup.jsp");
+			request.getRequestDispatcher("WEB-INF/jsp/signup.jsp").forward(request, response);
 			return;
 		}
-
-		response.sendRedirect("LoginServlet");
-		return;
 
 	}
 
