@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" url="http://java.sun.com/jsp/jstl/core" %>>
 <!DOCTYPE html>
 <html>
   <head>
@@ -64,6 +65,9 @@ pageEncoding="UTF-8"%>
             <div class="form-group mt-5">
               <label class="control-label">招待の送信先:(任意)</label>
               <select id="names" class="form-select" multiple>
+              <c:forEach var="user" items="${usersList}">
+             	<option value="${user.userId}">${user.name}</option>
+              </c:forEach>
                 <option value="joho01">情報 太郎１</option>
                 <option value="joho02">情報 太郎２</option>
                 <option value="joho03">情報 太郎３</option>
