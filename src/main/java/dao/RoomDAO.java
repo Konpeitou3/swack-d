@@ -72,30 +72,7 @@ public class RoomDAO extends BaseDAO {
 		return newId;
 	}
 
-	public Room insert(String roomname, String createduserid, String directed, String privated) throws SwackException {
-
-		//自動採番
-		String roomid = maxRoomSelect();
-		System.out.println("nextuserid:" + roomid);
-
-		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
-		try (Connection conn = dataSource.getConnection()) {
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, roomid);
-			pStmt.setString(2, roomname);
-			pStmt.setString(3, createduserid);
-			pStmt.setString(4, directed);
-			pStmt.setString(5, privated);
-
-			pStmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new SwackException(ERR_DB_PROCESS, e);
-		}
-		return null;
-	}
-
-	public Room DirectInsert(String roomname, String createduserid, String directed, String privated)
+	public Room insert(String roomname, String createduserid, Boolean directed, Boolean privated)
 			throws SwackException {
 
 		//自動採番
@@ -108,8 +85,32 @@ public class RoomDAO extends BaseDAO {
 			pStmt.setString(1, roomid);
 			pStmt.setString(2, roomname);
 			pStmt.setString(3, createduserid);
-			pStmt.setString(4, directed);
-			pStmt.setString(5, privated);
+			pStmt.setBoolean(4, directed);
+			pStmt.setBoolean(5, privated);
+
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return null;
+	}
+
+	public Room DirectInsert(String roomname, String createduserid, Boolean directed, Boolean privated)
+			throws SwackException {
+
+		//自動採番
+		String roomid = maxRoomSelect();
+		System.out.println("nextuserid:" + roomid);
+
+		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, roomid);
+			pStmt.setString(2, roomname);
+			pStmt.setString(3, createduserid);
+			pStmt.setBoolean(4, directed);
+			pStmt.setBoolean(5, privated);
 
 			pStmt.executeUpdate();
 		} catch (SQLException e) {
