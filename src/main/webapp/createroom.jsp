@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<!-- <%@ taglib prefix="c" url="http://java.sun.com/jsp/jstl/core" %>> -->
-<!DOCTYPE html>
+<%-- <%@ taglib prefix="c" url="http://java.sun.com/jsp/jstl/core" %>> --%>
+ <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -34,11 +34,12 @@ pageEncoding="UTF-8"%>
             (例: #営業)。
           </p>
 
-          <form action="#">
+          <form action="CreateRoomServlet" id="createForm" method="post">
             <div class="form-check form-switch mt-3">
               <input
                 class="form-check-input"
                 id="chk"
+                name="setting"
                 type="checkbox"
                 autocomplete="off"
               />
@@ -56,6 +57,7 @@ pageEncoding="UTF-8"%>
                 id="name"
                 class="form-control"
                 type="text"
+                name="roomName"
                 placeholder="# 例:営業"
                 autofocus
               />
@@ -64,7 +66,7 @@ pageEncoding="UTF-8"%>
 
             <div class="form-group mt-5">
               <label class="control-label">招待の送信先:(任意)</label>
-              <select id="names" class="form-select" multiple>
+              <select id="names" class="form-select" name="selectUser" multiple>
               <!-- <c:forEach var="user" items="${usersList}"> -->
              <!-- <option value="${user.userId}">${user.name}</option> -->	
               <!--</c:forEach>-->
