@@ -28,6 +28,10 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public void OtherUsers(String userName) {
+		this.userName = userName;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
