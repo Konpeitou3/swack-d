@@ -8,16 +8,37 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import bean.User;
+import bean.Room;
 import exception.SwackException;
 
 public class RoomDAO extends BaseDAO {
 	public RoomDAO() throws SwackException {
 		super();
 	}
+	//ルームselect
+	//	public Room select(String roomid) throws SwackException {
+	//		String sql = "SELECT ROOMID,ROOMNAME,CREATEDUSERID,DIRECTED,PRIVATED FROM ROOMS WHERE ROOMID=? ;";
+	//		User user = null;
+	//		try (Connection conn = dataSource.getConnection()) {
+	//			PreparedStatement pStmt = conn.prepareStatement(sql);
+	//			pStmt.setString(1, roomid);
+	//
+	//			ResultSet rs = pStmt.executeQuery();
+	//			if (rs.next()) {
+	//				String userId = rs.getString("USERID");
+	//				String userName = rs.getString("USERNAME");
+	//				// mask password
+	//				user = new User(userId, userName, mailAddress, "********");
+	//			}
+	//		} catch (SQLException e) {
+	//			e.printStackTrace();
+	//			throw new SwackException(ERR_DB_PROCESS, e);
+	//		}
+	//		return null;
+	//	}
 
 	public String maxRoomSelect() throws SwackException {
-		String sql = "SELECT MAX(USERID) AS MAXID FROM USERS ;";
+		String sql = "SELECT MAX(ROOMID) AS MAXROOMID FROM ROOMS ;";
 		String userId = null;
 		String newId = null;
 		try (Connection conn = dataSource.getConnection()) {
@@ -25,7 +46,7 @@ public class RoomDAO extends BaseDAO {
 
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
-				userId = rs.getString("MAXID");
+				userId = rs.getString("MAXROOMID");
 			}
 
 			// "U****" の部分を取得
@@ -37,7 +58,7 @@ public class RoomDAO extends BaseDAO {
 				String newNumberPart = String.format("%04d", number); // 4桁の数字にフォーマット
 
 				// 新しい文字列を生成
-				newId = "U" + newNumberPart;
+				newId = "R" + newNumberPart;
 
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
@@ -51,19 +72,44 @@ public class RoomDAO extends BaseDAO {
 		return newId;
 	}
 
-	public User insert(String username, String mailAddress, String password) throws SwackException {
+	public Room insert(String roomname, String createduserid, String directed, String privated) throws SwackException {
 
 		//自動採番
-		String userid = maxRoomSelect();
-		System.out.println("nextuserid:" + userid);
+		String roomid = maxRoomSelect();
+		System.out.println("nextuserid:" + roomid);
 
-		String sql = "INSERT INTO users (userid, username,mailaddress, password) VALUES(?,?,?,?);";
+		String sql = "INSERT INTO users (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, userid);
-			pStmt.setString(2, username);
-			pStmt.setString(3, mailAddress);
-			pStmt.setString(4, password);
+			pStmt.setString(1, roomid);
+			pStmt.setString(2, roomname);
+			pStmt.setString(3, createduserid);
+			pStmt.setString(4, directed);
+			pStmt.setString(5, privated);
+
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return null;
+	}
+
+	public Room userinsert(String roomname, String createduserid, String directed, String privated)
+			throws SwackException {
+
+		//自動採番
+		String roomid = maxRoomSelect();
+		System.out.println("nextuserid:" + roomid);
+
+		String sql = "INSERT INTO users (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, roomid);
+			pStmt.setString(2, roomname);
+			pStmt.setString(3, createduserid);
+			pStmt.setString(4, directed);
+			pStmt.setString(5, privated);
 
 			pStmt.executeUpdate();
 		} catch (SQLException e) {

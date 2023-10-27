@@ -94,4 +94,25 @@ public class UsersDAO extends BaseDAO {
 		return null;
 	}
 
+	//	//自分以外のuseridリスト
+	//	public List<User> getUserList() throws SwackException {
+	//		String sql = "SELECT USERID ,USERNAME FROM USERS WHERE USERID <> ?;";
+	//
+	//		List<User> chatUserList = new ArrayList<User>();
+	//		try (Connection conn = dataSource.getConnection()) {
+	//			PreparedStatement pStmt = conn.prepareStatement(sql);
+	//
+	//			ResultSet rs = pStmt.executeQuery();
+	//			while (rs.next()) {
+	//				String userName = rs.getString("USERNAME");
+	//
+	//			User user = new OtherUsers(userName);
+	//				chatUserList.add(user);
+	//			}
+	//		} catch (SQLException e) {
+	//			throw new SwackException(ERR_DB_PROCESS, e);
+	//		}
+	//		return chatUserList;
+	//	}
+
 }
