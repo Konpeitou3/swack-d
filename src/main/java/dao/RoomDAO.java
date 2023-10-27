@@ -78,7 +78,7 @@ public class RoomDAO extends BaseDAO {
 		String roomid = maxRoomSelect();
 		System.out.println("nextuserid:" + roomid);
 
-		String sql = "INSERT INTO users (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, roomid);
@@ -95,21 +95,13 @@ public class RoomDAO extends BaseDAO {
 		return null;
 	}
 
-	public Room userinsert(String roomname, String createduserid, String directed, String privated)
-			throws SwackException {
+	public Room userinsert(String roomid, String userid) throws SwackException {
 
-		//自動採番
-		String roomid = maxRoomSelect();
-		System.out.println("nextuserid:" + roomid);
-
-		String sql = "INSERT INTO users (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, roomid);
-			pStmt.setString(2, roomname);
-			pStmt.setString(3, createduserid);
-			pStmt.setString(4, directed);
-			pStmt.setString(5, privated);
+			pStmt.setString(2, userid);
 
 			pStmt.executeUpdate();
 		} catch (SQLException e) {
@@ -118,5 +110,21 @@ public class RoomDAO extends BaseDAO {
 		}
 		return null;
 	}
+
+	//	public Room userinsert(String roomid, String userid) throws SwackException {
+	//
+	//		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
+	//		try (Connection conn = dataSource.getConnection()) {
+	//			PreparedStatement pStmt = conn.prepareStatement(sql);
+	//			pStmt.setString(1, roomid);
+	//			pStmt.setString(2, userid);
+	//
+	//			pStmt.executeUpdate();
+	//		} catch (SQLException e) {
+	//			e.printStackTrace();
+	//			throw new SwackException(ERR_DB_PROCESS, e);
+	//		}
+	//		return null;
+	//	}
 
 }

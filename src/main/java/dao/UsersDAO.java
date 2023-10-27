@@ -6,7 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import bean.OtherUsers;
 import bean.User;
 import exception.SwackException;
 
@@ -94,25 +97,26 @@ public class UsersDAO extends BaseDAO {
 		return null;
 	}
 
-	//	//自分以外のuseridリスト
-	//	public List<User> getUserList() throws SwackException {
-	//		String sql = "SELECT USERID ,USERNAME FROM USERS WHERE USERID <> ?;";
-	//
-	//		List<User> chatUserList = new ArrayList<User>();
-	//		try (Connection conn = dataSource.getConnection()) {
-	//			PreparedStatement pStmt = conn.prepareStatement(sql);
-	//
-	//			ResultSet rs = pStmt.executeQuery();
-	//			while (rs.next()) {
-	//				String userName = rs.getString("USERNAME");
-	//
-	//			User user = new OtherUsers(userName);
-	//				chatUserList.add(user);
-	//			}
-	//		} catch (SQLException e) {
-	//			throw new SwackException(ERR_DB_PROCESS, e);
-	//		}
-	//		return chatUserList;
-	//	}
+	//自分以外のuseridリスト
+	public List<OtherUsers> getUserList(String MyUserId) throws SwackException {
+		String sql = "SELECT USERID ,USERNAME FROM USERS WHERE USERID <> ?;";
+
+		List<OtherUsers> OtherUsers = new ArrayList<OtherUsers>();
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, MyUserId);
+
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String userName = rs.getString("USERNAME");
+
+				OtherUsers user = new OtherUsers(userName); // Userオブジェクトを作成
+				OtherUsers.add(user);
+			}
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return OtherUsers;
+	}
 
 }
