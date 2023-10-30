@@ -100,6 +100,7 @@ public class UsersDAO extends BaseDAO {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+
 		return false;
 	}
 

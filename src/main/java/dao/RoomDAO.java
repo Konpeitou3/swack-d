@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import bean.Room;
 import exception.SwackException;
 
 public class RoomDAO extends BaseDAO {
@@ -37,6 +36,7 @@ public class RoomDAO extends BaseDAO {
 	//		return null;
 	//	}
 
+	//追加用ルーム用意
 	public String maxRoomSelect() throws SwackException {
 		String sql = "SELECT MAX(ROOMID) AS MAXROOMID FROM ROOMS ;";
 		String userId = null;
@@ -72,12 +72,39 @@ public class RoomDAO extends BaseDAO {
 		return newId;
 	}
 
-	public Room insert(String roomname, String createduserid, Boolean directed, Boolean privated)
+	//ルーム追加
+	public int insert(String roomname, String createduserid, Boolean directed, Boolean privated)
 			throws SwackException {
 
 		//自動採番
 		String roomid = maxRoomSelect();
 		System.out.println("nextuserid:" + roomid);
+		int rs;
+		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, roomid);
+			pStmt.setString(2, roomname);
+			pStmt.setString(3, createduserid);
+			pStmt.setBoolean(4, directed);
+			pStmt.setBoolean(5, privated);
+
+			rs = pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return rs;
+	}
+
+	//ダイレクトルーム追加
+	public int DirectInsert(String roomname, String createduserid, Boolean directed, Boolean privated)
+			throws SwackException {
+
+		//自動採番
+		String roomid = maxRoomSelect();
+		System.out.println("nextuserid:" + roomid);
+		int rs;
 
 		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {
@@ -88,52 +115,13 @@ public class RoomDAO extends BaseDAO {
 			pStmt.setBoolean(4, directed);
 			pStmt.setBoolean(5, privated);
 
-			pStmt.executeUpdate();
+			rs = pStmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
-		return null;
-	}
-
-	public Room DirectInsert(String roomname, String createduserid, Boolean directed, Boolean privated)
-			throws SwackException {
-
-		//自動採番
-		String roomid = maxRoomSelect();
-		System.out.println("nextuserid:" + roomid);
-
-		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
-		try (Connection conn = dataSource.getConnection()) {
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, roomid);
-			pStmt.setString(2, roomname);
-			pStmt.setString(3, createduserid);
-			pStmt.setBoolean(4, directed);
-			pStmt.setBoolean(5, privated);
-
-			pStmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new SwackException(ERR_DB_PROCESS, e);
-		}
-		return null;
-	}
-
-	public Room userinsert(String roomid, String userid) throws SwackException {
-
-		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
-		try (Connection conn = dataSource.getConnection()) {
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, roomid);
-			pStmt.setString(2, userid);
-
-			pStmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new SwackException(ERR_DB_PROCESS, e);
-		}
-		return null;
+		return rs;
 	}
 
 	//	public Room userinsert(String roomid, String userid) throws SwackException {
