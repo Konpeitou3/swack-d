@@ -34,6 +34,9 @@ pageEncoding="UTF-8"%>
             <div class="form-group">
               <label class="control-label">招待の送信先:(任意)</label>
               <select id="users" class="form-select" multiple>
+              <!-- <c:forEach var="user" items="${usersList}"> -->
+             <!-- <option value="${user.userId}">${user.name}</option> -->	
+              <!--</c:forEach>-->
                 <option value="joho01">情報 太郎１</option>
                 <option value="joho02">情報 太郎２</option>
                 <option value="joho03">情報 太郎３</option>
