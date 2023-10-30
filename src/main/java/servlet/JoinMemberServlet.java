@@ -38,8 +38,16 @@ public class JoinMemberServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// 画面から取得
+		String roomId = request.getParameter("roomId");
+		if (roomId == null) {
+			// 初期ルームをeveryoneにする
+			roomId = "R0000";
+		}
+		System.out.println(roomId);
+		//GET処理にリダイレクト
+		response.sendRedirect("MainServlet?roomId=" + roomId);
+
 	}
 
 }
