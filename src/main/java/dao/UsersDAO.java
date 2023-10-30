@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import bean.OtherUsers;
 import bean.User;
@@ -75,7 +76,7 @@ public class UsersDAO extends BaseDAO {
 		return newId;
 	}
 
-	public User insert(String username, String mailAddress, String password) throws SwackException {
+	public boolean insert(String username, String mailAddress, String password) throws SwackException {
 
 		//自動採番
 		String userid = maxSelect();
@@ -89,12 +90,17 @@ public class UsersDAO extends BaseDAO {
 			pStmt.setString(3, mailAddress);
 			pStmt.setString(4, password);
 
-			pStmt.executeUpdate();
+			int rs = pStmt.executeUpdate();
+			System.out.println(rs);
+
+			if (Objects.nonNull(rs)) {
+				return true;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
-		return null;
+		return false;
 	}
 
 	//自分以外のuseridリスト
