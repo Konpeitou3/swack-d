@@ -27,4 +27,8 @@ public class Messages {
 	public static final String ERR_USERS_PARAM_MISTAKE = "ユーザ情報に誤りがあります。入力項目を確認し、再度登録してください。";
 	public static final String INFO_USERS_ENTRY_SUCCESS = "ワークスペースに参加しました。ログインしてください。";
 
+	/** 新規ルーム作成*/
+	public static final String CREATE_ROOM_SUCCESS = "ルームを作成しました。";
+	public static final String CREATE_ROOM_ERROR = "ルームを作成できませんでした。";
+
 }
