@@ -40,6 +40,7 @@ public class UsersDAO extends BaseDAO {
 		return user;
 	}
 
+	//新規ユーザーID選択
 	public String maxSelect() throws SwackException {
 		String sql = "SELECT MAX(USERID) AS MAXID FROM USERS ;";
 		String userId = null;
@@ -75,6 +76,7 @@ public class UsersDAO extends BaseDAO {
 		return newId;
 	}
 
+	//新規登録
 	public int insert(String username, String mailAddress, String password) throws SwackException {
 
 		//自動採番
