@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import bean.OtherUsers;
 import bean.User;
@@ -76,11 +75,12 @@ public class UsersDAO extends BaseDAO {
 		return newId;
 	}
 
-	public boolean insert(String username, String mailAddress, String password) throws SwackException {
+	public int insert(String username, String mailAddress, String password) throws SwackException {
 
 		//自動採番
 		String userid = maxSelect();
 		System.out.println("nextuserid:" + userid);
+		int rs;
 
 		String sql = "INSERT INTO users (userid, username,mailaddress, password) VALUES(?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {
@@ -90,18 +90,13 @@ public class UsersDAO extends BaseDAO {
 			pStmt.setString(3, mailAddress);
 			pStmt.setString(4, password);
 
-			int rs = pStmt.executeUpdate();
-			System.out.println(rs);
-
-			if (Objects.nonNull(rs)) {
-				return true;
-			}
+			rs = pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		return false;
+		return rs;
 	}
 
 	//自分以外のuseridリスト
@@ -124,6 +119,27 @@ public class UsersDAO extends BaseDAO {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 		return OtherUsers;
+	}
+
+	//登録済みメールアドレスリスト
+	public List<User> getMailAddressList() throws SwackException {
+		String sql = "SELECT USERID FROM USERS ;";
+
+		List<User> AllUsersIdList = new ArrayList<User>();
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String userId = rs.getString("USERID");
+
+				User userid = new User(userId);
+				AllUsersIdList.add(userid);
+			}
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return AllUsersIdList;
 	}
 
 }

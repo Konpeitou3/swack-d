@@ -28,8 +28,16 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public User(String userId) {
+		this.userId = userId;
+	}
+
 	public void OtherUsers(String userName) {
 		this.userName = userName;
+	}
+
+	public void AllUsersId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserId() {
@@ -55,3 +63,13 @@ public class User implements Serializable {
 	}
 
 }
+
+//public class AllUsersIdList implements Serializable {
+//	private static final long serialVersionUID = 1L;
+//
+//	private String userId;
+//
+//	public void AllUsersId(String userId) {
+//		this.userId = userId;
+//	}
+//}
