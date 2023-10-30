@@ -6,11 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.ChatLog;
 import bean.OtherUsers;
 import bean.User;
 import exception.SwackException;
@@ -124,29 +122,24 @@ public class UsersDAO extends BaseDAO {
 	}
 
 	//登録済みメールアドレスリスト
-	public List<ChatLog> getMailAddressList(String roomId) throws SwackException {
-		String sql = "SELECT USERID FROM USERS";
+	public List<User> getMailAddressList() throws SwackException {
+		String sql = "SELECT USERID FROM USERS ;";
 
-		List<ChatLog> chatLogList = new ArrayList<ChatLog>();
+		List<User> AllUsersIdList = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, roomId);
 
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-				int chatLogId = rs.getInt("CHATLOGID");
 				String userId = rs.getString("USERID");
-				String userName = rs.getString("USERNAME");
-				String message = rs.getString("MESSAGE");
-				Timestamp createdAt = rs.getTimestamp("CREATED_AT");
 
-				ChatLog chatLog = new ChatLog(chatLogId, roomId, userId, userName, message, createdAt);
-				chatLogList.add(chatLog);
+				User userid = new User(userId);
+				AllUsersIdList.add(userid);
 			}
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
-		return chatLogList;
+		return AllUsersIdList;
 	}
 
 }
