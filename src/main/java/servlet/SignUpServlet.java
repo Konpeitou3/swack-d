@@ -1,5 +1,7 @@
 package servlet;
 
+import static parameter.Messages.*;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -64,20 +66,28 @@ public class SignUpServlet extends HttpServlet {
 		if (password == null || password.length() == 0) {
 			errorMsg.append("パスワードが入力されていません<br>");
 		}
+		//メールアドレス重複検査
+		//TODOメールアドレス全件取得
+
 		if (errorMsg.length() > 0) {
 			// エラー
 			request.setAttribute("errorMsg", errorMsg.toString());
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
 			return;
 		}
-
 		//DAOを使用
 		try {
 			UsersDAO usersDao = new UsersDAO();
-			usersDao.insert(username, mailaddress, password);
-			response.sendRedirect("LoginServlet");
-			return;
-
+			int result = usersDao.insert(username, mailaddress, password);
+			if (result == 1) {
+				request.setAttribute("successMsg", NEW_USERS_CREATE_SUCCSESS);
+				request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response);
+				return;
+			} else {
+				request.setAttribute("errorMsg", ERR_USERS_PARAM_MISTAKE);
+				request.getRequestDispatcher("WEB-INF/jsp/signup.jsp").forward(request, response);
+				return;
+			}
 		} catch (SwackException e) {
 			// エラー処理
 			e.printStackTrace();
