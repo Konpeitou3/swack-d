@@ -43,6 +43,7 @@
 							${room.roomName}</a>
 						<br>
 					</c:forEach>
+					<a class="list-name" href="JoinRoomServlet">+ ルーム参加</a>
 				</details>
 				<details open>
 					<summary> ダイレクト </summary>
