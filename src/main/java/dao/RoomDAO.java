@@ -7,7 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import bean.Room;
 import exception.SwackException;
 
 public class RoomDAO extends BaseDAO {
@@ -124,20 +127,26 @@ public class RoomDAO extends BaseDAO {
 		return rs;
 	}
 
-	//	public Room userinsert(String roomid, String userid) throws SwackException {
-	//
-	//		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
-	//		try (Connection conn = dataSource.getConnection()) {
-	//			PreparedStatement pStmt = conn.prepareStatement(sql);
-	//			pStmt.setString(1, roomid);
-	//			pStmt.setString(2, userid);
-	//
-	//			pStmt.executeUpdate();
-	//		} catch (SQLException e) {
-	//			e.printStackTrace();
-	//			throw new SwackException(ERR_DB_PROCESS, e);
-	//		}
-	//		return null;
-	//	}
+	//参加ルーム一覧の作成
+	public List<Room> getOtherRoomList(String userid) throws SwackException {
+		String sql = "SELECT ROOMNAME FROM ROOMS R JOIN JOINROOM J ON R.ROOMID = J.ROOMID WHERE R.ROOMID NOT IN(SELECT J.ROOMID FROM JOINROOM J WHERE J.USERID=?);";
+
+		List<Room> getOtherRoomList = new ArrayList<Room>();
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, userid);
+
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String roomName = rs.getString("ROOMNAME");
+
+				Room roomname = new Room(roomName); // Userオブジェクトを作成
+				getOtherRoomList.add(roomname);
+			}
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return getOtherRoomList;
+	}
 
 }

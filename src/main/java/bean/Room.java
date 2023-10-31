@@ -28,6 +28,10 @@ public class Room implements Serializable {
 		this.directed = directed;
 	}
 
+	public Room(String roomName) {
+		this.roomName = roomName;
+	}
+
 	// 一覧表示用(参加メンバー数0名,ダイレクトはfalseで固定)
 	public Room(String roomId, String roomName) {
 		this(roomId, roomName, 0, false);
