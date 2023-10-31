@@ -66,8 +66,6 @@ public class SignUpServlet extends HttpServlet {
 		if (password == null || password.length() == 0) {
 			errorMsg.append("パスワードが入力されていません<br>");
 		}
-		//メールアドレス重複検査
-		//TODOメールアドレス全件取得
 
 		if (errorMsg.length() > 0) {
 			// エラー
