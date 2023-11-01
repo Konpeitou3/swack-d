@@ -28,8 +28,8 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public User(String userId) {
-		this.userId = userId;
+	public User(String mailAddress) {
+		this.mailAddress = mailAddress;
 	}
 
 	public void OtherUsers(String userName) {

@@ -2,6 +2,8 @@ package dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -59,6 +61,13 @@ class UsersDAOTest {
 	//@Test
 	void testInsert() {
 		fail("まだ実装されていません");
+	}
+
+	@Test
+	void testgetMailAddressList() throws SwackException {
+		List<User> user = usersDAO.getMailAddressList();
+		System.out.println(user);
+		assertNotNull(user);
 	}
 
 }

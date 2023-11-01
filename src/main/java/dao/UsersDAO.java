@@ -134,14 +134,17 @@ public class UsersDAO extends BaseDAO {
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
 				String mailaddress = rs.getString("MAILADDRESS");
-
+				System.out.println(mailaddress);
 				User mailAddress = new User(mailaddress);
 				AllMailAddressList.add(mailAddress);
+				System.out.println(mailAddress);
+				System.out.println(AllMailAddressList);
 			}
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 		return AllMailAddressList;
+
 	}
 
 }
