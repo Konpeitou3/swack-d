@@ -125,23 +125,23 @@ public class UsersDAO extends BaseDAO {
 
 	//登録済みメールアドレスリスト
 	public List<User> getMailAddressList() throws SwackException {
-		String sql = "SELECT USERID FROM USERS ;";
+		String sql = "SELECT MAILADDRESS FROM USERS ;";
 
-		List<User> AllUsersIdList = new ArrayList<User>();
+		List<User> AllMailAddressList = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-				String userId = rs.getString("USERID");
+				String mailaddress = rs.getString("MAILADDRESS");
 
-				User userid = new User(userId);
-				AllUsersIdList.add(userid);
+				User mailAddress = new User(mailaddress);
+				AllMailAddressList.add(mailAddress);
 			}
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
-		return AllUsersIdList;
+		return AllMailAddressList;
 	}
 
 }
