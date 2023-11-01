@@ -82,6 +82,7 @@ public class SignUpServlet extends HttpServlet {
 			for (User user : mailaddressList) {
 				System.out.println(user.getMailAddress());
 				if ((mailaddress.equals(user.getMailAddress())) == true) {
+					//if ((mailaddress.equals("negimayo@swack.com")) == true) {
 					System.out.println("エラー");
 					request.setAttribute("errorMsg", ERR_USERS_ISREGISTERED);
 					request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
