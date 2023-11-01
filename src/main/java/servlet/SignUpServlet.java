@@ -3,6 +3,7 @@ package servlet;
 import static parameter.Messages.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.User;
 import dao.UsersDAO;
 import exception.SwackException;
 
@@ -73,24 +75,34 @@ public class SignUpServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
 			return;
 		}
-		//DAOを使用
+		//メールアドレスチェック
 		try {
 			UsersDAO usersDao = new UsersDAO();
+			List<User> mailaddressList = usersDao.getMailAddressList();
+			for (User user : mailaddressList) {
+				System.out.println(user.getMailAddress());
+				if ((mailaddress.equals(user.getMailAddress())) == true) {
+					System.out.println("エラー");
+					request.setAttribute("errorMsg", ERR_USERS_ISREGISTERED);
+					request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+					return;
+				}
+			}
 			int result = usersDao.insert(username, mailaddress, password);
 			if (result == 1) {
 				request.setAttribute("successMsg", NEW_USERS_CREATE_SUCCSESS);
-				request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 				return;
 			} else {
-				request.setAttribute("errorMsg", ERR_USERS_PARAM_MISTAKE);
-				request.getRequestDispatcher("WEB-INF/jsp/signup.jsp").forward(request, response);
-				return;
+				request.setAttribute("errorMsg", NEW_USERS_CREATE_SUCCSESS);
+				request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
 			}
-		} catch (SwackException e) {
-			// エラー処理
-			e.printStackTrace();
+
+		} catch (SwackException e1) {
+			// 自動生成された catch ブロック
+			e1.printStackTrace();
 			errorMsg.append("処理が正常に動きませんでした");
-			request.getRequestDispatcher("WEB-INF/jsp/signup.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
 			return;
 		}
 
