@@ -25,7 +25,7 @@
 		<div class="card  w-100 p-3">
 			<h4 class="subtitle">Swackワークスペースに参加する</h4>
 			<p>氏名、メールアドレス、パスワードを入力してください。</p>
-			<p class="error">${errorMsg}</p>
+			<p class="error" id="errorMsg">${errorMsg}</p>
 			<form class="was-validated" action="SignUpServlet" method="post">
 				<input class="form-control" type="text" name="userName" placeholder="情報太郎" required></input>
     			<div class="invalid-feedback">

@@ -22,6 +22,7 @@
 		<h2>ログイン</h2>
 		<div class="card w-100 p-3">
 			<p class="error" id="errorMsg">${errorMsg}</p>
+			<p class="success" id="successMsg">${successMsg}</p>
 			<form class="was-validated" action="LoginServlet" id="loginForm" method="post">
 			<input class="form-control" type="email" name="mailAddress" id="mailAddress" placeholder="xxxxxx@xxx.xxx" required></input>
     		<div class="invalid-feedback">
