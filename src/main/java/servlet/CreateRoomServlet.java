@@ -62,8 +62,12 @@ public class CreateRoomServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// createroom.jspから呼び出し
+
 		// 値受け取り(ルーム名)
 		String roomName = request.getParameter("roomName");
+
+		// 値受け取り（招待先）
+		String[] selectUser = request.getParameterValues("selectUser");
 
 		//値受け取り（ユーザーID）
 		HttpSession session = request.getSession();
@@ -74,11 +78,14 @@ public class CreateRoomServlet extends HttpServlet {
 		String flag = request.getParameter("setting");
 		Boolean directed = null;
 		Boolean privated = null;
-		if (flag == null) {
-			directed = false;
-			privated = false;
+		if (selectUser.length == 1) {
+			directed = true;
 		} else {
 			directed = false;
+		}
+		if (flag == null) {
+			privated = false;
+		} else {
 			privated = true;
 		}
 
