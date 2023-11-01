@@ -28,6 +28,12 @@
 	color: red;
 }
 
+.card .success {
+	background-color: lightgreen;
+	color: green;
+	
+}
+
 .card input {
 	margin: 5px auto;
 	padding: 5px;
