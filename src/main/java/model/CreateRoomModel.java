@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-import bean.OtherUsers;
+import bean.User;
 import dao.RoomDAO;
 import dao.UsersDAO;
 import exception.SwackException;
@@ -20,9 +20,9 @@ public class CreateRoomModel {
 	 * @return
 	 * @throws SwackException
 	 */
-	public List<OtherUsers> getMember(String userId) throws SwackException {
+	public List<User> getMember(String userId) throws SwackException {
 		UsersDAO usersDAO = new UsersDAO();
-		List<OtherUsers> userList = usersDAO.getUserList(userId);
+		List<User> userList = usersDAO.getUserList(userId);
 		return userList;
 	}
 

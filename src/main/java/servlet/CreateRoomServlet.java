@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.OtherUsers;
 import bean.User;
 import exception.SwackException;
 import model.CreateRoomModel;
@@ -42,7 +41,7 @@ public class CreateRoomServlet extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 
 		// userList取得
-		List<OtherUsers> userList;
+		List<User> userList;
 		try {
 			userList = new CreateRoomModel().getMember(user.getUserId());
 		} catch (SwackException e) {

@@ -2,7 +2,6 @@ package model;
 
 import java.util.List;
 
-import bean.OtherUsers;
 import bean.User;
 import dao.UsersDAO;
 import exception.SwackException;
@@ -20,7 +19,7 @@ public class UserModel {
 	}
 
 	//
-	public List<OtherUsers> getUserList(String MyUserId) throws SwackException {
+	public List<User> getUserList(String MyUserId) throws SwackException {
 		return new UsersDAO().getUserList(MyUserId);
 	}
 

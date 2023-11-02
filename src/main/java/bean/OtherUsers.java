@@ -11,11 +11,14 @@ public class OtherUsers implements Serializable {
 	/** ユーザ名 */
 	private String userName;
 
+	private String userId;
+
 	public OtherUsers() {
 		// for JSP
 	}
 
-	public OtherUsers(String userName) {
+	public OtherUsers(String userId, String userName) {
+		this.userId = userId;
 		this.userName = userName;
 	}
 

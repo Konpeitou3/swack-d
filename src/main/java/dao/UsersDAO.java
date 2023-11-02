@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.OtherUsers;
 import bean.User;
 import exception.SwackException;
 
@@ -102,19 +101,20 @@ public class UsersDAO extends BaseDAO {
 	}
 
 	//自分以外のuseridリスト
-	public List<OtherUsers> getUserList(String MyUserId) throws SwackException {
+	public List<User> getUserList(String MyUserId) throws SwackException {
 		String sql = "SELECT USERID ,USERNAME FROM USERS WHERE USERID <> ?;";
 
-		List<OtherUsers> OtherUsers = new ArrayList<OtherUsers>();
+		List<User> OtherUsers = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, MyUserId);
 
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
+				String userId = rs.getString("USERID");
 				String userName = rs.getString("USERNAME");
 
-				OtherUsers user = new OtherUsers(userName); // Userオブジェクトを作成
+				User user = new User(userId, userName); // Userオブジェクトを作成
 				OtherUsers.add(user);
 			}
 		} catch (SQLException e) {
