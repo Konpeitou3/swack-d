@@ -36,6 +36,11 @@ public class CreateRoomServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String roomId = request.getParameter("roomId");
+
+		//ルームIDをセッションに保存
+		HttpSession room_session = request.getSession();
+		room_session.setAttribute("roomId", roomId);
 		// main.jspから呼び出し
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
@@ -70,6 +75,7 @@ public class CreateRoomServlet extends HttpServlet {
 
 		//値受け取り（ユーザーID）
 		HttpSession session = request.getSession();
+		String roomId = (String) session.getAttribute("userId");
 		User user = (User) session.getAttribute("user");
 		String createduserid = user.getUserId();
 
@@ -97,8 +103,9 @@ public class CreateRoomServlet extends HttpServlet {
 				request.getRequestDispatcher("WEB-INF/jsp/createroom.jsp").forward(request, response);
 				return;
 			} else {
-				request.setAttribute("succsessMsg", CREATE_ROOM_SUCCESS);
-				request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
+				//request.setAttribute("succsessMsg", CREATE_ROOM_SUCCESS);
+				//GET処理にリダイレクト
+				response.sendRedirect("MainServlet?roomId=" + roomId);
 				return;
 			}
 		} catch (SwackException e) {
