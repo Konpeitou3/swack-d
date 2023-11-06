@@ -75,7 +75,8 @@ public class CreateRoomServlet extends HttpServlet {
 
 		//値受け取り（ユーザーID）
 		HttpSession session = request.getSession();
-		String roomId = (String) session.getAttribute("userId");
+		String roomId = (String) session.getAttribute("roomId");
+		System.out.println(roomId);
 		User user = (User) session.getAttribute("user");
 		String createduserid = user.getUserId();
 
