@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,10 @@
 					<div class="form-group">
 						<label class="control-label">ルームの参加先:(任意)</label> <select
 							id="rooms" class="form-select" multiple>
+							<c:forEach var="room" items="${roomsList}">
+								<option value="${room.roomId}">${room.roomName}</option>
 
+							</c:forEach>
 							<option value="room01">ルーム１</option>
 							<option value="room02">ルーム２</option>
 							<option value="room03">ルーム３</option>
