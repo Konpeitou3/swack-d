@@ -138,9 +138,9 @@ public class RoomDAO extends BaseDAO {
 
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-				String roomName = rs.getString("ROOMNAME");
 				String roomId = rs.getString("ROOMID");
-				Room room = new Room(roomName, roomId); // Userオブジェクトを作成
+				String roomName = rs.getString("ROOMNAME");
+				Room room = new Room(roomId, roomName); // Userオブジェクトを作成
 				getOtherRoomList.add(room);
 			}
 		} catch (SQLException e) {

@@ -40,9 +40,9 @@ public class RoomDAOTest {
 	//自分が参加していないroomid,roomname表示テスト
 	@Test
 	void getOtherRoomList() throws SwackException {
-		List<Room> userF = roomDAO.getOtherRoomList("U0001");
-		System.out.println(userF);
-		assertNotNull(userF);
+		List<Room> userT = roomDAO.getOtherRoomList("U0001");
+		System.out.println(userT);
+		assertNotNull(userT);
 	}
 
 }
