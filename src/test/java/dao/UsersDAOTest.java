@@ -59,8 +59,10 @@ class UsersDAOTest {
 	}
 
 	//@Test
-	void testInsert() {
-		fail("まだ実装されていません");
+	void testInsert() throws SwackException {
+		List<User> user = usersDAO.getUserList("U0001");
+		System.out.println(user);
+		assertNotNull(user);
 	}
 
 	@Test
