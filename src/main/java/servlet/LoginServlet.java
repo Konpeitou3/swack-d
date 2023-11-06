@@ -26,10 +26,11 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		String roomId = (String) session.getAttribute("roomId");
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
 			// ログイン済の場合は、通常の処理を続行
-			response.sendRedirect("MainServlet?roomId=" + user.getUserId());
+			response.sendRedirect("MainServlet?roomId=" + roomId);
 			return;
 		} else {
 			// 未ログインの場合は、ログイン画面に遷移
