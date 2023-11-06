@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
 			// ログイン済の場合は、通常の処理を続行
-			response.sendRedirect("MainServlet?roomId=R0000");
+			response.sendRedirect("MainServlet?roomId=" + user.getUserId());
 			return;
 		} else {
 			// 未ログインの場合は、ログイン画面に遷移
