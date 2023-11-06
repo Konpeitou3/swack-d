@@ -78,7 +78,7 @@ public class JoinMemberServlet extends HttpServlet {
 					System.out.println("エラーが発生");
 				}
 			} catch (SwackException e) {
-				// TODO 自動生成された catch ブロック
+				// 自動生成された catch ブロック
 				e.printStackTrace();
 			}
 
