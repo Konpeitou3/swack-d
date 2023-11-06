@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" url="http://java.sun.com/jsp/jstl/core" %>> --%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <!DOCTYPE html>
 <html>
   <head>
@@ -67,8 +67,11 @@ pageEncoding="UTF-8"%>
             <div class="form-group mt-5">
               <label class="control-label">招待の送信先:(任意)</label>
               <select id="names" class="form-select" name="selectUser" multiple>
+              <c:forEach var="user" items="${userList}">
+  				<option value="${user.userId}">${user.userName}</option>            
               
-                <option value="joho01">情報 太郎１</option>
+              </c:forEach>
+                <option value="U0001">情報 太郎１</option>
                 <option value="joho02">情報 太郎２</option>
                 <option value="joho03">情報 太郎３</option>
                 <option value="joho04">情報 太郎４</option>
@@ -95,7 +98,13 @@ pageEncoding="UTF-8"%>
             </div>
 
             <div class="room-form-btn">
-              <button class="btn btn-default">キャンセル</button>
+              <!-- <button class="btn btn-default">キャンセル</button> -->
+               <a href="MainServlet?roomId=${roomId}"
+                ><input
+                  type="button"
+                  class="btn btn-default"
+                  value="キャンセル"
+              /></a>
               <button id="send" class="btn btn-default">
                 ルームを作成する
               </button>

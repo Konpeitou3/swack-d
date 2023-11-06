@@ -36,7 +36,7 @@
 				<hr>
 				<details open>
 					<summary>
-						ルーム <a href="CreateRoomServlet"><button>＋</button></a>
+						ルーム <a href="CreateRoomServlet?roomId=${room.roomId}"><button>＋</button></a>
 					</summary>
 					<c:forEach var="room" items="${roomList}">
 						<a class="list-name" href="MainServlet?roomId=${room.roomId}">#
