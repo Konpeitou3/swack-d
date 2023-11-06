@@ -83,19 +83,32 @@ public class RoomDAO extends BaseDAO {
 		String roomid = maxRoomSelect();
 		System.out.println("nextuserid:" + roomid);
 		int rs;
-		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+
+		//ルーム作成者のインサート
+		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, roomid);
-			pStmt.setString(2, roomname);
-			pStmt.setString(3, createduserid);
-			pStmt.setBoolean(4, directed);
-			pStmt.setBoolean(5, privated);
-
-			rs = pStmt.executeUpdate();
+			pStmt.setString(2, createduserid);
+			pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+
+		sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		try (Connection conn2 = dataSource.getConnection()) {
+			PreparedStatement pStmt2 = conn2.prepareStatement(sql);
+			pStmt2.setString(1, roomid);
+			pStmt2.setString(2, roomname);
+			pStmt2.setString(3, createduserid);
+			pStmt2.setBoolean(4, directed);
+			pStmt2.setBoolean(5, privated);
+
+			rs = pStmt2.executeUpdate();
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e2);
 		}
 		return rs;
 	}
@@ -109,9 +122,21 @@ public class RoomDAO extends BaseDAO {
 		System.out.println("nextuserid:" + roomid);
 		int rs;
 
-		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		//ルーム作成者のインサート
+		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, roomid);
+			pStmt.setString(2, createduserid);
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+
+		String sql2 = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql2);
 			pStmt.setString(1, roomid);
 			pStmt.setString(2, roomname);
 			pStmt.setString(3, createduserid);
