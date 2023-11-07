@@ -97,6 +97,19 @@ public class UsersDAO extends BaseDAO {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
+		int result;
+		String sql2 = "INSERT INTO joinroom (roomid, userid) VALUES('R0000',?);";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt2 = conn.prepareStatement(sql2);
+			pStmt2.setString(1, userid);
+
+			result = pStmt2.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+
 		return rs;
 	}
 
