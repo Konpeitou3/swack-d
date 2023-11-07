@@ -24,75 +24,138 @@
 </head>
 <body>
 	<div class="container">
+		<!-- ヘッダー -->
 		<header class="header">
+			<!-- ユーザー名表示 -->
 			<div>${user.userName}</div>
+			<!-- ログアウト処理 -->
 			<form action="LogoutServlet" id="logoutForm" method="get">
 				<input type="submit" value="ログアウト" onclick="logout();">
 			</form>
 		</header>
+		
 		<section class="main">
+			<!-- サイドバー -->
 			<div class="left">
 				<h2>Swack</h2>
 				<hr>
+				<!-- プルダウンメニュー -->
 				<details open>
+					<!-- メニュー名 -->
 					<summary>
-						ルーム <a href="CreateRoomServlet?roomId=${room.roomId}"><button>＋</button></a>
+						ルーム
+						
+						<!-- ルーム作成 -->
+						<a href="CreateRoomServlet?roomId=${room.roomId}">
+							<button>＋</button>
+						</a>
+						
 					</summary>
+					
+					<!-- ルームリスト -->
 					<c:forEach var="room" items="${roomList}">
 						<a class="list-name" href="MainServlet?roomId=${room.roomId}">#
 							${room.roomName}</a>
 						<br>
 					</c:forEach>
+					
+					<!-- ルーム参加 -->
 					<a class="list-name" href="JoinRoomServlet">+ ルーム参加</a>
+					
 				</details>
+				
+				<!-- プルダウンメニュー -->
 				<details open>
+					<!-- メニュー名 -->
 					<summary> ダイレクト </summary>
+					
+					<!-- ダイレクトルームリスト -->
 					<c:forEach var="direct" items="${directList}">
 						<a class="list-name" href="MainServlet?roomId=${direct.roomId}">#
 							${direct.roomName}</a>
 						<br>
 					</c:forEach>
+					
 				</details>
 			</div>
 			<!--left -->
+			
+			<!-- コンテンツ -->
 			<div class="contents">
+			
+				<!-- ダイレクトメッセージルーム以外のルームの時表示 -->
 				<c:if test="${!room.directed}">
+				
+					<!-- ルーム招待 -->
 					<div class="join-member-button">
-						<a href="JoinMemberServlet?roomId=${room.roomId}"><button>＋</button></a>
+						<a href="JoinMemberServlet?roomId=${room.roomId}">
+							<button>＋</button>
+						</a>
 					</div>
+					
 				</c:if>
+				
 				<h2>
+					<!-- ルーム名 -->
 					${room.roomName}(${room.memberCount})
+					<!-- 再読み込み -->
 					<img src="images/reload.svg" class="reload pointer" onclick="doReload();"/>
 				</h2>
 				<hr>
+				
+				<!-- チャット表示 -->
 				<div id="logArea" class="contents-main">
+				
+					<!-- チャット履歴表示 -->
 					<c:forEach var="chatLog" items="${chatLogList}" varStatus="status">
+					
+						<!-- 最新のチャット履歴 -->
 						<c:if test="${status.last}">
+							<!-- 引き渡し用の最新のチャットのIDを挿入（hidden） -->
 							<input type="hidden" id="lastChatLogId"
 								value="${chatLog.chatLogId}">
 						</c:if>
+						
+						<!-- チャットの履歴の表示方法 -->
 						<div class="log-area" id="${chatLog.chatLogId}">
+							<!-- チャットに入力した人のアイコン -->
 							<div class="log-icon">
 								<img src="images/${chatLog.userId}.png" onerror="this.src='images/profile.png;'">
 							</div>
+							
+							<!-- チャット内容 -->
 							<div class="log-box">
+								<!-- 投稿主情報 -->
 								<p class="log-name">
-									${chatLog.userName} <span class="log-time">[${chatLog.createdAt}]</span>
+									<!-- 投稿主のユーザー名 -->
+									${chatLog.userName}
+									<!-- 投稿時刻 -->
+									<span class="log-time">[${chatLog.createdAt}]</span>
 								</p>
+								<!-- 投稿内容 -->
 								<p>${chatLog.message}</p>
 							</div>
 						</div>
 					</c:forEach>
 				</div>
+				
+				<!-- コンテンツフッター -->
 				<div class="contents-footer">
+				
+					<!-- 投稿フォーム -->
 					<form action="MainServlet" method="post" id="messageForm">
+						<!-- 引き渡し用の投稿したいルームIDを挿入（hidden） -->
 						<input type="hidden" name="roomId" value="${room.roomId}">
+						<!-- 投稿内容 -->
 						<div class="form-wrap">
+							<!-- 投稿メッセージ -->
+							<!-- autocomplete="off" 未入力時 送信ボタンが押せないようにしている -->
 							<input type="text" name="message" id=message autocomplete="off">
+							<!-- 投稿送信 -->
 							<input type="submit" value="送信" id="send">
 						</div>
 					</form>
+					
 				</div>
 			</div>
 			<!--contents -->
@@ -107,7 +170,8 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-
+    
+	<!-- script読み込み -->
 	<script src="js/main.js"></script>
 
 </body>
