@@ -90,7 +90,7 @@ public class ChatDAO extends BaseDAO {
 
 	public ArrayList<Room> getRoomList(String userId) throws SwackException {
 		String sql = "SELECT R.ROOMID, R.ROOMNAME FROM JOINROOM J JOIN ROOMS R ON J.ROOMID = R.ROOMID "
-				+ "WHERE J.USERID = ? AND R.DIRECTED = FALSE ORDER BY R.ROOMNAME ASC";
+				+ "WHERE J.USERID = ? ORDER BY R.ROOMNAME ASC";
 
 		ArrayList<Room> roomlist = new ArrayList<Room>();
 
@@ -112,6 +112,31 @@ public class ChatDAO extends BaseDAO {
 		return roomlist;
 
 	}
+
+	//	public ArrayList<Room> getRoomList(String userId) throws SwackException {
+	//		String sql = "SELECT R.ROOMID, R.ROOMNAME FROM JOINROOM J JOIN ROOMS R ON J.ROOMID = R.ROOMID "
+	//				+ "WHERE J.USERID = ? AND R.DIRECTED = FALSE ORDER BY R.ROOMNAME ASC";
+	//
+	//		ArrayList<Room> roomlist = new ArrayList<Room>();
+	//
+	//		try (Connection conn = dataSource.getConnection()) {
+	//			PreparedStatement pst = conn.prepareStatement(sql);
+	//			pst.setString(1, userId);
+	//
+	//			ResultSet rs = pst.executeQuery();
+	//			while (rs.next()) {
+	//				String roomId = rs.getString("ROOMID");
+	//				String roomName = rs.getString("ROOMNAME");
+	//				roomlist.add(new Room(roomId, roomName));
+	//			}
+	//
+	//		} catch (Exception e) {
+	//			throw new SwackException(ERR_DB_PROCESS, e);
+	//		}
+	//
+	//		return roomlist;
+	//
+	//	}
 
 	public ArrayList<Room> getDirectList(String userId) throws SwackException {
 		String sql = "SELECT R.ROOMID, U.USERNAME AS ROOMNAME FROM JOINROOM R " + "JOIN USERS U ON R.USERID = U.USERID "

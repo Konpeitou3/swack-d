@@ -24,7 +24,7 @@ public class JoinRoomDAOTest {
 
 	@Test
 	void testJoinRoomT() throws SwackException {
-		int userT = joinRoomDAO.JoinRoom("R0005", "U0001");
+		int userT = joinRoomDAO.JoinRoom("R0006", "U0002");
 		System.out.println(userT);
 		assertNotNull(userT);
 	}
