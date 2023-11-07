@@ -44,13 +44,11 @@ public class CreateRoomServlet extends HttpServlet {
 		// main.jspから呼び出し
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-
 		// userList取得
 		List<User> userList;
 		try {
 			userList = new CreateRoomModel().getMember(user.getUserId());
 		} catch (SwackException e) {
-			//TODO
 			e.printStackTrace();
 			return;
 		}
