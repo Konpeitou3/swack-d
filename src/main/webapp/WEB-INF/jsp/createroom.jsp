@@ -36,6 +36,8 @@ pageEncoding="UTF-8"%>
 
           <form action="CreateRoomServlet" id="createForm" method="post">
             <div class="form-check form-switch mt-3">
+             <!-- プライベートorパブリックの設定(チェックボックスを変えたときに -->
+             <!-- 出てくる文章などはcreateroom.jsを参照) -->
               <input
                 class="form-check-input"
                 id="chk"
@@ -50,7 +52,8 @@ pageEncoding="UTF-8"%>
                 >このルームは、ワークスペースのメンバーであれば誰でも閲覧・参加することができます。</span
               >
             </div>
-
+			
+			<!-- ルーム名の入力フォーム -->
             <div class="form-group mt-5">
               <label class="control-label">名前</label>
               <input
@@ -63,7 +66,8 @@ pageEncoding="UTF-8"%>
               />
               <span class="name-note">ルームの名前を入力してください。</span>
             </div>
-
+			
+			<!-- 招待先の選択フォーム -->
             <div class="form-group mt-5">
               <label class="control-label">招待の送信先:(任意)</label>
               <select id="names" class="form-select" name="selectUser" multiple>
@@ -77,8 +81,8 @@ pageEncoding="UTF-8"%>
               >
             </div>
 
+			<!-- キャンセルボタン ルーム作成実行ボタン -->	
             <div class="room-form-btn">
-              <!-- <button class="btn btn-default">キャンセル</button> -->
                <a href="MainServlet?roomId=${roomId}"
                 ><input
                   type="button"

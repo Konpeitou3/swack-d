@@ -39,7 +39,7 @@
 						<select id="rooms" class="form-select" multiple>
 							<!-- まだ参加していないルームの表示 -->
 							<c:forEach var="room" items="${roomList}">
-								<option value="${room.roomId}">${room.roomName}</option>
+								<option value="${room.roomId}" name="selectRoom">${room.roomName}</option>
 							</c:forEach>
 						</select>
 						<span class="rooms-note">参加したいルームを選んでください。</span>
