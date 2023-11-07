@@ -34,14 +34,10 @@
 					<div class="form-group">
 						<label class="control-label">ルームの参加先:(任意)</label> <select
 							id="rooms" class="form-select" multiple>
-							<c:forEach var="room" items="${roomsList}">
+							<c:forEach var="room" items="${roomList}">
 								<option value="${room.roomId}">${room.roomName}</option>
 
 							</c:forEach>
-							<option value="room01">ルーム１</option>
-							<option value="room02">ルーム２</option>
-							<option value="room03">ルーム３</option>
-							<option value="room04">ルーム４</option>
 						</select> <span class="rooms-note">参加したいルームを選んでください。</span>
 					</div>
 
