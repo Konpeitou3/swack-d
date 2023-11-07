@@ -80,13 +80,13 @@ public class CreateRoomServlet extends HttpServlet {
 
 		//値受け取り（フラグ）
 		String flag = request.getParameter("setting");
-		Boolean directed = null;
+		Boolean directed = false;
 		Boolean privated = null;
-		if (selectUser.length == 1) {
+		/*if (selectUser.length == 1) {
 			directed = true;
 		} else {
 			directed = false;
-		}
+		}*/
 		if (flag == null) {
 			privated = false;
 		} else {
