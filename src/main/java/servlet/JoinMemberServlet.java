@@ -27,7 +27,7 @@ public class JoinMemberServlet extends HttpServlet {
 	 */
 	public JoinMemberServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+		//  Auto-generated constructor stub
 	}
 
 	/**

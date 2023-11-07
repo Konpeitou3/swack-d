@@ -33,6 +33,8 @@ public class MainServlet extends LoginCheckServlet {
 		// ログイン情報から取得
 		HttpSession get_session = request.getSession();
 		User user = (User) get_session.getAttribute("user");
+		//ルーム情報をセッションに保存
+		get_session.setAttribute("roomId", roomId);
 		try {
 			// ダミーデータ起動時はこちら
 			//			ChatModelDummy chatModel = new ChatModelDummy();
@@ -74,7 +76,7 @@ public class MainServlet extends LoginCheckServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 			return;
 		}
-		//TODOセッションに閲覧しているルーム情報を保存
+		//セッションに閲覧しているルーム情報を保存
 		HttpSession save_session = request.getSession();
 		save_session.setAttribute("roomId", roomId);
 

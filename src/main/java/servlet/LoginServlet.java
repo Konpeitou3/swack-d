@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 		String roomId = (String) session.getAttribute("roomId");
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
-			if (roomId != null) {
+			if (roomId == null) {
 				roomId = "R0000";
 				response.sendRedirect("MainServlet?roomId=" + roomId);
 				return;
