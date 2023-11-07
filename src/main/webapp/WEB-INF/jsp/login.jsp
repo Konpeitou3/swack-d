@@ -21,30 +21,46 @@
 		<h1>Swack</h1>
 		<h2>ログイン</h2>
 		<div class="card w-100 p-3">
+			<!-- エラーメッセージ -->
 			<p class="error" id="errorMsg">${errorMsg}</p>
+			<!-- 新規登録から正常に遷移された時の新規登録成功メッセージ -->
 			<p class="success" id="successMsg">${successMsg}</p>
+
+			<!-- ログインフォーム -->
+			<!-- was-validated bootstrap バリデーション機能の設定 -->
 			<form class="was-validated" action="LoginServlet" id="loginForm" method="post">
-			<input class="form-control" type="email" name="mailAddress" id="mailAddress" placeholder="xxxxxx@xxx.xxx" required></input>
-    		<div class="invalid-feedback">
-    		</div>
-    		<div class="valid-feedback">
-    		</div>
-    		<input class="form-control" type="password" name="password" id="password"  placeholder="パスワード" required></input>
-    		<div class="invalid-feedback">
-    		</div>
-    		<div class="valid-feedback">
-    		</div>
+			
+				<!-- メールアドレス入力 -->
+				<input class="form-control" type="email" name="mailAddress" id="mailAddress" placeholder="xxxxxx@xxx.xxx" required></input>
+				<!-- 未入力・型違い時の表示内容 -->
+				<div class="invalid-feedback"></div>
+				<!-- 入力が正常に行われた時の表示内容 -->
+				<div class="valid-feedback"></div>
+				
+				<!-- パスワード入力 -->
+				<input class="form-control" type="password" name="password" id="password" placeholder="パスワード" required></input>
+				<!-- 未入力・型違い時の表示内容 -->
+				<div class="invalid-feedback"></div>
+				<!-- 入力が正常に行われた時の表示内容 -->
+				<div class="valid-feedback"></div>
+
+				<!-- ログイン -->
 				<input class="btn btn-primary" type="submit" value="ログイン" onclick="login();" />
-				<label>
-					<input type="checkbox" id="save" /><span>ログイン状態を保持する</span>
+				<!-- ログイン情報のセッション保存の選択 -->
+				<label> <input type="checkbox" id="save" /><span>ログイン状態を保持する</span>
 				</label>
+
 			</form>
 		</div>
-
+		<!-- 新規登録画面遷移 -->
 		<a class="btn btn-outline-success" href="SignUpServlet" role="button">新規登録画面へ</a>
 	</div>
 	<!-- container -->
+
+	<!-- script読み込み -->
 	<script src="js/login.js"></script>
+
+	<!-- CDN : Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"

@@ -154,7 +154,7 @@ public class RoomDAO extends BaseDAO {
 
 	//参加ルーム一覧の作成
 	public List<Room> getOtherRoomList(String userid) throws SwackException {
-		String sql = "SELECT ROOMNAME ,R.ROOMID FROM ROOMS R JOIN JOINROOM J ON R.ROOMID = J.ROOMID WHERE R.ROOMID NOT IN(SELECT J.ROOMID FROM JOINROOM J WHERE J.USERID=?);";
+		String sql = "SELECT DISTINCT ROOMNAME ,R.ROOMID FROM ROOMS R JOIN JOINROOM J ON R.ROOMID = J.ROOMID WHERE R.ROOMID NOT IN(SELECT J.ROOMID FROM JOINROOM J WHERE J.USERID=?) AND R.PRIVATED='FALSE';";
 
 		List<Room> getOtherRoomList = new ArrayList<Room>();
 		try (Connection conn = dataSource.getConnection()) {
