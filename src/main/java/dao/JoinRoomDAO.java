@@ -55,7 +55,6 @@ public class JoinRoomDAO extends BaseDAO {
 		return result;
 	}
 
-	//TODO 川口用　データベースから
 	//招待用ユーザーネームリスト取得（現在参加していない人）
 	public List<User> getUserList(String roomid, String userid) throws SwackException {
 		String sql = "select distinct u.userid ,username from users u join joinroom j on u.userid = j.userid where u.userid not in(select j.userid from joinroom j where roomid=?) AND u.userid<>?;";
