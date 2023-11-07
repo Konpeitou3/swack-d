@@ -2,9 +2,12 @@ package dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import bean.User;
 import context.SetUpDBConnectionPool;
 import exception.SwackException;
 
@@ -32,5 +35,12 @@ public class JoinRoomDAOTest {
 	//		System.out.println(userF);
 	//		assertNull(userF);
 	//	}
+
+	@Test
+	void getUserList() throws SwackException {
+		List<User> userT = joinRoomDAO.getUserList("R0002", "U0004");
+		System.out.println(userT);
+		assertNotNull(userT);
+	}
 
 }

@@ -18,13 +18,19 @@ public class UserModel {
 		return new UsersDAO().insert(username, mailAddress, password);
 	}
 
-	//
+	//自分以外のユーザーIDリスト
 	public List<User> getUserList(String MyUserId) throws SwackException {
 		return new UsersDAO().getUserList(MyUserId);
 	}
 
+	//登録済みメールアドレスリスト
 	public List<User> getMailAddressList() throws SwackException {
 		return new UsersDAO().getMailAddressList();
+	}
+
+	//アカウント削除
+	public int delete(String userid) throws SwackException {
+		return new UsersDAO().delete(userid);
 	}
 
 }

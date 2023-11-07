@@ -144,4 +144,23 @@ public class UsersDAO extends BaseDAO {
 
 	}
 
+	//アカウント削除
+	public int delete(String userid) throws SwackException {
+
+		int rs;
+
+		String sql = "DELETE FROM USERS WHERE USERID = ?";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, userid);
+
+			rs = pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+
+		return rs;
+	}
+
 }
