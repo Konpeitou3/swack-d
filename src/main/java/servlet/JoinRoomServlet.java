@@ -73,8 +73,9 @@ public class JoinRoomServlet extends HttpServlet {
 			}
 		} catch (SwackException e) {
 			e.printStackTrace();
-			return;
 		}
+		//GET処理にリダイレクト
+		response.sendRedirect("MainServlet?roomId=" + roomId);
 	}
 
 }
