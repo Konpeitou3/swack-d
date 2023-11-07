@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import bean.User;
 import exception.SwackException;
 import model.JoinRoomModel;
-import model.UserModel;
 
 /**
  * Servlet implementation class JoinMemberServlet
@@ -40,12 +39,13 @@ public class JoinMemberServlet extends HttpServlet {
 		//ルームIDをセッションに保存
 		HttpSession session = request.getSession();
 		session.setAttribute("roomId", roomId);
+		User user = (User) session.getAttribute("user");
 		//  招待することができる人の一覧を取得
-		User user = new User();
-		UserModel userModel = new UserModel();
+		JoinRoomModel joinRoomModel = new JoinRoomModel();
 		try {
-			List<User> userList = userModel.getUserList(user.getUserId());
-			request.setAttribute("userList", userList);
+			List<User> userList = joinRoomModel.getUserList(roomId, user.getUserId());
+			System.out.println(userList);
+			request.setAttribute("usersList", userList);
 			request.getRequestDispatcher("/WEB-INF/jsp/joinmember.jsp").forward(request, response);
 			return;
 		} catch (SwackException e) {

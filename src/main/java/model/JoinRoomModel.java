@@ -12,6 +12,8 @@ public class JoinRoomModel {
 	}
 
 	public List<User> getUserList(String roomid, String userid) throws SwackException {
+		System.out.println(roomid);
+		System.out.println(userid);
 		return new JoinRoomDAO().getUserList(roomid, userid);
 	}
 
