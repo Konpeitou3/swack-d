@@ -25,26 +25,40 @@
 		<div class="card  w-100 p-3">
 			<h4 class="subtitle">Swackワークスペースに参加する</h4>
 			<p>氏名、メールアドレス、パスワードを入力してください。</p>
+			<!-- エラーメッセージ -->
 			<p class="error" id="errorMsg">${errorMsg}</p>
+			
+			<!-- 新規登録フォーム -->
+			<!-- was-validated bootstrap バリデーション機能の設定 -->
 			<form class="was-validated" action="SignUpServlet" method="post">
+			
+				<!-- 氏名入力 -->
 				<input class="form-control" type="text" name="userName" placeholder="情報太郎" required></input>
-    			<div class="invalid-feedback">
-				</div>
-    			<div class="valid-feedback">
-    			</div>
-    			<input class="form-control" type="email" name="mailAddress" placeholder="xxx@xxx.xx" required></input>
-    			<div class="invalid-feedback">
-				</div>
-    			<div class="valid-feedback">
-    			</div>
-    			<input class="form-control" type="password" name="password" placeholder="パスワード" required></input>
-    			<div class="invalid-feedback">
-				</div>
-    			<div class="valid-feedback">
-    			</div>
+				<!-- 未入力・型違い時の表示内容 -->
+				<div class="invalid-feedback"></div>
+				<!-- 入力が正常に行われた時の表示内容 -->
+				<div class="valid-feedback"></div>
+				
+				<!-- メールアドレス入力 -->
+				<input class="form-control" type="email" name="mailAddress" placeholder="xxx@xxx.xx" required></input>
+				<!-- 未入力・型違い時の表示内容 -->
+				<div class="invalid-feedback"></div>
+				<!-- 入力が正常に行われた時の表示内容 -->
+				<div class="valid-feedback"></div>
+				
+				<!-- パスワード入力 -->
+				<input class="form-control" type="password" name="password" placeholder="パスワード" required></input>
+				<!-- 未入力・型違い時の表示内容 -->
+				<div class="invalid-feedback"></div>
+				<!-- 入力が正常に行われた時の表示内容 -->
+				<div class="valid-feedback"></div>
+				
+				<!-- 新規登録 -->
 				<input class="btn btn-denger" type="submit" value="参加する">
+				
 			</form>
 		</div>
+		<!-- ログイン画面遷移 -->
 		<a class="btn btn-outline-primary" href="LoginServlet" role="button">ログイン画面へ</a>
 	</div>
 	<!-- container -->
