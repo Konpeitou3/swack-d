@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import bean.Room;
 import bean.User;
 import exception.SwackException;
+import model.JoinRoomModel;
 import model.OtherRoomListModel;
 
 /**
@@ -58,8 +59,22 @@ public class JoinRoomServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String roomId = request.getParameter("roomId");
+
+		//セッションからユーザー情報を取得
+		HttpSession get_session = request.getSession();
+		User user = (User) get_session.getAttribute("user");
+
+		JoinRoomModel joinRoomModel = new JoinRoomModel();
+		try {
+			int result = joinRoomModel.joinRoom(roomId, user.getUserId());
+			if (result != 1) {
+				System.out.println("エラー");
+			}
+		} catch (SwackException e) {
+			e.printStackTrace();
+			return;
+		}
 	}
 
 }
