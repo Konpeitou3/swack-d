@@ -1,5 +1,5 @@
 ﻿@charset "UTF-8";
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@600&display=swap');
 /* joinmember.jsp */
 .container {
 	width: 90%;
@@ -65,4 +65,10 @@ label {
 	color: #fff;
 	font-weight: 600;
 	text-decoration: none;
+}
+
+.not-found-user{
+	color: red;
+	/*外部サイトから引っ張ってきたフォント*/
+	font-family: 'Noto Sans JP', sans-serif;
 }

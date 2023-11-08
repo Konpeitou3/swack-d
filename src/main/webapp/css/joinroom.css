@@ -66,3 +66,6 @@ label {
 	font-weight: 600;
 	text-decoration: none;
 }
+.not-found-room{
+	color: red;
+}

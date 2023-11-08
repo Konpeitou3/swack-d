@@ -36,6 +36,9 @@
 					
 					<div class="form-group">
 						<label class="control-label">ルームの参加先:(任意)</label>
+						<c:if test="${empty roomList}">
+              			<div class="not-found-room">※参加できるルームがありません</div>
+              			</c:if>
 						<select id="rooms" class="form-select" multiple>
 							<!-- まだ参加していないルームの表示 -->
 							<c:forEach var="room" items="${roomList}">
