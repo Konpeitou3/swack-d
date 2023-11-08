@@ -1,5 +1,7 @@
 package servlet;
 
+import static parameter.Messages.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class JoinRoomServlet extends HttpServlet {
 		OtherRoomListModel otherRoomListModel = new OtherRoomListModel();
 		try {
 			List<Room> roomList = otherRoomListModel.getOtherRoomList(user.getUserId());
+			System.out.println(roomList);
 			request.setAttribute("roomList", roomList);
 			request.getRequestDispatcher("/WEB-INF/jsp/joinroom.jsp").forward(request, response);
 			return;
@@ -59,20 +62,27 @@ public class JoinRoomServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String roomId = request.getParameter("roomId");
+		//String roomId = request.getParameter("roomId");
+		String select_roomId = request.getParameter("selectRoom");
+		System.out.println(select_roomId);
 
 		//セッションからユーザー情報を取得
 		HttpSession get_session = request.getSession();
 		User user = (User) get_session.getAttribute("user");
+		String roomId = (String) get_session.getAttribute("roomId");
+		System.out.println(roomId);
 
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
 		try {
-			int result = joinRoomModel.joinRoom(roomId, user.getUserId());
+			int result = joinRoomModel.joinRoom(select_roomId, user.getUserId());
 			if (result != 1) {
 				System.out.println("エラー");
 			}
 		} catch (SwackException e) {
 			e.printStackTrace();
+			request.setAttribute("errorMsg", ERR_LOGIN_PARAM_MISTAKE);
+			request.getRequestDispatcher("/WEB-INF/jsp/joinroom.jsp").forward(request, response);
+			return;
 		}
 		//GET処理にリダイレクト
 		response.sendRedirect("MainServlet?roomId=" + roomId);
