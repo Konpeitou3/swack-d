@@ -18,6 +18,11 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous" />
+	
+	<!-- フォントを使用するため外部のサイトの読み込み -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/joinroom.css" />
@@ -37,7 +42,7 @@
 					<div class="form-group">
 						<label class="control-label">ルームの参加先:(任意)</label>
 						<c:if test="${empty roomList}">
-              			<div class="not-found-room">※参加できるルームがありません</div>
+              			<span class="not-found-room">※参加できるルームがありません</span>
               			</c:if>
 						<select id="rooms" name="selectRoom" class="form-select" multiple>
 							<!-- まだ参加していないルームの表示 -->
