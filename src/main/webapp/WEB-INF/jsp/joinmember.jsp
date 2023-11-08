@@ -39,7 +39,7 @@ pageEncoding="UTF-8"%>
           <form action="JoinMemberServlet" method="post">
             <input type="hidden" name="roomId" value="${roomId}" />
             <div class="form-group">
-              <label class="control-label">招待の送信先:(任意) 
+              <label class="control-label">招待の送信先:(任意) </label>
               <c:if test="${empty usersList}">
               <span class="not-found-user"> ※招待できるユーザーがいません</span>
               </c:if>

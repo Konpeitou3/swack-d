@@ -1,4 +1,5 @@
 @charset "UTF-8";@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@600&display=swap');
 
 /* joinroom.jsp */
 .container {
@@ -68,4 +69,7 @@ label {
 }
 .not-found-room{
 	color: red;
+	display: inline-block;
+	/*外部サイトから引っ張ってきたフォント*/
+	font-family: 'Noto Sans JP', sans-serif;
 }
