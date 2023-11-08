@@ -39,10 +39,10 @@
 						<c:if test="${empty roomList}">
               			<div class="not-found-room">※参加できるルームがありません</div>
               			</c:if>
-						<select id="rooms" class="form-select" multiple>
+						<select id="rooms" name="selectRoom" class="form-select" multiple>
 							<!-- まだ参加していないルームの表示 -->
 							<c:forEach var="room" items="${roomList}">
-								<option value="${room.roomId}" name="selectRoom">${room.roomName}</option>
+								<option value="${room.roomId}" >${room.roomName}</option>
 							</c:forEach>
 						</select>
 						<span class="rooms-note">参加したいルームを選んでください。</span>
