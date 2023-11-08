@@ -90,7 +90,7 @@ public class ChatDAO extends BaseDAO {
 
 	public ArrayList<Room> getRoomList(String userId) throws SwackException {
 		String sql = "SELECT R.ROOMID, R.ROOMNAME FROM JOINROOM J JOIN ROOMS R ON J.ROOMID = R.ROOMID "
-				+ "WHERE J.USERID = ? ORDER BY R.ROOMNAME ASC";
+				+ "WHERE J.USERID = ? AND R.DIRECTED = false ORDER BY R.ROOMNAME ASC";
 
 		ArrayList<Room> roomlist = new ArrayList<Room>();
 
