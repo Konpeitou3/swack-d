@@ -17,10 +17,12 @@ public class JoinRoomDAO extends BaseDAO {
 		super();
 	}
 
-	//ユーザーの追加
+	//ユーザーのルーム参加
 	public int JoinRoom(String roomid, String userid) throws SwackException {
 
+		//結果用
 		int result;
+
 		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -33,6 +35,7 @@ public class JoinRoomDAO extends BaseDAO {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+		//成功の場合1を返す
 		return result;
 	}
 

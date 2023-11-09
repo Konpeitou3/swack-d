@@ -9,6 +9,13 @@ import exception.SwackException;
 public class UserModel {
 
 	//ユーザー検索
+	/**
+	 * 
+	 * @param mailAddress メールアドレス
+	 * @param password	パスワード
+	 * @return	
+	 * @throws SwackException
+	 */
 	public User select(String mailAddress, String password) throws SwackException {
 		return new UsersDAO().select(mailAddress, password);
 	}
