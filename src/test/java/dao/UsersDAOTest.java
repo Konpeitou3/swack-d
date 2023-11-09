@@ -72,4 +72,11 @@ class UsersDAOTest {
 		assertNotNull(user);
 	}
 
+	@Test
+	void testgetAllUserList() throws SwackException {
+		List<User> user = usersDAO.getAllUserList();
+		System.out.println(user);
+		assertNotNull(user);
+	}
+
 }

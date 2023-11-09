@@ -177,13 +177,12 @@ public class UsersDAO extends BaseDAO {
 	}
 
 	//既存ユーザ情報取得
-	public List<User> getAllUserList(String MyUserId) throws SwackException {
+	public List<User> getAllUserList() throws SwackException {
 		String sql = "SELECT USERID, MAILADDRESS, PASSWORD FROM USERS ;";
 
 		List<User> AllUsers = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, MyUserId);
 
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
