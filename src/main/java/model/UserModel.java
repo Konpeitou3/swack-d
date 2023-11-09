@@ -40,4 +40,14 @@ public class UserModel {
 		return new UsersDAO().delete(userid);
 	}
 
+	//既存ユーザ情報取得
+	public List<User> getAllUserList() throws SwackException {
+		return new UsersDAO().getAllUserList();
+	}
+
+	//パスワード変更
+	public int updatePassword(String password, String mailAddress) throws SwackException {
+		return new UsersDAO().updatePassword(password, mailAddress);
+	}
+
 }
