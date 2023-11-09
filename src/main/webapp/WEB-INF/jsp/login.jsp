@@ -57,7 +57,7 @@
 		<!-- 新規登録画面遷移 -->
 		<a class="btn btn-outline-success" href="SignUpServlet" role="button">新規登録画面へ</a>
 		<!-- パスワード再設定画面遷移 -->
-		<a class="link btn btn-outline-danger"  href="PasswordUpdateSevlet">パスワードを忘れた方はこちら</a>
+		<a class="link btn btn-outline-primary" href="PasswordUpdateSevlet">パスワードを忘れた方はこちら</a>
 		</div>
 	</div>
 	<!-- container -->
