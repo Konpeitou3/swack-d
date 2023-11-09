@@ -52,6 +52,8 @@
 
 			</form>
 		</div>
+		<!-- パスワード再設定画面遷移 -->
+		<a class="link"  href="PasswordUpdate">パスワードを忘れた方はこちら</a><br>
 		<!-- 新規登録画面遷移 -->
 		<a class="btn btn-outline-success" href="SignUpServlet" role="button">新規登録画面へ</a>
 	</div>
