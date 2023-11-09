@@ -62,3 +62,8 @@
   text-align: right;
   margin: 0 0 0 auto;
 }
+.linksparent{
+	display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
