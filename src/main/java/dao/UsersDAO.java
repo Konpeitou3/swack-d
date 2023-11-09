@@ -176,4 +176,46 @@ public class UsersDAO extends BaseDAO {
 		return rs;
 	}
 
+	//既存ユーザ情報取得
+	public List<User> getAllUserList(String MyUserId) throws SwackException {
+		String sql = "SELECT USERID, MAILADDRESS, PASSWORD FROM USERS ;";
+
+		List<User> AllUsers = new ArrayList<User>();
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, MyUserId);
+
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String userId = rs.getString("USERID");
+				String mailAddress = rs.getString("MAILADDRESS");
+				String password = rs.getString("PASSWORD");
+				User user = new User(userId, mailAddress, password); // Userオブジェクトを作成
+				AllUsers.add(user);
+			}
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return AllUsers;
+	}
+
+	//パスワード更新
+	public int updatePassword(String password, String mailAddress) throws SwackException {
+
+		int rs;
+
+		String sql = "UPDATE USERS SET PASSWORD = ? WHERE MAILADDRESS = ?";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, password);
+			pStmt.setString(2, mailAddress);
+
+			rs = pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+
+		return rs;
+	}
 }
