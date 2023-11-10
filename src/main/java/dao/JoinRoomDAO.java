@@ -82,4 +82,28 @@ public class JoinRoomDAO extends BaseDAO {
 		return OtherUsers;
 	}
 
+	//管理者権限未保有ルームメンバーリスト
+	public List<User> getNotAdminUserList(String roomid) throws SwackException {
+		String sql = "select distinct u.userid ,username from users u join joinroom j on u.userid = j.userid where roomid= ? AND u.userid not in(select a.userid from roomadmins a where roomid=?) ORDER BY userid;";
+
+		List<User> OtherUsers = new ArrayList<User>();
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, roomid);
+			pStmt.setString(2, roomid);
+
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String userId = rs.getString("USERID");
+				String userName = rs.getString("USERNAME");
+
+				User user = new User(userId, userName); // Userオブジェクトを作成
+				OtherUsers.add(user);
+			}
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return OtherUsers;
+	}
+
 }
