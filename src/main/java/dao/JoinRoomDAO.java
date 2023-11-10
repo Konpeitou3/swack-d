@@ -82,7 +82,7 @@ public class JoinRoomDAO extends BaseDAO {
 		return OtherUsers;
 	}
 
-	//管理者権限未保有ルームメンバーリスト
+	//管理者権限未保有ルームメンバーリスト出力
 	public List<User> getNotAdminUserList(String roomid) throws SwackException {
 		String sql = "select distinct u.userid ,username from users u join joinroom j on u.userid = j.userid where roomid= ? AND u.userid not in(select a.userid from roomadmins a where roomid=?) ORDER BY userid;";
 
