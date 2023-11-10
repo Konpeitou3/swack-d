@@ -37,6 +37,7 @@ public class UsersDAO extends BaseDAO {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 		return user;
+		//おなかすいた
 	}
 
 	//新規ユーザーID選択
