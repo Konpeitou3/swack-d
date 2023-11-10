@@ -11,6 +11,11 @@ public class JoinRoomModel {
 		return new JoinRoomDAO().JoinRoom(roomid, userid);
 	}
 
+	public int LeavingTheRoom(String roomid, String userid) throws SwackException {
+		return new JoinRoomDAO().LeavingTheRoom(roomid, userid);
+
+	}
+
 	public List<User> getUserList(String roomid, String userid) throws SwackException {
 		System.out.println(roomid);
 		System.out.println(userid);
