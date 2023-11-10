@@ -74,17 +74,16 @@ public class PasswordUpdateServlet extends HttpServlet {
 
 			//			user.getPassward()
 			for (User user : userList) {
-				String password = user.getPassword();
-				String mailaddress = user.getMailAddress();
-				System.out.println(password);
-				System.out.println(mailaddress);
-				if (mailaddress == inputMailAddress) {
-					if (password == inputPassword) {
+				System.out.println(user.getMailAddress());
+				System.out.println(user.getPassword());
+
+				if (inputMailAddress.equals(user.getMailAddress())) {
+					if (inputPassword.equals(user.getPassword())) {
 						//現在のパスワードと入力されたパスワードが一緒
 						request.setAttribute("errorMsg", PASSWORD_UPDATE_ERROR);
 						request.getRequestDispatcher("/WEB-INF/jsp/passwordupdate.jsp").forward(request, response);
 					} else {
-						int result = new UserModel().updatePassword(inputPassword, inputMailAddress);
+						new UserModel().updatePassword(inputPassword, inputMailAddress);
 						request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 						return;
 						//エラーがあった場合
@@ -96,11 +95,11 @@ public class PasswordUpdateServlet extends HttpServlet {
 						return;
 					}
 
-				} else {
-					request.setAttribute("errorMsg", NEW_USERS_SELECT_MISTAKE);
-					request.getRequestDispatcher("/WEB-INF/jsp/passwordupdate.jsp").forward(request, response);
 				}
+
 			}
+			request.setAttribute("errorMsg", NEW_USERS_SELECT_MISTAKE);
+			request.getRequestDispatcher("/WEB-INF/jsp/passwordupdate.jsp").forward(request, response);
 
 		} catch (SwackException e) {
 			e.printStackTrace();
