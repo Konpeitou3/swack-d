@@ -43,4 +43,12 @@ public class JoinRoomDAOTest {
 		assertNotNull(userT);
 	}
 
+	@Test
+	void getNotAdminUserList() throws SwackException {
+		List<User> userT = joinRoomDAO.getNotAdminUserList("R0000");
+		System.out.println(userT);
+		assertNotNull(userT);
+
+	}
+
 }

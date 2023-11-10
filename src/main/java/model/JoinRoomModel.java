@@ -47,4 +47,15 @@ public class JoinRoomModel {
 		return new JoinRoomDAO().getUserList(roomid, userid);
 	}
 
+	/**
+	 * 
+	 * @param roomid ルームID
+	 * @return
+	 * @throws SwackException
+	 */
+	public List<User> getNotAdminUserList(String roomid) throws SwackException {
+		return new JoinRoomDAO().getNotAdminUserList(roomid);
+
+	}
+
 }
