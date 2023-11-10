@@ -73,7 +73,7 @@ public class PasswordUpdateServlet extends HttpServlet {
 			//			user.getPassward()
 			for (User user : userList) {
 				String password = user.getPassword();
-				String mailaddress = user.getPassword();
+				String mailaddress = user.getMailAddress();
 				if (mailaddress == inputMailAddress) {
 					if (password == inputPassword) {
 						//現在のパスワードと入力されたパスワードが一緒
@@ -92,6 +92,9 @@ public class PasswordUpdateServlet extends HttpServlet {
 						return;
 					}
 
+				} else {
+					request.setAttribute("errorMsg", NEW_USERS_SELECT_MISTAKE);
+					request.getRequestDispatcher("/WEB-INF/jsp/passwordupdate.jsp").forward(request, response);
 				}
 			}
 
