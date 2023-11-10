@@ -19,7 +19,8 @@ public class JoinRoomModel {
 	 * @throws SwackException
 	 */
 	public int joinRoom(String roomid, String userid) throws SwackException {
-		return new JoinRoomDAO().JoinRoom(roomid, userid);
+		JoinRoomDAO joinRoomDAO = new JoinRoomDAO();
+		return joinRoomDAO.JoinRoom(roomid, userid);
 	}
 
 	/**
@@ -30,7 +31,8 @@ public class JoinRoomModel {
 	 * @throws SwackException
 	 */
 	public int LeavingTheRoom(String roomid, String userid) throws SwackException {
-		return new JoinRoomDAO().LeavingTheRoom(roomid, userid);
+		JoinRoomDAO joinRoomDAO = new JoinRoomDAO();
+		return joinRoomDAO.LeavingTheRoom(roomid, userid);
 
 	}
 
@@ -42,9 +44,10 @@ public class JoinRoomModel {
 	 * @throws SwackException
 	 */
 	public List<User> getUserList(String roomid, String userid) throws SwackException {
+		JoinRoomDAO joinRoomDAO = new JoinRoomDAO();
 		System.out.println(roomid);
 		System.out.println(userid);
-		return new JoinRoomDAO().getUserList(roomid, userid);
+		return joinRoomDAO.getUserList(roomid, userid);
 	}
 
 	/**
@@ -54,7 +57,8 @@ public class JoinRoomModel {
 	 * @throws SwackException
 	 */
 	public List<User> getNotAdminUserList(String roomid) throws SwackException {
-		return new JoinRoomDAO().getNotAdminUserList(roomid);
+		JoinRoomDAO joinRoomDAO = new JoinRoomDAO();
+		return joinRoomDAO.getNotAdminUserList(roomid);
 
 	}
 
