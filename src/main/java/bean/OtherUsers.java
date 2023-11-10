@@ -10,7 +10,7 @@ public class OtherUsers implements Serializable {
 
 	/** ユーザ名 */
 	private String userName;
-
+	/** ユーザID */
 	private String userId;
 
 	public OtherUsers() {

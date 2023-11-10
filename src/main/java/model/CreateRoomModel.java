@@ -9,7 +9,6 @@ import exception.SwackException;
 
 /**
  * 新規ルーム作成を行うModel
- * @author s20213108
  *
  */
 public class CreateRoomModel {
