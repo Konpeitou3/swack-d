@@ -48,6 +48,8 @@ public class PasswordUpdateServlet extends HttpServlet {
 		// パラメータ取得
 		String inputMailAddress = request.getParameter("mailAddress");
 		String inputPassword = request.getParameter("password");
+		System.out.println(inputPassword);
+		System.out.println(inputMailAddress);
 
 		// パラメータチェック
 		StringBuilder errorMsg = new StringBuilder();
@@ -74,6 +76,8 @@ public class PasswordUpdateServlet extends HttpServlet {
 			for (User user : userList) {
 				String password = user.getPassword();
 				String mailaddress = user.getMailAddress();
+				System.out.println(password);
+				System.out.println(mailaddress);
 				if (mailaddress == inputMailAddress) {
 					if (password == inputPassword) {
 						//現在のパスワードと入力されたパスワードが一緒
@@ -81,7 +85,7 @@ public class PasswordUpdateServlet extends HttpServlet {
 						request.getRequestDispatcher("/WEB-INF/jsp/passwordupdate.jsp").forward(request, response);
 					} else {
 						int result = new UserModel().updatePassword(inputPassword, inputMailAddress);
-						request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
+						request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 						return;
 						//エラーがあった場合
 					}
