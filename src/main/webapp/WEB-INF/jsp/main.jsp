@@ -100,6 +100,7 @@
 					${room.roomName}(${room.memberCount})
 					<!-- 再読み込み -->
 					<img src="images/reload.svg" class="reload pointer" onclick="doReload();"/>
+					<img src="images/Delete-Account.svg" class="reload pointer delete"/>
 				</h2>
 				<hr>
 				
