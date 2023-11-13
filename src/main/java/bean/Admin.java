@@ -24,7 +24,7 @@ public class Admin implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Admin [ roomId=" + userId + "]";
+		return "Admin [ roomId=" + roomId + ", userId" + userId + "]";
 	}
 
 	public String getRoomId() {
