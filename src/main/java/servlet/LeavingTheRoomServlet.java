@@ -15,18 +15,18 @@ import exception.SwackException;
 import model.JoinRoomModel;
 
 /**
- * Servlet implementation class JoinMemberServlet
+ * Servlet implementation class WithdrawalServret
  */
-@WebServlet("/JoinMemberServlet")
-public class JoinMemberServlet extends HttpServlet {
+@WebServlet("/LeavingTheRoomServlet")
+public class LeavingTheRoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public JoinMemberServlet() {
+	public LeavingTheRoomServlet() {
 		super();
-		//  Auto-generated constructor stub
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -34,21 +34,20 @@ public class JoinMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//現在のルームIDを取得
+
 		String roomId = request.getParameter("roomId");
 
 		//ルームIDをセッションに保存
 		HttpSession session = request.getSession();
 		session.setAttribute("roomId", roomId);
 		User user = (User) session.getAttribute("user");
-		//  管理者以外のユーザー一覧を取得
-		//TODO モデル書き換え
+		//  招待することができる人の一覧を取得
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
 		try {
-			List<User> userList = joinRoomModel.getUserList(roomId, user.getUserId());
+			List<User> userList = joinRoomModel.getNotAdminUserList(roomId);
 			System.out.println(userList);
 			request.setAttribute("usersList", userList);
-			request.getRequestDispatcher("/WEB-INF/jsp/joinmember.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
 			return;
 		} catch (SwackException e) {
 			//  自動生成された catch ブロック
@@ -63,6 +62,7 @@ public class JoinMemberServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		// 画面から取得
 		String[] selectUser = request.getParameterValues("selectUser");
 
@@ -71,23 +71,22 @@ public class JoinMemberServlet extends HttpServlet {
 		String roomId = (String) session.getAttribute("roomId");
 
 		//選択された人数分Incertを実行
-		for (String userId : selectUser) {
-			JoinRoomModel joinRoomModel = new JoinRoomModel();
-			int result;
-			try {
-				result = joinRoomModel.joinRoom(roomId, userId);
-				if (result != 1) {
-					System.out.println("エラーが発生");
-				}
-			} catch (SwackException e) {
-				// 自動生成された catch ブロック
-				e.printStackTrace();
-			}
-
-		}
+		//		for (String userId : selectUser) {
+		//			JoinRoomModel joinRoomModel = new JoinRoomModel();
+		//			int result;
+		//			try {
+		//				result = JoinRoomModel.LeavingTheRoom(roomId, userId);
+		//				if (result != 1) {
+		//					System.out.println("エラーが発生");
+		//				}
+		//			} catch (SwackException e) {
+		//				// 自動生成された catch ブロック
+		//				e.printStackTrace();
+		//			}
+		//
+		//		}
 		//GET処理にリダイレクト
 		response.sendRedirect("MainServlet?roomId=" + roomId);
-
 	}
 
 }

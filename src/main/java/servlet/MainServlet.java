@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.ChatLog;
-import bean.Room;
+import bean.Admin;
 import bean.User;
 import exception.SwackException;
 import model.ChatModel;
-//import model.ChatModelDummy;
+import model.JoinRoomModel;
+import model.RoomAdminModel;
 
 @WebServlet("/MainServlet")
 public class MainServlet extends LoginCheckServlet {
@@ -30,32 +30,39 @@ public class MainServlet extends LoginCheckServlet {
 			// 初期ルームをeveryoneにする
 			roomId = "R0000";
 		}
-		// ログイン情報から取得
-		HttpSession get_session = request.getSession();
-		User user = (User) get_session.getAttribute("user");
-		//ルーム情報をセッションに保存
-		get_session.setAttribute("roomId", roomId);
-		try {
-			// ダミーデータ起動時はこちら
-			//			ChatModelDummy chatModel = new ChatModelDummy();
-			ChatModel chatModel = new ChatModel();
-			Room room = chatModel.getRoom(roomId, user.getUserId());
-			List<Room> roomList = chatModel.getRoomList(user.getUserId());
-			List<Room> directList = chatModel.getDirectList(user.getUserId());
-			List<ChatLog> chatLogList = chatModel.getChatlogList(roomId);
+		String userId = request.getParameter("userId");
 
-			// JSPに値を渡す
-			request.setAttribute("room", room);
-			request.setAttribute("roomList", roomList);
-			request.setAttribute("directList", directList);
-			request.setAttribute("chatLogList", chatLogList);
-		} catch (SwackException e) {
-			e.printStackTrace();
+		JoinRoomModel joinRoomModel = new JoinRoomModel();
+		//管理者の場合管理者以外のリスト取得
+		try {
+			List<User> notAdminUserList = joinRoomModel.getNotAdminUserList(roomId);
+			System.out.println(notAdminUserList);
+
+			//管理者確認
+			RoomAdminModel roomAdminModel = new RoomAdminModel();
+			try {
+				List<Admin> RoomAdminList = roomAdminModel.getRoomAdminList(roomId, userId);
+
+				for (Admin admin : RoomAdminList) {
+					if (userId.equals(admin.getUserId())) {
+						request.setAttribute("notAdminUserList", notAdminUserList);
+						request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
+					}
+				}
+
+			} catch (SwackException e1) {
+				e1.printStackTrace();
+				request.setAttribute("errorMsg", ERR_SYSTEM);
+				request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+				return;
+			}
+
+		} catch (SwackException e1) {
+			e1.printStackTrace();
 			request.setAttribute("errorMsg", ERR_SYSTEM);
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 			return;
 		}
-		request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
