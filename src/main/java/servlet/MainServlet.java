@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Admin;
+import bean.ChatLog;
+import bean.Room;
 import bean.User;
 import exception.SwackException;
 import model.ChatModel;
@@ -30,13 +32,15 @@ public class MainServlet extends LoginCheckServlet {
 			// 初期ルームをeveryoneにする
 			roomId = "R0000";
 		}
-		String userId = request.getParameter("userId");
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		System.out.println(user);
+		String userId = user.getUserId();
 
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
 		//管理者の場合管理者以外のリスト取得
 		try {
 			List<User> notAdminUserList = joinRoomModel.getNotAdminUserList(roomId);
-			System.out.println(notAdminUserList);
 
 			//管理者確認
 			RoomAdminModel roomAdminModel = new RoomAdminModel();
@@ -45,6 +49,17 @@ public class MainServlet extends LoginCheckServlet {
 
 				for (Admin admin : RoomAdminList) {
 					if (userId.equals(admin.getUserId())) {
+						ChatModel chatModel = new ChatModel();
+						Room room = chatModel.getRoom(roomId, user.getUserId());
+						List<Room> roomList = chatModel.getRoomList(user.getUserId());
+						List<Room> directList = chatModel.getDirectList(user.getUserId());
+						List<ChatLog> chatLogList = chatModel.getChatlogList(roomId);
+
+						// JSPに値を渡す
+						request.setAttribute("room", room);
+						request.setAttribute("roomList", roomList);
+						request.setAttribute("directList", directList);
+						request.setAttribute("chatLogList", chatLogList);
 						request.setAttribute("notAdminUserList", notAdminUserList);
 						request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
 					}
@@ -63,6 +78,7 @@ public class MainServlet extends LoginCheckServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 			return;
 		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
