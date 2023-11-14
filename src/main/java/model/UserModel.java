@@ -55,7 +55,7 @@ public class UserModel {
 		return new UsersDAO().updatePassword(password, mailAddress);
 	}
 
-	//アカウントロック解除
+	//アカウントロック設定
 	public int updateLockedTrue(String userId) throws SwackException {
 		return new UsersDAO().updateLockedTrue(userId);
 	}
