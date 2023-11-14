@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="css/main.css">
 
 </head>
-<body>
+<body onload="doAccsess(${notAdminUserList});>
 	<div class="container">
 		<!-- ヘッダー -->
 		<header class="header">
@@ -100,7 +100,8 @@
 					${room.roomName}(${room.memberCount})
 					<!-- 再読み込み -->
 					<img src="images/reload.svg" class="reload pointer" onclick="doReload();"/>
-					<img src="images/Delete-Account.svg" class="reload pointer delete"/>
+					<!-- 管理者用ボタン -->
+					<img src="images/Delete-Account.svg" class="reload pointer delete" onclick="doDelete()"/>
 				</h2>
 				<hr>
 				

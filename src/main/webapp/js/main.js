@@ -51,6 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+function doAccsess(UserList){
+	
+}
+
+function doDelete(){
+	
+}
+
 function logout() {
   // elements
   const elLogoutForm = document.getElementById("logoutForm");
