@@ -51,18 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function doAccsess(UserList){
+function doAccsess(Admin){
 	const button = document.getElementById('Adminbutton');
 
-	if(UserList == null){
+	if(Admin == false){
 		button.disabled = false;
 	}else{
 		button.disabled = true;
 	}
-	
-}
-
-function doDelete(){
 	
 }
 

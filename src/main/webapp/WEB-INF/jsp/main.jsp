@@ -22,12 +22,8 @@
 <link rel="stylesheet" href="css/main.css">
 
 </head>
-<script>
-        // JavaScriptファイルに配列データを渡す
-        var notAdminUserList = <%= new Gson().toJson(＄{notAdminUserList}) %>;
-</script>
 
-<body onload="doAccsess(notAdminUserList)";>
+<body onload="${Admin}";>
 	<div class="container">
 		<!-- ヘッダー -->
 		<header class="header">
