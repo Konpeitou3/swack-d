@@ -36,47 +36,28 @@ public class MainServlet extends LoginCheckServlet {
 		User user = (User) session.getAttribute("user");
 		System.out.println(user);
 		String userId = user.getUserId();
-		boolean Admin = false;
 
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
-		//管理者の場合管理者以外のリスト取得
+		//管理者確認
+		RoomAdminModel roomAdminModel = new RoomAdminModel();
 		try {
-			List<User> notAdminUserList = joinRoomModel.getNotAdminUserList(roomId);
+			List<Admin> RoomAdminList = roomAdminModel.getRoomAdminList(roomId, userId);
 
-			//管理者確認
-			RoomAdminModel roomAdminModel = new RoomAdminModel();
-			try {
-				List<Admin> RoomAdminList = roomAdminModel.getRoomAdminList(roomId, userId);
+			for (Admin admin : RoomAdminList) {
+				if (userId.equals(admin.getUserId())) {
+					ChatModel chatModel = new ChatModel();
+					Room room = chatModel.getRoom(roomId, user.getUserId());
+					List<Room> roomList = chatModel.getRoomList(user.getUserId());
+					List<Room> directList = chatModel.getDirectList(user.getUserId());
+					List<ChatLog> chatLogList = chatModel.getChatlogList(roomId);
 
-				ChatModel chatModel = new ChatModel();
-				Room room = chatModel.getRoom(roomId, user.getUserId());
-				List<Room> roomList = chatModel.getRoomList(user.getUserId());
-				List<Room> directList = chatModel.getDirectList(user.getUserId());
-				List<ChatLog> chatLogList = chatModel.getChatlogList(roomId);
-
-				// JSPに値を渡す
-				request.setAttribute("room", room);
-				request.setAttribute("roomList", roomList);
-				request.setAttribute("directList", directList);
-				request.setAttribute("chatLogList", chatLogList);
-
-				for (Admin admin : RoomAdminList) {
-					if (userId.equals(admin.getUserId())) {
-						//アドミン判定
-						Admin = true;
-						// アドミン以外のユーザーIDのリストをJSPに値を渡す
-						request.setAttribute("notAdminUserList", notAdminUserList);
-					}
+					// JSPに値を渡す
+					request.setAttribute("room", room);
+					request.setAttribute("roomList", roomList);
+					request.setAttribute("directList", directList);
+					request.setAttribute("chatLogList", chatLogList);
+					request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
 				}
-				//アドミン判定を渡す
-				request.setAttribute("Admin", Admin);
-				request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
-
-			} catch (SwackException e1) {
-				e1.printStackTrace();
-				request.setAttribute("errorMsg", ERR_SYSTEM);
-				request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
-				return;
 			}
 
 		} catch (SwackException e1) {
