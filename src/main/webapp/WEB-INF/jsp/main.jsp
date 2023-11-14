@@ -102,7 +102,9 @@
 					<!-- 再読み込み -->
 					<img src="images/reload.svg" class="reload pointer" onclick="doReload();"/>
 					<!-- 管理者用ボタン -->
-					<img src="images/Delete-Account.svg" class="reload pointer delete" id="Adminbutton" onclick="doDelete()"/>
+					<a href="DeleteUserServlet?roomId=${room.roomId}">
+						<img src="images/Delete-Account.svg" class="reload pointer delete" id="Adminbutton" onclick="doDelete()"/>
+					</a>
 				</h2>
 				<hr>
 				
