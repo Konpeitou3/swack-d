@@ -55,6 +55,11 @@ public class UserModel {
 		return new UsersDAO().updatePassword(password, mailAddress);
 	}
 
+	//最終ログイン時間更新
+	public int updateLastLogin(String userId) throws SwackException {
+		return new UsersDAO().updateLastLogin(userId);
+	}
+
 	//アカウントロック設定
 	public int updateLockedTrue(String userId) throws SwackException {
 		return new UsersDAO().updateLockedTrue(userId);

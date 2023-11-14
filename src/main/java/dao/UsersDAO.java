@@ -243,6 +243,25 @@ public class UsersDAO extends BaseDAO {
 		return rs;
 	}
 
+	//最終ログイン時間更新
+	public int updateLastLogin(String userId) throws SwackException {
+
+		int rs;
+
+		String sql = "UPDATE USERS SET LASTLOGIN_AT = CURRENT_TIMESTAMP WHERE USERID = ?";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, userId);
+
+			rs = pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+
+		return rs;
+	}
+
 	//アカウントロック設定
 	public int updateLockedTrue(String userId) throws SwackException {
 
