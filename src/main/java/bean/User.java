@@ -49,8 +49,9 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public User(String userId, Timestamp lastloginAt, Boolean locked) {
+	public User(String userId, String userName, Timestamp lastloginAt, Boolean locked) {
 		this.userId = userId;
+		this.userName = userName;
 		this.lastloginAt = lastloginAt;
 		this.locked = locked;
 	}
@@ -90,6 +91,14 @@ public class User implements Serializable {
 
 	public Timestamp getLastloginAt() {
 		return lastloginAt;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public boolean isLocked() {
+		return locked;
 	}
 
 	@Override

@@ -45,9 +45,24 @@ public class UserModel {
 		return new UsersDAO().getAllUserList();
 	}
 
+	//ユーザ情報取得
+	public List<User> getUserinfoList() throws SwackException {
+		return new UsersDAO().getUserinfoList();
+	}
+
 	//パスワード変更
 	public int updatePassword(String password, String mailAddress) throws SwackException {
 		return new UsersDAO().updatePassword(password, mailAddress);
+	}
+
+	//アカウントロック解除
+	public int updateLockedTrue(String userId) throws SwackException {
+		return new UsersDAO().updateLockedTrue(userId);
+	}
+
+	//アカウントロック解除
+	public int updateLockedFalse(String userId) throws SwackException {
+		return new UsersDAO().updateLockedFalse(userId);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -199,6 +200,29 @@ public class UsersDAO extends BaseDAO {
 		return AllUsers;
 	}
 
+	//ユーザ情報取得
+	public List<User> getUserinfoList() throws SwackException {
+		String sql = "SELECT USERID, USERNAME, LASTLOGIN_AT, LOCKED FROM USERS ;";
+
+		List<User> AllUsersInfo = new ArrayList<User>();
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String userId = rs.getString("USERID");
+				String userName = rs.getString("USERNAME");
+				Timestamp lastlogin_at = rs.getTimestamp("LASTLOGIN_AT");
+				Boolean locked = rs.getBoolean("LOCKED");
+				User user = new User(userId, userName, lastlogin_at, locked); // Userオブジェクトを作成
+				AllUsersInfo.add(user);
+			}
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return AllUsersInfo;
+	}
+
 	//パスワード更新
 	public int updatePassword(String password, String mailAddress) throws SwackException {
 
@@ -209,6 +233,44 @@ public class UsersDAO extends BaseDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, password);
 			pStmt.setString(2, mailAddress);
+
+			rs = pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+
+		return rs;
+	}
+
+	//アカウントロック設定
+	public int updateLockedTrue(String userId) throws SwackException {
+
+		int rs;
+
+		String sql = "UPDATE USERS SET LOCKED = TRUE WHERE USERID = ?";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, userId);
+
+			rs = pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+
+		return rs;
+	}
+
+	//アカウントロック解除
+	public int updateLockedFalse(String userId) throws SwackException {
+
+		int rs;
+
+		String sql = "UPDATE USERS SET LOCKED = FALSE WHERE USERID = ?";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, userId);
 
 			rs = pStmt.executeUpdate();
 		} catch (SQLException e) {

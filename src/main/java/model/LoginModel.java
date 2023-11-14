@@ -1,6 +1,10 @@
 package model;
 
+import java.util.List;
+
+import bean.FailedLog;
 import bean.User;
+import dao.FailedLogDAO;
 import dao.UsersDAO;
 import exception.SwackException;
 
@@ -19,6 +23,11 @@ public class LoginModel {
 		UsersDAO usersDAO = new UsersDAO();
 		User user = usersDAO.select(mailAddress, password);
 		return user;
+	}
+
+	public List<FailedLog> lastLoginCheck(String userId) throws SwackException {
+		FailedLogDAO failedLogDAO = new FailedLogDAO();
+		return failedLogDAO.lastLoginCheck(userId);
 	}
 
 }
