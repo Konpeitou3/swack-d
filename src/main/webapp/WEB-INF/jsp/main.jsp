@@ -22,7 +22,12 @@
 <link rel="stylesheet" href="css/main.css">
 
 </head>
-<body onload="doAccsess(${notAdminUserList});>
+<script>
+        // JavaScriptファイルに配列データを渡す
+        var notAdminUserList = <%= new Gson().toJson(＄{notAdminUserList}) %>;
+</script>
+
+<body onload="doAccsess(notAdminUserList)";>
 	<div class="container">
 		<!-- ヘッダー -->
 		<header class="header">
@@ -101,7 +106,7 @@
 					<!-- 再読み込み -->
 					<img src="images/reload.svg" class="reload pointer" onclick="doReload();"/>
 					<!-- 管理者用ボタン -->
-					<img src="images/Delete-Account.svg" class="reload pointer delete" onclick="doDelete()"/>
+					<img src="images/Delete-Account.svg" class="reload pointer delete" id="Adminbutton" onclick="doDelete()"/>
 				</h2>
 				<hr>
 				

@@ -52,6 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function doAccsess(UserList){
+	const button = document.getElementById('Adminbutton');
+
+	if(UserList == null){
+		button.disabled = false;
+	}else{
+		button.disabled = true;
+	}
 	
 }
 
