@@ -23,7 +23,7 @@
 
 </head>
 
-<body onload="${Admin}";>
+<body>
 	<div class="container">
 		<!-- ヘッダー -->
 		<header class="header">

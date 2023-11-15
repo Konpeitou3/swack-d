@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import bean.User;
 import exception.SwackException;
 import model.JoinRoomModel;
+import model.UserModel;
 
 /**
  * Servlet implementation class DeleteUserServlet
@@ -55,8 +56,29 @@ public class DeleteUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 画面から取得
+		String[] selectUser = request.getParameterValues("selectUser");
+
+		//セッションからルームIDを取得
 		HttpSession session = request.getSession();
 		String roomId = (String) session.getAttribute("roomId");
+
+		//選択された人数分Incertを実行
+		for (String userId : selectUser) {
+			UserModel userModel = new UserModel();
+			int result;
+			try {
+				result = userModel.delete(userId);
+				if (result != 1) {
+					System.out.println("エラーが発生");
+				}
+			} catch (SwackException e) {
+				// 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+
+		}
+
 		response.sendRedirect("MainServlet?roomId=" + roomId);
 	}
 
