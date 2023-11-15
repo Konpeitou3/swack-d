@@ -21,6 +21,7 @@ public class Messages {
 	public static final String ERR_SESSION_TIMEOUT = "ログイン情報の取得に失敗しました。再度ログインしてください。";
 	public static final String ERR_LOGIN_PARAM_MISTAKE = "メールアドレス、またはパスワードに誤りがあります。入力項目を確認し、再度ログインしてください。";
 	public static final String INFO_BIGIN = "ワークスペースに参加済みの方はログインしてください。初めての方はワークスペースに参加してください。";
+	public static final String ACCOUNT_LOCKED = "アカウントにロックがかかっています。";
 
 	/** ユーザ管理 */
 	public static final String ERR_USERS_ISREGISTERED = "このユーザは登録済みです。入力項目を確認し、登録し直してください。";
@@ -32,7 +33,7 @@ public class Messages {
 	/** 新規ルーム作成*/
 	public static final String CREATE_ROOM_SUCCESS = "ルームを作成しました。";
 	public static final String CREATE_ROOM_ERROR = "ルームを作成できませんでした。";
-	
+
 	/** パスワード管理*/
 	public static final String PASSWORD_UPDATE_ERROR = "新しいパスワードを入力してください。";
 

@@ -308,7 +308,9 @@ public class UsersDAO extends BaseDAO {
 			pStmt.setString(1, mailAddress);
 
 			ResultSet rs = pStmt.executeQuery();
-			userId = rs.getString("USERID");
+			if (rs.next()) {
+				userId = rs.getString("USERID");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);

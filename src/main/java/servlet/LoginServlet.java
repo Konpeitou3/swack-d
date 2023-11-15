@@ -3,6 +3,8 @@ package servlet;
 import static parameter.Messages.*;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.FailedLog;
 import bean.User;
 import exception.SwackException;
+import model.FailedLogModel;
 import model.LoginModel;
+import model.UserModel;
 
 /**
  * ログイン処理を実行するServlet
@@ -66,25 +71,58 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 
-		// 処理
 		try {
-			// ログインチェック
-			User user = new LoginModel().checkLogin(mailAddress, password);
-			if (user == null) {
-				// 認証失敗
-				request.setAttribute("errorMsg", ERR_LOGIN_PARAM_MISTAKE);
+			String user1 = new LoginModel().mailAddressCheck(mailAddress);
+
+			if (user1 == null) {
+				request.setAttribute("errorMsg", NEW_USERS_SELECT_MISTAKE);
 				request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 				return;
 			} else {
-				// 認証成功(ログイン情報をセッションに保持)
-				HttpSession session = request.getSession();
-				session.setAttribute("user", user);
-				response.sendRedirect("MainServlet?roomId=R0000");
-				return;
+				try {
+					// ログインチェック
+					User user2 = new LoginModel().checkLogin(mailAddress, password);
+					System.out.println(user2);
+					UserModel userModel = new UserModel();
+					if (user2 == null) {
+						// 認証失敗
+						//ログイン失敗テーブルに追加
+						//メールアドレスだけでuser情報の取得をするように改装、取れなかった場合と取れた場合
+						// 取れなかった場合はエラー　取れた上でパスワードが間違っている場合はaccountロック機構を動かす
+						FailedLogModel failedLogModel = new FailedLogModel();
+						failedLogModel.insert(user1);
+						//ログインテーブルの件数取得、5件取得したらaccountロック
+						LoginModel loginModel = new LoginModel();
+						List<FailedLog> LogCount = loginModel.lastLoginCheck(user1);
+						if (LogCount.size() == 5) {
+							userModel.updateLockedTrue(user1);
+						}
+					}
+					//アカウントロックチェック
+					if (Objects.equals(user2.isLocked(), Boolean.TRUE)) {
+						//アカウントロックのためログイン失敗
+						request.setAttribute("errorMsg", ACCOUNT_LOCKED);
+						request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+						return;
+					} else {
+						// 認証成功(ログイン情報をセッションに保持)
+						HttpSession session = request.getSession();
+						session.setAttribute("user", user2);
+						response.sendRedirect("MainServlet?roomId=R0000");
+						//TODO 最終ログイン更新
+						userModel.updateLastLogin(user2.getUserId());
+						return;
+					}
+
+				} catch (SwackException e) {
+					e.printStackTrace();
+					request.setAttribute("errorMsg", ERR_SYSTEM);
+					request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+					return;
+				}
 			}
 
-		} catch (SwackException e) {
-			e.printStackTrace();
+		} catch (SwackException e1) {
 			request.setAttribute("errorMsg", ERR_SYSTEM);
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 			return;
