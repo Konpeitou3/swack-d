@@ -38,7 +38,6 @@ public class UsersDAO extends BaseDAO {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 		return user;
-		//おなかすいた
 	}
 
 	//新規ユーザーID選択
@@ -298,5 +297,22 @@ public class UsersDAO extends BaseDAO {
 		}
 
 		return rs;
+	}
+
+	//メールアドレスチェック
+	public String mailAddressCheck(String mailAddress) throws SwackException {
+		String sql = "SELECT USERID FROM USERS WHERE MAILADDRESS = ?;";
+		String userId = null;
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, mailAddress);
+
+			ResultSet rs = pStmt.executeQuery();
+			userId = rs.getString("USERID");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return userId;
 	}
 }

@@ -25,6 +25,11 @@ public class LoginModel {
 		return user;
 	}
 
+	public String mailAddressCheck(String mailAddress) throws SwackException {
+		UsersDAO usersDAO = new UsersDAO();
+		return usersDAO.mailAddressCheck(mailAddress);
+	}
+
 	public List<FailedLog> lastLoginCheck(String userId) throws SwackException {
 		FailedLogDAO failedLogDAO = new FailedLogDAO();
 		return failedLogDAO.lastLoginCheck(userId);
