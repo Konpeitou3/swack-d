@@ -10,11 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.Admin;
 import bean.User;
 import exception.SwackException;
 import model.JoinRoomModel;
-import model.RoomAdminModel;
 
 /**
  * Servlet implementation class DeleteUserServlet
@@ -32,28 +30,23 @@ public class DeleteUserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		//現在のルームIDを取得
 		String roomId = request.getParameter("roomId");
-		String userId = user.getUserId();
-		boolean Admin = false;
+
+		//ルームIDをセッションに保存
+		HttpSession session = request.getSession();
+		session.setAttribute("roomId", roomId);
+		User user = (User) session.getAttribute("user");
 
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
-		RoomAdminModel roomAdminModel = new RoomAdminModel();
 
 		try {
 			List<User> notAdminUserList = joinRoomModel.getNotAdminUserList(roomId);
-			List<Admin> RoomAdminList = roomAdminModel.getRoomAdminList(roomId, userId);
-			for (Admin admin : RoomAdminList) {
-				if (userId.equals(admin.getUserId())) {
-					//アドミン判定
-					Admin = true;
-					// アドミン以外のユーザーIDのリストをJSPに値を渡す
-					request.setAttribute("notAdminUserList", notAdminUserList);
-				}
-			}
-			//アドミン判定を渡す
-			request.setAttribute("Admin", Admin);
+
+			// アドミン以外のユーザーIDのリストをJSPに値を渡す
+			request.setAttribute("notAdminUserList", notAdminUserList);
+			System.out.println(notAdminUserList);
+
 		} catch (SwackException e) {
 			e.printStackTrace();
 		}
@@ -62,7 +55,9 @@ public class DeleteUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		String roomId = (String) session.getAttribute("roomId");
+		response.sendRedirect("MainServlet?roomId=" + roomId);
 	}
 
 }

@@ -40,11 +40,11 @@ pageEncoding="UTF-8"%>
             <input type="hidden" name="roomId" value="${roomId}" />
             <div class="form-group">
               <label class="control-label">退会させるユーザーを選ぶ </label>
-              <c:if test="${empty usersList}">
+              <c:if test="${empty notAdminUserList}">
               <span class="not-found-user"> ※退会させられるユーザーがいません</span>
               </c:if>
               <select id="users" class="form-select" name="selectUser" multiple>
-              <c:forEach var="user" items="${usersList}">
+              <c:forEach var="user" items="${notAdminUserList}">
   				<option value="${user.userId}">${user.userName}</option>            
               </c:forEach>
               </select>
