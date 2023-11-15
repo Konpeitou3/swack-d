@@ -1,6 +1,6 @@
 package dao;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import bean.Admin;
 import context.SetUpDBConnectionPool;
 import exception.SwackException;
 
-public class RoomAdminDAOTest {
+class RoomAdminDAOTest {
 
 	private static RoomAdminDAO roomAdminDAO;
 
@@ -37,7 +37,7 @@ public class RoomAdminDAOTest {
 	//	}
 
 	@Test
-	void getUserList() throws SwackException {
+	void testGetRoomAdminList() throws SwackException {
 		List<Admin> adminT = roomAdminDAO.getRoomAdminList();
 		System.out.println(adminT);
 		assertNotNull(adminT);

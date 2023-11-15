@@ -54,29 +54,50 @@ class UsersDAOTest {
 	}
 
 	//@Test
-	void testSelectMaxUserId() {
-		fail("まだ実装されていません");
+	void testSelectMaxUserId() throws SwackException {
+		String userId = usersDAO.maxSelect();
+		System.out.println("testSelectMaxUserId():" + userId);
 	}
 
 	//@Test
-	void testInsert() throws SwackException {
+	void testgetUserList() throws SwackException {
 		List<User> user = usersDAO.getUserList("U0001");
-		System.out.println(user);
+		System.out.println("testgetUserList():" + user);
 		assertNotNull(user);
 	}
 
 	@Test
 	void testgetMailAddressList() throws SwackException {
 		List<User> user = usersDAO.getMailAddressList();
-		System.out.println(user);
+		System.out.println("testgetMailAddressList():" + user);
 		assertNotNull(user);
 	}
 
 	@Test
 	void testgetAllUserList() throws SwackException {
 		List<User> user = usersDAO.getAllUserList();
-		System.out.println(user);
+		System.out.println("testgetAllUserList():" + user);
 		assertNotNull(user);
+	}
+
+	@Test
+	void testgetUserinfoList() throws SwackException {
+		List<User> user = usersDAO.getUserinfoList();
+		System.out.println("testgetUserinfoList():" + user);
+		assertNotNull(user);
+	}
+
+	@Test
+	void testmailAddressCheckSuccess() throws SwackException {
+		String user = usersDAO.mailAddressCheck("taro@swack.com");
+		System.out.println("testmailAddressCheckSuccess():" + user);
+		assertNotNull(user);
+	}
+
+	@Test
+	void testmailAddressCheckFailure() throws SwackException {
+		String user = usersDAO.mailAddressCheck("taroswacktest@swack.com");
+		assertNull(user);
 	}
 
 }
