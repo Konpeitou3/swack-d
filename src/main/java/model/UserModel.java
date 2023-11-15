@@ -21,51 +21,111 @@ public class UserModel {
 	}
 
 	//新規登録
+	/**
+	 * 
+	 * @param username
+	 * @param mailAddress
+	 * @param password
+	 * @return
+	 * @throws SwackException
+	 */
 	public int insert(String username, String mailAddress, String password) throws SwackException {
 		return new UsersDAO().insert(username, mailAddress, password);
 	}
 
 	//自分以外のユーザーIDリスト
+	/**
+	 * 
+	 * @param MyUserId
+	 * @return
+	 * @throws SwackException
+	 */
 	public List<User> getUserList(String MyUserId) throws SwackException {
 		return new UsersDAO().getUserList(MyUserId);
 	}
 
 	//登録済みメールアドレスリスト
+	/**
+	 * 
+	 * @return
+	 * @throws SwackException
+	 */
 	public List<User> getMailAddressList() throws SwackException {
 		return new UsersDAO().getMailAddressList();
 	}
 
 	//アカウント削除
+	/**
+	 * 
+	 * @param userid
+	 * @return
+	 * @throws SwackException
+	 */
 	public int delete(String userid) throws SwackException {
 		return new UsersDAO().delete(userid);
 	}
 
 	//既存ユーザ情報取得
+	/**
+	 * 
+	 * @return
+	 * @throws SwackException
+	 */
 	public List<User> getAllUserList() throws SwackException {
 		return new UsersDAO().getAllUserList();
 	}
 
 	//ユーザ情報取得
+	/**
+	 * 
+	 * @return
+	 * @throws SwackException
+	 */
 	public List<User> getUserinfoList() throws SwackException {
 		return new UsersDAO().getUserinfoList();
 	}
 
 	//パスワード変更
+	/**
+	 * 
+	 * @param password
+	 * @param mailAddress
+	 * @return
+	 * @throws SwackException
+	 */
 	public int updatePassword(String password, String mailAddress) throws SwackException {
 		return new UsersDAO().updatePassword(password, mailAddress);
 	}
 
 	//最終ログイン時間更新
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws SwackException
+	 */
 	public int updateLastLogin(String userId) throws SwackException {
 		return new UsersDAO().updateLastLogin(userId);
 	}
 
 	//アカウントロック設定
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws SwackException
+	 */
 	public int updateLockedTrue(String userId) throws SwackException {
 		return new UsersDAO().updateLockedTrue(userId);
 	}
 
 	//アカウントロック解除
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws SwackException
+	 */
 	public int updateLockedFalse(String userId) throws SwackException {
 		return new UsersDAO().updateLockedFalse(userId);
 	}
