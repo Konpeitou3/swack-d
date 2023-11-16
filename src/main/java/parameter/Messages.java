@@ -22,7 +22,7 @@ public class Messages {
 	public static final String ERR_LOGIN_PARAM_MISTAKE = "メールアドレス、またはパスワードに誤りがあります。入力項目を確認し、再度ログインしてください。";
 	public static final String INFO_BIGIN = "ワークスペースに参加済みの方はログインしてください。初めての方はワークスペースに参加してください。";
 	public static final String ACCOUNT_LOCKED = "アカウントにロックがかかっています。";
-
+	public static final String PASSWORD_MISTAKE = "パスワードが間違っています。5回失敗するとアカウントがロックされます。";
 	/** ユーザ管理 */
 	public static final String ERR_USERS_ISREGISTERED = "このユーザは登録済みです。入力項目を確認し、登録し直してください。";
 	public static final String ERR_USERS_PARAM_MISTAKE = "ユーザ情報に誤りがあります。入力項目を確認し、再度登録してください。";

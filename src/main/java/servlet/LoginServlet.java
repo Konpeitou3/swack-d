@@ -83,6 +83,13 @@ public class LoginServlet extends HttpServlet {
 					User user2 = new LoginModel().checkLogin(mailAddress, password);
 					System.out.println(user2);
 					UserModel userModel = new UserModel();
+					//アカウントロックチェック
+					if (user1.isLocked() == true) {
+						//アカウントロックのためログイン失敗
+						request.setAttribute("errorMsg", ACCOUNT_LOCKED);
+						request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+						return;
+					}
 					if (user2 == null) {
 						// 認証失敗
 						//ログイン失敗テーブルに追加
@@ -94,26 +101,23 @@ public class LoginServlet extends HttpServlet {
 						LoginModel loginModel = new LoginModel();
 						List<FailedLog> LogCount = loginModel.lastLoginCheck(user1.getUserId());
 						System.out.println(LogCount);
+						System.out.println(LogCount.size());
 						if (LogCount.size() == 5) {
 							userModel.updateLockedTrue(user1.getUserId());
 						}
-					}
-					//アカウントロックチェック
-					if (user1.isLocked() == true) {
-						//アカウントロックのためログイン失敗
-						request.setAttribute("errorMsg", ACCOUNT_LOCKED);
+						request.setAttribute("errorMsg", PASSWORD_MISTAKE);
 						request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 						return;
-					} else {
-						//最終ログイン更新
-						userModel.updateLastLogin(user2.getUserId());
-						// 認証成功(ログイン情報をセッションに保持)
-						HttpSession session = request.getSession();
-						session.setAttribute("user", user2);
-						response.sendRedirect("MainServlet?roomId=R0000");
-
-						return;
 					}
+
+					//最終ログイン更新
+					userModel.updateLastLogin(user2.getUserId());
+					// 認証成功(ログイン情報をセッションに保持)
+					HttpSession session = request.getSession();
+					session.setAttribute("user", user2);
+					response.sendRedirect("MainServlet?roomId=R0000");
+
+					return;
 
 				} catch (SwackException e) {
 					e.printStackTrace();
