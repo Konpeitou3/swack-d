@@ -103,7 +103,7 @@
 					<img src="images/reload.svg" class="reload pointer" onclick="doReload();"/>
 					<!-- 管理者用ボタン -->
 					<a href="DeleteUserServlet?roomId=${room.roomId}">
-						<img src="images/Delete-Account.svg" class="reload pointer delete" id="Adminbutton"/>
+						<img src="images/Delete-Account.svg" class="reload pointer delete" id="Adminbutton" disabled/>
 						<a hidden="${Admin }" id="Admin"></a>
 					</a>
 				</h2>

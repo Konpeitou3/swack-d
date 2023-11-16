@@ -7,7 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const elInputTypeText = document.querySelector("input[type=text]");
   const elMessageForm = document.getElementById("messageForm");
   const elLogArea = document.getElementById("logArea");
+  const Admin = document.getElementById("Admin");
+  const button = document.getElementById("Adminbutton");
 
+	if(Admin == false){
+		console.log('true');
+		button.disabled = false;
+	}else{
+		console.log('false');
+		button.disabled = true;
+	}
   // ログ表示部の最下部へ(110はheader+footerのheight)
   elLogArea.scrollTop = elLogArea.scrollHeight + 110;
 
@@ -51,16 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function doAccsess(Admin){
-	const button = document.getElementById('Adminbutton');
-
-	if(Admin == false){
-		button.disabled = false;
-	}else{
-		button.disabled = true;
-	}
-	
-}
 
 function logout() {
   // elements
