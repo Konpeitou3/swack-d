@@ -402,4 +402,32 @@ public class UsersDAO extends BaseDAO {
 		}
 		return user;
 	}
+
+	/**
+	 * アカウントロックされているユーザのリスト取得
+	 * @param mailAddress メールアドレス
+	 * @return lockedUserList アカウントロックされているユーザのリスト
+	 * @throws SwackException 独自エラー
+	 */
+	public List<User> lockedUserList() throws SwackException {
+		String sql = "SELECT UESRNAME, USERID FROM USERS WHERE LOCKED = TRUE;";
+		//アカウントロックされているユーザのリスト作成
+		List<User> lockedUserList = new ArrayList<User>();
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String userName = rs.getString("USERNAME");
+				String userId = rs.getString("USERID");
+				User user = new User(userName, userId);
+				lockedUserList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		//アカウントロックされているユーザのリストを返す
+		return lockedUserList;
+	}
 }

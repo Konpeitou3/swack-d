@@ -122,4 +122,14 @@ public class UserModel {
 		return new UsersDAO().updateLockedFalse(userId);
 	}
 
+	/**
+	 * アカウントロックされているユーザのリスト取得
+	 * @param mailAddress メールアドレス
+	 * @return lockedUserList アカウントロックされているユーザのリスト
+	 * @throws SwackException 独自エラー
+	 */
+	public List<User> lockedUserList() throws SwackException {
+		return new UsersDAO().lockedUserList();
+	}
+
 }
