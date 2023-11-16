@@ -71,6 +71,7 @@ public class DeleteUserServlet extends HttpServlet {
 				result = userModel.delete(userId);
 				if (result != 1) {
 					System.out.println("エラーが発生");
+					return;
 				}
 			} catch (SwackException e) {
 				// 自動生成された catch ブロック
