@@ -4,7 +4,6 @@ import static parameter.Messages.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -99,18 +98,19 @@ public class LoginServlet extends HttpServlet {
 						}
 					}
 					//アカウントロックチェック
-					if (Objects.equals(user2.isLocked(), Boolean.TRUE)) {
+					if (user2.isLocked() == true) {
 						//アカウントロックのためログイン失敗
 						request.setAttribute("errorMsg", ACCOUNT_LOCKED);
 						request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 						return;
 					} else {
+						//最終ログイン更新
+						userModel.updateLastLogin(user2.getUserId());
 						// 認証成功(ログイン情報をセッションに保持)
 						HttpSession session = request.getSession();
 						session.setAttribute("user", user2);
 						response.sendRedirect("MainServlet?roomId=R0000");
-						//最終ログイン更新
-						userModel.updateLastLogin(user2.getUserId());
+
 						return;
 					}
 
