@@ -6,12 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import bean.Admin;
 import exception.SwackException;
 
 /**
- * 管理者権限を操作するDAO
+ * 管理者権限操作に関するDBアクセスを行う.
  */
 public class RoomAdminDAO extends BaseDAO {
 	public RoomAdminDAO() throws SwackException {
@@ -106,6 +108,35 @@ public class RoomAdminDAO extends BaseDAO {
 
 		//管理者情報を返す
 		return AdminUser;
+	}
+
+	/**
+	 * 管理者情報リスト取得
+	 * @param roomid ルームID
+	 * @param userid ユーザID
+	 * @return AdminUsers 管理者情報リスト
+	 * @throws SwackException 独自エラー
+	 */
+	public List<Admin> getRoomAdminList() throws SwackException {
+		String sql = "SELECT * FROM roomadmins;";
+
+		// 管理者情報リストを作成する
+		List<Admin> AdminUsers = new ArrayList<Admin>();
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String roomId = rs.getString("ROOMID");
+				String userId = rs.getString("USERID");
+
+				Admin admin = new Admin(roomId, userId); // Adminオブジェクトを作成
+				AdminUsers.add(admin);
+			}
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		return AdminUsers;
 	}
 
 }
