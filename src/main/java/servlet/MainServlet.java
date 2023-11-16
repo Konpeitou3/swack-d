@@ -44,7 +44,7 @@ public class MainServlet extends LoginCheckServlet {
 		boolean Admin = false;
 
 		try {
-			List<Admin> RoomAdminList = roomAdminModel.getRoomAdminList(roomId, userId);
+			List<Admin> RoomAdminList = roomAdminModel.getRoomAdminList();
 
 			ChatModel chatModel = new ChatModel();
 			Room room = chatModel.getRoom(roomId, user.getUserId());
