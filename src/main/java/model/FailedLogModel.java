@@ -3,12 +3,14 @@ package model;
 import dao.FailedLogDAO;
 import exception.SwackException;
 
+/**
+ * ログイン失敗ログを動作させるクラス
+ */
 public class FailedLogModel {
 	/**
-	 * 新規登録
-	 * @param userId
-	 * @return
-	 * @throws SwackException
+	 * ログイン失敗ログ追加
+	 * @param userId ユーザID
+	 * @throws SwackException 独自エラー
 	 */
 	public int insert(String userId) throws SwackException {
 		FailedLogDAO failedLogDAO = new FailedLogDAO();
