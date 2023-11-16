@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		try {
-			String user1 = new LoginModel().mailAddressCheck(mailAddress);
+			User user1 = new LoginModel().mailAddressCheck(mailAddress);
 
 			if (user1 == null) {
 				request.setAttribute("errorMsg", NEW_USERS_SELECT_MISTAKE);
@@ -89,16 +89,17 @@ public class LoginServlet extends HttpServlet {
 						//メールアドレスだけでuser情報の取得をするように改装、取れなかった場合と取れた場合
 						// 取れなかった場合はエラー　取れた上でパスワードが間違っている場合はaccountロック機構を動かす
 						FailedLogModel failedLogModel = new FailedLogModel();
-						failedLogModel.insert(user1);
+						failedLogModel.insert(user1.getUserId());
 						//ログインテーブルの件数取得、5件取得したらaccountロック
 						LoginModel loginModel = new LoginModel();
-						List<FailedLog> LogCount = loginModel.lastLoginCheck(user1);
+						List<FailedLog> LogCount = loginModel.lastLoginCheck(user1.getUserId());
+						System.out.println(LogCount);
 						if (LogCount.size() == 5) {
-							userModel.updateLockedTrue(user1);
+							userModel.updateLockedTrue(user1.getUserId());
 						}
 					}
 					//アカウントロックチェック
-					if (user2.isLocked() == true) {
+					if (user1.isLocked() == true) {
 						//アカウントロックのためログイン失敗
 						request.setAttribute("errorMsg", ACCOUNT_LOCKED);
 						request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
