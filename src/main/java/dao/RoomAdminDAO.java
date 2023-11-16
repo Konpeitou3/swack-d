@@ -100,7 +100,7 @@ public class RoomAdminDAO extends BaseDAO {
 				String roomId = rs.getString("ROOMID");
 				String userId = rs.getString("USERID");
 
-				AdminUser = new Admin(roomId, userId);
+				AdminUser = new Admin(roomId, userId);// Adminオブジェクトを更新
 			}
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
@@ -136,6 +136,8 @@ public class RoomAdminDAO extends BaseDAO {
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+
+		//管理者情報リストを返す
 		return AdminUsers;
 	}
 

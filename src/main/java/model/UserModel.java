@@ -6,125 +6,117 @@ import bean.User;
 import dao.UsersDAO;
 import exception.SwackException;
 
+/**
+ * ユーザに関する動作を実行するクラス
+ */
 public class UserModel {
 
-	//ユーザー検索
 	/**
-	 * 
+	 * ユーザー検索
 	 * @param mailAddress メールアドレス
 	 * @param password	パスワード
-	 * @return	
-	 * @throws SwackException
+	 * @return	成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public User select(String mailAddress, String password) throws SwackException {
 		return new UsersDAO().select(mailAddress, password);
 	}
 
-	//新規登録
 	/**
-	 * 
-	 * @param username
-	 * @param mailAddress
-	 * @param password
-	 * @return
-	 * @throws SwackException
+	 * 新規登録
+	 * @param username ユーザ名
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int insert(String username, String mailAddress, String password) throws SwackException {
 		return new UsersDAO().insert(username, mailAddress, password);
 	}
 
-	//自分以外のユーザーIDリスト
 	/**
-	 * 
-	 * @param MyUserId
-	 * @return
-	 * @throws SwackException
+	 * 招待用名前リスト取得用
+	 * @param MyuserId 自分のユーザID
+	 * @return userList 招待用名前リスト
+	 * @throws SwackException 独自エラー
 	 */
 	public List<User> getUserList(String MyUserId) throws SwackException {
 		return new UsersDAO().getUserList(MyUserId);
 	}
 
-	//登録済みメールアドレスリスト
 	/**
-	 * 
-	 * @return
-	 * @throws SwackException
+	 * 登録済みメールアドレスリスト
+	 * @return AllMailAddressList 登録済みメールアドレスリスト
+	 * @throws SwackException 独自エラー
 	 */
 	public List<User> getMailAddressList() throws SwackException {
 		return new UsersDAO().getMailAddressList();
 	}
 
-	//アカウント削除
 	/**
-	 * 
-	 * @param userid
-	 * @return
-	 * @throws SwackException
+	 * アカウント削除
+	 * @param userid ユーザID
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int delete(String userid) throws SwackException {
 		return new UsersDAO().delete(userid);
 	}
 
-	//既存ユーザ情報取得
 	/**
-	 * 
-	 * @return
-	 * @throws SwackException
+	 * 既存ユーザ情報取得
+	 * @return AllUsers 既存ユーザ情報
+	 * @throws SwackException 独自エラー
 	 */
 	public List<User> getAllUserList() throws SwackException {
 		return new UsersDAO().getAllUserList();
 	}
 
-	//ユーザ情報取得
 	/**
-	 * 
-	 * @return
-	 * @throws SwackException
+	 * ユーザ情報取得
+	 * @return AllUsersInfo ユーザ情報
+	 * @throws SwackException 独自エラー
 	 */
 	public List<User> getUserinfoList() throws SwackException {
 		return new UsersDAO().getUserinfoList();
 	}
 
-	//パスワード変更
 	/**
-	 * 
-	 * @param password
-	 * @param mailAddress
-	 * @return
-	 * @throws SwackException
+	 * パスワード変更
+	 * @param password	パスワード
+	 * @param mailAddress メールアドレス
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int updatePassword(String password, String mailAddress) throws SwackException {
 		return new UsersDAO().updatePassword(password, mailAddress);
 	}
 
-	//最終ログイン時間更新
 	/**
-	 * 
-	 * @param userId
-	 * @return
-	 * @throws SwackException
+	 * 最終ログイン時間更新
+	 * @param userId ユーザID
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int updateLastLogin(String userId) throws SwackException {
 		return new UsersDAO().updateLastLogin(userId);
 	}
 
-	//アカウントロック設定
 	/**
-	 * 
-	 * @param userId
-	 * @return
-	 * @throws SwackException
+	 * アカウントロック設定
+	 * @param userId ユーザID
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int updateLockedTrue(String userId) throws SwackException {
 		return new UsersDAO().updateLockedTrue(userId);
 	}
 
-	//アカウントロック解除
 	/**
-	 * 
-	 * @param userId
-	 * @return
-	 * @throws SwackException
+	 * アカウントロック解除
+	 * @param userId ユーザID
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int updateLockedFalse(String userId) throws SwackException {
 		return new UsersDAO().updateLockedFalse(userId);

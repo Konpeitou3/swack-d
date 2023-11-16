@@ -14,7 +14,8 @@ public class RoomAdminModel {
 	 * 管理者権限を付与する
 	 * @param roomid ルームID
 	 * @param userid ユーザID
-	 * @return 
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int joinRoomAdmin(String roomid, String userid) throws SwackException {
 		return new RoomAdminDAO().JoinRoomAdmin(roomid, userid);
@@ -24,7 +25,8 @@ public class RoomAdminModel {
 	 * 管理者権限を削除する
 	 * @param roomid ルームID
 	 * @param userid ユーザID
-	 * @return
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int LeavingTheRoomAdmin(String roomid, String userid) throws SwackException {
 		return new RoomAdminDAO().LeavingTheRoomAdmin(roomid, userid);
@@ -35,6 +37,7 @@ public class RoomAdminModel {
 	 * @param roomid ルームID
 	 * @param userid ユーザID
 	 * @return AdminUser 管理者権限情報
+	 * @throws SwackException 独自エラー
 	 */
 	public Admin getRoomAdmin(String roomid, String userid) throws SwackException {
 		System.out.println(roomid);
@@ -45,6 +48,7 @@ public class RoomAdminModel {
 	/**
 	 * 管理者権限リストを取得する
 	 * @return AdminUsers 管理者権限情報
+	 * @throws SwackException 独自エラー
 	 */
 	public List<Admin> getRoomAdminList() throws SwackException {
 		return new RoomAdminDAO().getRoomAdminList();

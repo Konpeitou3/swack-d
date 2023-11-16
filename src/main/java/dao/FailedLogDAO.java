@@ -14,7 +14,7 @@ import bean.FailedLog;
 import exception.SwackException;
 
 /**
- * ログイン失敗失敗履歴を動かすDAO
+ * ログイン失敗失敗履歴に関するDBアクセスを行う.
  */
 public class FailedLogDAO extends BaseDAO {
 	public FailedLogDAO() throws SwackException {
@@ -30,6 +30,7 @@ public class FailedLogDAO extends BaseDAO {
 	public List<FailedLog> lastLoginCheck(String failUserId) throws SwackException {
 		String sql = "SELECT * FROM FAILEDLOG F JOIN USERS U ON F.USERID = U.USERID WHERE F.USERID=? AND U.LASTLOGIN_AT < FAILED_AT";
 
+		// 指定されたユーザのログイン失敗履歴リストを作成する
 		List<FailedLog> getLastLoginList = new ArrayList<FailedLog>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -47,6 +48,7 @@ public class FailedLogDAO extends BaseDAO {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
+		// 指定されたユーザのログイン失敗履歴リストを返す
 		return getLastLoginList;
 	}
 
@@ -57,16 +59,20 @@ public class FailedLogDAO extends BaseDAO {
 	 */
 	public int insert(String userId) throws SwackException {
 		String sql = "INSERT INTO failedlog (failedlogid, userid, failed_at) VALUES(nextval('FAILEDLOGID_SEQ'),?,CURRENT_TIMESTAMP);";
-		int rs;
+
+		//結果用
+		int result;
+
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userId);
 
-			rs = pStmt.executeUpdate();
+			result = pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
-		return rs;
+		// 成功の場合1を返す
+		return result;
 	}
 }

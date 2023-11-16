@@ -7,6 +7,7 @@ import exception.SwackException;
  * ログイン失敗ログを動作させるクラス
  */
 public class FailedLogModel {
+
 	/**
 	 * ログイン失敗ログ追加
 	 * @param userId ユーザID

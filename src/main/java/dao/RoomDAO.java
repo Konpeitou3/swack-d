@@ -13,6 +13,9 @@ import java.util.List;
 import bean.Room;
 import exception.SwackException;
 
+/**
+ * ルームに関するDBアクセスを行う.
+ */
 public class RoomDAO extends BaseDAO {
 	public RoomDAO() throws SwackException {
 		super();
@@ -39,7 +42,11 @@ public class RoomDAO extends BaseDAO {
 	//		return null;
 	//	}
 
-	//追加用ルーム用意
+	/**
+	 * 新規ルームID選択
+	 * @return newId 新規ルームでつけるID
+	 * @throws SwackException 独自エラー
+	 */
 	public String maxRoomSelect() throws SwackException {
 		String sql = "SELECT MAX(ROOMID) AS MAXROOMID FROM ROOMS ;";
 		String userId = null;
@@ -72,17 +79,25 @@ public class RoomDAO extends BaseDAO {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+		//新規ルームでつけるIDを返す
 		return newId;
 	}
 
-	//ルーム追加
+	/**
+	 * 新規ルーム作成
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
+	 */
 	public int insert(String roomname, String createduserid, Boolean directed, Boolean privated)
 			throws SwackException {
 
 		//自動採番
 		String roomid = maxRoomSelect();
 		System.out.println("nextuserid:" + roomid);
-		int rs;
+		//結果用
+		int result;
 
 		//ルーム作成者のインサート
 		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
@@ -105,22 +120,30 @@ public class RoomDAO extends BaseDAO {
 			pStmt2.setBoolean(4, directed);
 			pStmt2.setBoolean(5, privated);
 
-			rs = pStmt2.executeUpdate();
+			result = pStmt2.executeUpdate();
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e2);
 		}
-		return rs;
+		//成功の場合1を返す
+		return result;
 	}
 
-	//ダイレクトルーム追加
+	/**
+	 * 新規ダイレクトルーム作成
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
+	 */
 	public int DirectInsert(String roomname, String createduserid, Boolean directed, Boolean privated)
 			throws SwackException {
 
 		//自動採番
 		String roomid = maxRoomSelect();
 		System.out.println("nextuserid:" + roomid);
-		int rs;
+		//実行用
+		int result;
 
 		//ルーム作成者のインサート
 		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
@@ -143,13 +166,14 @@ public class RoomDAO extends BaseDAO {
 			pStmt.setBoolean(4, directed);
 			pStmt.setBoolean(5, privated);
 
-			rs = pStmt.executeUpdate();
+			result = pStmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
-		return rs;
+		//成功の場合1を返す
+		return result;
 	}
 
 	/**
@@ -160,7 +184,7 @@ public class RoomDAO extends BaseDAO {
 	 */
 	public List<Room> getOtherRoomList(String userid) throws SwackException {
 		String sql = "SELECT DISTINCT ROOMNAME ,R.ROOMID FROM ROOMS R JOIN JOINROOM J ON R.ROOMID = J.ROOMID WHERE R.ROOMID NOT IN(SELECT J.ROOMID FROM JOINROOM J WHERE J.USERID=?) AND R.PRIVATED='FALSE';";
-
+		//参加しているルーム一覧を作成
 		List<Room> OtherRoomList = new ArrayList<Room>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -175,6 +199,7 @@ public class RoomDAO extends BaseDAO {
 			}
 		} catch (SQLException e) {
 		}
+		//参加しているルーム一覧を返す
 		return OtherRoomList;
 	}
 

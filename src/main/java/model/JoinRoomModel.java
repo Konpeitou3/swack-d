@@ -7,16 +7,15 @@ import dao.JoinRoomDAO;
 import exception.SwackException;
 
 /**
- * ルームメンバーの操作を行うmodel
- *
+ * ルームメンバーの操作に関するクラス
  */
 public class JoinRoomModel {
 	/**
 	 * ルーム参加
 	 * @param roomid ルームID
 	 * @param userid ユーザID
-	 * @return
-	 * @throws SwackException
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int joinRoom(String roomid, String userid) throws SwackException {
 		JoinRoomDAO joinRoomDAO = new JoinRoomDAO();
@@ -27,8 +26,8 @@ public class JoinRoomModel {
 	 * ルーム退出
 	 * @param roomid ルームID
 	 * @param userid ユーザID
-	 * @return
-	 * @throws SwackException
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
 	public int LeavingTheRoom(String roomid, String userid) throws SwackException {
 		JoinRoomDAO joinRoomDAO = new JoinRoomDAO();
@@ -37,11 +36,11 @@ public class JoinRoomModel {
 	}
 
 	/**
-	 * 未参加ユーザ取得
+	 * 招待用ユーザーネームリスト取得
 	 * @param roomid ルームID
 	 * @param userid ユーザID
-	 * @return
-	 * @throws SwackException
+	 * @return OtherUsers 招待用ユーザーネームリスト
+	 * @throws SwackException 独自エラー
 	 */
 	public List<User> getUserList(String roomid, String userid) throws SwackException {
 		JoinRoomDAO joinRoomDAO = new JoinRoomDAO();
@@ -51,10 +50,10 @@ public class JoinRoomModel {
 	}
 
 	/**
-	 * 
+	 * 管理者権限未保有ルームメンバーリスト出力
 	 * @param roomid ルームID
-	 * @return
-	 * @throws SwackException
+	 * @return NotAdminUsers 管理者権限未保有ルームメンバーリスト
+	 * @throws SwackException 独自エラー
 	 */
 	public List<User> getNotAdminUserList(String roomid) throws SwackException {
 		JoinRoomDAO joinRoomDAO = new JoinRoomDAO();

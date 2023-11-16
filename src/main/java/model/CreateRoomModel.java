@@ -9,15 +9,14 @@ import exception.SwackException;
 
 /**
  * 新規ルーム作成を行うModel
- *
  */
 public class CreateRoomModel {
 
 	/**
 	 * 招待用名前リスト取得用
-	 * @param userId
-	 * @return
-	 * @throws SwackException
+	 * @param userId ユーザID
+	 * @return userList 招待用名前リスト
+	 * @throws SwackException 独自エラー
 	 */
 	public List<User> getMember(String userId) throws SwackException {
 		UsersDAO usersDAO = new UsersDAO();
@@ -27,12 +26,11 @@ public class CreateRoomModel {
 
 	/**
 	 * 新規ルーム作成
-	 * @param mailAddress
-	 * @param password
-	 * @return
-	 * @throws SwackException
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
 	 */
-
 	public int createRoom(String roomname, String createduserid, Boolean directed, Boolean privated)
 			throws SwackException {
 		RoomDAO roomDAO = new RoomDAO();

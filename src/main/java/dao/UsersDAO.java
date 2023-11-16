@@ -13,11 +13,21 @@ import java.util.List;
 import bean.User;
 import exception.SwackException;
 
+/**
+ * ユーザに関するDBアクセスを行う.
+ */
 public class UsersDAO extends BaseDAO {
 	public UsersDAO() throws SwackException {
 		super();
 	}
 
+	/**
+	 * ユーザー検索
+	 * @param mailAddress メールアドレス
+	 * @param password	パスワード
+	 * @return	user ユーザ情報
+	 * @throws SwackException 独自エラー
+	 */
 	public User select(String mailAddress, String password) throws SwackException {
 		String sql = "SELECT USERID, USERNAME FROM USERS WHERE MAILADDRESS = ? AND PASSWORD = ?";
 		User user = null;
@@ -37,10 +47,15 @@ public class UsersDAO extends BaseDAO {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+		//ユーザ情報を返す
 		return user;
 	}
 
-	//新規ユーザーID選択
+	/**
+	 * 新規ユーザーID選択
+	 * @return newId 新規登録でつけるID
+	 * @throws SwackException 独自エラー
+	 */
 	public String maxSelect() throws SwackException {
 		String sql = "SELECT MAX(USERID) AS MAXID FROM USERS ;";
 		String userId = null;
@@ -73,16 +88,25 @@ public class UsersDAO extends BaseDAO {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+		//新規登録でつけるIDを返す
 		return newId;
 	}
 
-	//新規登録
+	/**
+	 * 新規登録
+	 * @param username ユーザ名
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
+	 */
 	public int insert(String username, String mailAddress, String password) throws SwackException {
 
 		//自動採番
 		String userid = maxSelect();
 		System.out.println("nextuserid:" + userid);
-		int rs;
+		//結果用
+		int result;
 
 		String sql = "INSERT INTO users (userid, username,mailaddress, password) VALUES(?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {
@@ -92,13 +116,12 @@ public class UsersDAO extends BaseDAO {
 			pStmt.setString(3, mailAddress);
 			pStmt.setString(4, password);
 
-			rs = pStmt.executeUpdate();
+			result = pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		int result;
 		String sql2 = "INSERT INTO joinroom (roomid, userid) VALUES('R0000',?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt2 = conn.prepareStatement(sql2);
@@ -111,13 +134,19 @@ public class UsersDAO extends BaseDAO {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		return rs;
+		// 成功の場合1を返す
+		return result;
 	}
 
-	//自分以外のuseridリスト
+	/**
+	 * 招待用名前リスト取得用
+	 * @param MyUserId 自分のユーザID
+	 * @return userList 招待用名前リスト
+	 * @throws SwackException 独自エラー
+	 */
 	public List<User> getUserList(String MyUserId) throws SwackException {
 		String sql = "SELECT USERID ,USERNAME FROM USERS WHERE USERID <> ?;";
-
+		//招待用名前リストを作成
 		List<User> OtherUsers = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -134,13 +163,18 @@ public class UsersDAO extends BaseDAO {
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+		//招待用名前リストを返す
 		return OtherUsers;
 	}
 
-	//登録済みメールアドレスリスト
+	/**
+	 * 登録済みメールアドレスリスト
+	 * @return AllMailAddressList 登録済みメールアドレスリスト
+	 * @throws SwackException 独自エラー
+	 */
 	public List<User> getMailAddressList() throws SwackException {
 		String sql = "SELECT MAILADDRESS FROM USERS ;";
-
+		//登録済みメールアドレスリスト作成
 		List<User> AllMailAddressList = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -154,33 +188,44 @@ public class UsersDAO extends BaseDAO {
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+		//登録済みメールアドレスリストを返す
 		return AllMailAddressList;
 
 	}
 
-	//アカウント削除
+	/**
+	 * アカウント削除
+	 * @param userid ユーザID
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
+	 */
 	public int delete(String userid) throws SwackException {
-
-		int rs;
+		//結果用
+		int result;
 
 		String sql = "DELETE FROM USERS WHERE USERID = ?";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userid);
 
-			rs = pStmt.executeUpdate();
+			result = pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		return rs;
+		// 成功の場合1を返す
+		return result;
 	}
 
-	//既存ユーザ情報取得
+	/**
+	 * 既存ユーザ情報取得
+	 * @return AllUsers 既存ユーザ情報
+	 * @throws SwackException 独自エラー
+	 */
 	public List<User> getAllUserList() throws SwackException {
 		String sql = "SELECT USERID, MAILADDRESS, PASSWORD FROM USERS ;";
-
+		// 既存ユーザ情報リスト作成
 		List<User> AllUsers = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -196,13 +241,18 @@ public class UsersDAO extends BaseDAO {
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+		//既存ユーザ情報を返す
 		return AllUsers;
 	}
 
-	//ユーザ情報取得
+	/**
+	 * ユーザ情報取得
+	 * @return AllUsersInfo ユーザ情報
+	 * @throws SwackException 独自エラー
+	 */
 	public List<User> getUserinfoList() throws SwackException {
 		String sql = "SELECT USERID, USERNAME, LASTLOGIN_AT, LOCKED FROM USERS ;";
-
+		//ユーザ情報リスト作成
 		List<User> AllUsersInfo = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -219,13 +269,20 @@ public class UsersDAO extends BaseDAO {
 		} catch (SQLException e) {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
+		//ユーザ情報を返す
 		return AllUsersInfo;
 	}
 
-	//パスワード更新
+	/**
+	 * パスワード変更
+	 * @param password	パスワード
+	 * @param mailAddress メールアドレス
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
+	 */
 	public int updatePassword(String password, String mailAddress) throws SwackException {
-
-		int rs;
+		//結果用
+		int result;
 
 		String sql = "UPDATE USERS SET PASSWORD = ? WHERE MAILADDRESS = ?";
 		try (Connection conn = dataSource.getConnection()) {
@@ -233,73 +290,97 @@ public class UsersDAO extends BaseDAO {
 			pStmt.setString(1, password);
 			pStmt.setString(2, mailAddress);
 
-			rs = pStmt.executeUpdate();
+			result = pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		return rs;
+		// 成功の場合1を返す
+		return result;
 	}
 
-	//最終ログイン時間更新
+	/**
+	 * 最終ログイン時間更新
+	 * @param userId ユーザID
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
+	 */
 	public int updateLastLogin(String userId) throws SwackException {
-
-		int rs;
+		//結果用
+		int result;
 
 		String sql = "UPDATE USERS SET LASTLOGIN_AT = CURRENT_TIMESTAMP WHERE USERID = ?";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userId);
 
-			rs = pStmt.executeUpdate();
+			result = pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		return rs;
+		// 成功の場合1を返す
+		return result;
 	}
 
-	//アカウントロック設定
+	/**
+	 * アカウントロック設定
+	 * @param userId ユーザID
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
+	 */
 	public int updateLockedTrue(String userId) throws SwackException {
-
-		int rs;
+		//結果用
+		int result;
 
 		String sql = "UPDATE USERS SET LOCKED = TRUE WHERE USERID = ?";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userId);
 
-			rs = pStmt.executeUpdate();
+			result = pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		return rs;
+		// 成功の場合1を返す
+		return result;
 	}
 
-	//アカウントロック解除
+	/**
+	 * アカウントロック解除
+	 * @param userId ユーザID
+	 * @return result 成功の場合1を返す
+	 * @throws SwackException 独自エラー
+	 */
 	public int updateLockedFalse(String userId) throws SwackException {
-
-		int rs;
+		//結果用
+		int result;
 
 		String sql = "UPDATE USERS SET LOCKED = FALSE WHERE USERID = ?";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userId);
 
-			rs = pStmt.executeUpdate();
+			result = pStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		return rs;
+		// 成功の場合1を返す
+		return result;
 	}
 
-	//メールアドレスチェック
+	/**
+	 * メールアドレスチェック
+	 * @param mailAddress メールアドレス
+	 * @return user ユーザ情報
+	 * @throws SwackException 独自エラー
+	 */
 	public User mailAddressCheck(String mailAddress) throws SwackException {
 		String sql = "SELECT USERID, LOCKED FROM USERS WHERE MAILADDRESS = ?;";
 		User user = null;

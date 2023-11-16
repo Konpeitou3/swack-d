@@ -26,10 +26,10 @@ public class LoginModel {
 	}
 
 	/**
-	 * 
-	 * @param mailAddress
-	 * @return
-	 * @throws SwackException
+	 * メールアドレスチェック
+	 * @param mailAddress メールアドレス
+	 * @return user ユーザ情報
+	 * @throws SwackException 独自エラー
 	 */
 	public User mailAddressCheck(String mailAddress) throws SwackException {
 		UsersDAO usersDAO = new UsersDAO();
@@ -37,10 +37,10 @@ public class LoginModel {
 	}
 
 	/**
-	 * 
+	 * ログイン失敗履歴出力
 	 * @param userId
-	 * @return
-	 * @throws SwackException
+	 * @return getLastLoginList 指定されたユーザのログイン失敗履歴リスト
+	 * @throws SwackException 独自エラー
 	 */
 	public List<FailedLog> lastLoginCheck(String userId) throws SwackException {
 		FailedLogDAO failedLogDAO = new FailedLogDAO();

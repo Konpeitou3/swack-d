@@ -16,8 +16,8 @@ public class ChatModel {
 	 * 参加ルーム取得
 	 * @param roomId ルームID
 	 * @param userId ユーザID
-	 * @return
-	 * @throws SwackException
+	 * @return room 参加ルーム
+	 * @throws SwackException 独自エラー
 	 */
 	public Room getRoom(String roomId, String userId) throws SwackException {
 		return new ChatDAO().getRoom(roomId, userId);
@@ -26,8 +26,8 @@ public class ChatModel {
 	/**
 	 * ルーム一覧取得
 	 * @param userId ユーザID
-	 * @return
-	 * @throws SwackException
+	 * @return roomlist ルーム一覧
+	 * @throws SwackException 独自エラー
 	 */
 	public ArrayList<Room> getRoomList(String userId) throws SwackException {
 		return new ChatDAO().getRoomList(userId);
@@ -36,8 +36,8 @@ public class ChatModel {
 	/**
 	 * ダイレクトルーム一覧取得
 	 * @param userId ユーザID
-	 * @return
-	 * @throws SwackException
+	 * @return roomlist ダイレクトルーム一覧
+	 * @throws SwackException 独自エラー
 	 */
 	public ArrayList<Room> getDirectList(String userId) throws SwackException {
 		return new ChatDAO().getDirectList(userId);
@@ -46,19 +46,18 @@ public class ChatModel {
 	/**
 	 * チャット履歴取得
 	 * @param roomId ルームID
-	 * @return
-	 * @throws SwackException
+	 * @return chatLogList チャット履歴
+	 * @throws SwackException 独自エラー
 	 */
 	public List<ChatLog> getChatlogList(String roomId) throws SwackException {
 		return new ChatDAO().getChatlogList(roomId);
 	}
 
 	/**
-	 * 
+	 * チャット投稿
 	 * @param roomId ルームID
 	 * @param userId ユーザID
-	 * @param message メッセージ
-	 * @throws SwackException
+	 * @throws SwackException 独自エラー
 	 */
 	public void saveChatLog(String roomId, String userId, String message) throws SwackException {
 		new ChatDAO().saveChatlog(roomId, userId, message);
