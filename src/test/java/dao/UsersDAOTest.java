@@ -89,14 +89,14 @@ class UsersDAOTest {
 
 	@Test
 	void testmailAddressCheckSuccess() throws SwackException {
-		String user = usersDAO.mailAddressCheck("taro@swack.com");
+		User user = usersDAO.mailAddressCheck("taro@swack.com");
 		System.out.println("testmailAddressCheckSuccess():" + user);
 		assertNotNull(user);
 	}
 
 	@Test
 	void testmailAddressCheckFailure() throws SwackException {
-		String user = usersDAO.mailAddressCheck("taroswacktest@swack.com");
+		User user = usersDAO.mailAddressCheck("taroswacktest@swack.com");
 		assertNull(user);
 	}
 
