@@ -109,7 +109,7 @@ public class LoginServlet extends HttpServlet {
 						HttpSession session = request.getSession();
 						session.setAttribute("user", user2);
 						response.sendRedirect("MainServlet?roomId=R0000");
-						//TODO 最終ログイン更新
+						//最終ログイン更新
 						userModel.updateLastLogin(user2.getUserId());
 						return;
 					}
