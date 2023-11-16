@@ -51,7 +51,7 @@ public class DeleteUserServlet extends HttpServlet {
 		} catch (SwackException e) {
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("deleteuser.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/deleteuser.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

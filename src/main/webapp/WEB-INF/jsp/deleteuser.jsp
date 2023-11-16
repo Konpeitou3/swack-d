@@ -77,6 +77,6 @@ pageEncoding="UTF-8"%>
       crossorigin="anonymous"
     ></script>
 
-    <script src="js/joinmember.js"></script>
+    <script src="js/deleteuser.js"></script>
   </body>
 </html>
