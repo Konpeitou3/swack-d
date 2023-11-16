@@ -300,9 +300,11 @@ public class UsersDAO extends BaseDAO {
 	}
 
 	//メールアドレスチェック
-	public String mailAddressCheck(String mailAddress) throws SwackException {
-		String sql = "SELECT USERID FROM USERS WHERE MAILADDRESS = ?;";
+	public User mailAddressCheck(String mailAddress) throws SwackException {
+		String sql = "SELECT USERID, LOCKED FROM USERS WHERE MAILADDRESS = ?;";
+		User user = null;
 		String userId = null;
+		Boolean locked = false;
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, mailAddress);
@@ -310,11 +312,13 @@ public class UsersDAO extends BaseDAO {
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
 				userId = rs.getString("USERID");
+				locked = rs.getBoolean("LOCKED");
 			}
+			user = new User(userId, locked);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
-		return userId;
+		return user;
 	}
 }

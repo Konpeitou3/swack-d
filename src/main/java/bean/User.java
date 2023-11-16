@@ -65,6 +65,11 @@ public class User implements Serializable {
 		this.mailAddress = mailAddress;
 	}
 
+	public User(String userId, Boolean locked) {
+		this.userId = userId;
+		this.locked = locked;
+	}
+
 	public void OtherUsers(String userName) {
 		this.userName = userName;
 	}

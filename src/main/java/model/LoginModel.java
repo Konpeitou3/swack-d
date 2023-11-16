@@ -31,7 +31,7 @@ public class LoginModel {
 	 * @return
 	 * @throws SwackException
 	 */
-	public String mailAddressCheck(String mailAddress) throws SwackException {
+	public User mailAddressCheck(String mailAddress) throws SwackException {
 		UsersDAO usersDAO = new UsersDAO();
 		return usersDAO.mailAddressCheck(mailAddress);
 	}
