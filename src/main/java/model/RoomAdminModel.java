@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 import bean.Admin;
 import dao.RoomAdminDAO;
 import exception.SwackException;
@@ -36,10 +34,10 @@ public class RoomAdminModel {
 	 * @param userid ユーザID
 	 * @return 管理者権限情報
 	 */
-	public List<Admin> getRoomAdminList(String roomid, String userid) throws SwackException {
+	public Admin getRoomAdmin(String roomid, String userid) throws SwackException {
 		System.out.println(roomid);
 		System.out.println(userid);
-		return new RoomAdminDAO().getRoomAdminList();
+		return new RoomAdminDAO().getRoomAdmin(roomid, userid);
 	}
 
 }

@@ -152,11 +152,16 @@ public class RoomDAO extends BaseDAO {
 		return rs;
 	}
 
-	//参加ルーム一覧の作成
+	/**
+	 * 参加しているルーム一覧取得
+	 * @param userid ユーザID
+	 * @return OtherRoomList 参加しているルーム一覧
+	 * @throws SwackException 独自エラー
+	 */
 	public List<Room> getOtherRoomList(String userid) throws SwackException {
 		String sql = "SELECT DISTINCT ROOMNAME ,R.ROOMID FROM ROOMS R JOIN JOINROOM J ON R.ROOMID = J.ROOMID WHERE R.ROOMID NOT IN(SELECT J.ROOMID FROM JOINROOM J WHERE J.USERID=?) AND R.PRIVATED='FALSE';";
 
-		List<Room> getOtherRoomList = new ArrayList<Room>();
+		List<Room> OtherRoomList = new ArrayList<Room>();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userid);
@@ -166,11 +171,11 @@ public class RoomDAO extends BaseDAO {
 				String roomId = rs.getString("ROOMID");
 				String roomName = rs.getString("ROOMNAME");
 				Room room = new Room(roomId, roomName); // Userオブジェクトを作成
-				getOtherRoomList.add(room);
+				OtherRoomList.add(room);
 			}
 		} catch (SQLException e) {
 		}
-		return getOtherRoomList;
+		return OtherRoomList;
 	}
 
 }
