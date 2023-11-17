@@ -18,14 +18,14 @@ import model.UserModel;
 /**
  * Servlet implementation class AccountUnrock
  */
-@WebServlet("/AccountUnrock")
-public class AccountUnrock extends HttpServlet {
+@WebServlet("/AccountUnrockServlet")
+public class AccountUnrockServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AccountUnrock() {
+	public AccountUnrockServlet() {
 		super();
 	}
 

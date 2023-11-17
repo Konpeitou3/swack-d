@@ -106,6 +106,10 @@
 						<img src="images/Delete-Account.svg" class="reload pointer delete" id="Adminbutton" disabled/>
 						<a hidden="${Admin }" id="Admin"></a>
 					</a>
+					<a href="AccountUnrockServlet?userId=${user.userId}">
+						<img src="images/Delete-Account.svg" class="reload pointer delete" id="Adminbutton" disabled/>
+						<a hidden="${Admin }" id="Admin"></a>
+					</a>
 				</h2>
 				<hr>
 				
