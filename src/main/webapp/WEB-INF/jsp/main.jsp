@@ -54,8 +54,11 @@
 
 					<!-- ルームリスト -->
 					<c:forEach var="room" items="${roomList}">
-						<a class="list-name" href="MainServlet?roomId=${room.roomId}">#
-							${room.roomName}</a>
+						<a class="list-name" href="MainServlet?roomId=${room.roomId}">
+							<c:if test="${room.privated}">&#128274;</c:if> 
+							<c:if test="${!room.privated}">#</c:if> 
+							${room.roomName}
+						</a>
 						<br>
 					</c:forEach>
 
@@ -71,7 +74,9 @@
 
 					<!-- ダイレクトルームリスト -->
 					<c:forEach var="direct" items="${directList}">
-						<a class="list-name" href="MainServlet?roomId=${direct.roomId}">#
+						<a class="list-name" href="MainServlet?roomId=${direct.roomId}">
+							<c:if test="${room.privated}">&#128274;</c:if> 
+							<c:if test="${!room.privated}">#</c:if> 
 							${direct.roomName}</a>
 						<br>
 					</c:forEach>
@@ -96,10 +101,12 @@
 				</c:if>
 
 				<h2>
-				<div class="buttonimage">
-					<!-- ルーム名 -->
-					${room.roomName}(${room.memberCount})
-					<!-- 再読み込み -->
+					<div class="buttonimage">
+						<!-- ルーム名 -->
+						${room.roomName}(${room.memberCount})
+						<!-- 再読み込み -->
+						<input type="image" src="images/reload.svg"
+							onclick="doReload()>
 					<input type="hidden" id="Admin" value="${Admin}">
 					<!-- 強制退会ボタン -->
 					<a href="DeleteUserServlet"><input type="image" src="images/Delete-Account.svg" class="delete" id="Adminbutton" disabled/></a>
@@ -159,18 +166,18 @@
 						<!-- 投稿内容 -->
 						<div class="form-wrap">
 							<!-- 投稿メッセージ -->
-							<!-- autocomplete="off" 未入力時 送信ボタンが押せないようにしている -->
-							<input type="text" name="message" id=message autocomplete="off">
-							<!-- 投稿送信 -->
-							<input type="submit" value="送信" id="send">
-						</div>
+							<!-- autocomplete="
+							off" 未入力時送信ボタンが押せないようにしている --> <input type="text"
+							name="message" id=message autocomplete="off">
+						<!-- 投稿送信 -->
+						<input type="submit" value="送信" id="send">
+					</div>
 					</form>
-
-				</div>
 			</div>
-			<!--contents -->
-		</section>
-		<!--main -->
+	</div>
+	<!--contents -->
+	</section>
+	<!--main -->
 	</div>
 	<!-- container -->
 

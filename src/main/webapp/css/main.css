@@ -140,7 +140,7 @@
 .delete {
 	width: 25px;
 	height: 25px;
-	padding: 3px;
+/*	padding: 3px;*/
 	background-color: #efefef;
 	border: 0.5px black solid;
 	border-radius: 5px;
@@ -150,8 +150,9 @@
 	cursor: pointer;
 }
 
-.buttonimage a button {
+.buttonimage input {
 	 padding: 0;
+	 margin: auto;
   	 border: none;
    	 background: transparent;
 }
