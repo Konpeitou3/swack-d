@@ -60,6 +60,7 @@ public class AccountUnrockServlet extends HttpServlet {
 
 		//ユーザーIDの取得
 		String userId = request.getParameter("userId");
+		System.out.println(userId);
 		UserModel userModel = new UserModel();
 		try {
 			userModel.updateLockedFalse(userId);

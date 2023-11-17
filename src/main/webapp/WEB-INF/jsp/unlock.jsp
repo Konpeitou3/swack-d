@@ -34,7 +34,7 @@ pageEncoding="UTF-8"%>
     <div class="container form-container">
       <div class="row">
         <div class="col-md-12 member-form">
-          <h3>他のユーザを #ここにルーム名 に招待する</h3>
+          <h3>アカウントロック解除</h3>
 
           <form action="JoinMemberServlet" method="post">
             <input type="hidden" name="roomId" value="${roomId}" />
@@ -44,14 +44,14 @@ pageEncoding="UTF-8"%>
               <span class="not-found-user"> ※ロックがかかっているユーザーがいません</span>
               </c:if>
               <select id="users" class="form-select" name="selectUser" multiple>
-              <c:forEach var="user" items="${usersList}">
-  				<option value="${user.userId}">${user.userName}</option>            
+              <c:forEach var="user" items="${lockeduserlist}">
+  				<option value="${user.userName}">${user.userId}</option>            
               </c:forEach>
               </select>
               <span class="users-note"
                 >ロックを解除するアカウントを選んでください。</span
               >
-            </div>
+            </div>S
 
             <div class="member-form-btn">
               <a href="MainServlet?roomId=${roomId}"

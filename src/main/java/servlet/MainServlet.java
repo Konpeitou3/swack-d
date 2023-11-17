@@ -44,7 +44,7 @@ public class MainServlet extends LoginCheckServlet {
 		boolean Admin = false;
 		boolean RoomAdmin = false;
 
-		if (user.getUserId() == "U0000") {
+		if (user.getUserId().equals("U0000")) {
 			Admin = true;
 		}
 
