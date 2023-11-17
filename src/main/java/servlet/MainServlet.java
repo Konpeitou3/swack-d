@@ -42,6 +42,11 @@ public class MainServlet extends LoginCheckServlet {
 		RoomAdminModel roomAdminModel = new RoomAdminModel();
 		//管理者であればtrueを返す　初期値false
 		boolean Admin = false;
+		boolean RoomAdmin = false;
+
+		if (user.getUserId() == "U0000") {
+			Admin = true;
+		}
 
 		try {
 			List<Admin> RoomAdminList = roomAdminModel.getRoomAdminList();
@@ -61,7 +66,7 @@ public class MainServlet extends LoginCheckServlet {
 			for (Admin admin : RoomAdminList) {
 				if (userId.equals(admin.getUserId())) {
 					request.setAttribute("RoomAdminList", RoomAdminList);
-					Admin = true;
+					RoomAdmin = true;
 				}
 			}
 
@@ -71,6 +76,7 @@ public class MainServlet extends LoginCheckServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 			return;
 		}
+		request.setAttribute("RoomAdmin", RoomAdmin);
 		request.setAttribute("Admin", Admin);
 		request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
 

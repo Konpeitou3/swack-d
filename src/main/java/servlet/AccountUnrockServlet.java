@@ -39,6 +39,7 @@ public class AccountUnrockServlet extends HttpServlet {
 		UserModel userModel = new UserModel();
 		try {
 			List<User> lockeduserlist = userModel.lockedUserList();
+			System.out.println(lockeduserlist);
 			request.setAttribute("lockeduserlist", lockeduserlist);
 		} catch (SwackException e) {
 			e.printStackTrace();
