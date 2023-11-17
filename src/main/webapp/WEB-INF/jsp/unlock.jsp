@@ -27,7 +27,7 @@ pageEncoding="UTF-8"%>
     
 
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/ .css" />//TODO
+    <link rel="stylesheet" href="css/ .css" />
   </head>
 
   <body>
@@ -36,14 +36,14 @@ pageEncoding="UTF-8"%>
         <div class="col-md-12 member-form">
           <h3>アカウントロック解除</h3>
 
-          <form action="JoinMemberServlet" method="post">
+          <form action="AccountUnrockServlet" method="post" name="userId" value="${userId}">
             <input type="hidden" name="roomId" value="${roomId}" />
             <div class="form-group">
               <label class="control-label">招待の送信先:(任意) </label>
               <c:if test="${empty usersList}">
               <span class="not-found-user"> ※ロックがかかっているユーザーがいません</span>
               </c:if>
-              <select id="users" class="form-select" name="selectUser" multiple>
+              <select id="users" class="form-select" name="userId" multiple>
               <c:forEach var="user" items="${lockeduserlist}">
   				<option value="${user.userName}">${user.userId}</option>            
               </c:forEach>
