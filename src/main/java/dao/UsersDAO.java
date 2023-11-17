@@ -108,7 +108,7 @@ public class UsersDAO extends BaseDAO {
 		//結果用
 		int result;
 
-		String sql = "INSERT INTO users (userid, username,mailaddress, password) VALUES(?,?,?,?);";
+		String sql = "INSERT INTO users (userid, username,mailaddress, password, lastlogin_at, locked) VALUES(?,?,?,?,CURRENT_TIMESTAMP,false);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userid);
