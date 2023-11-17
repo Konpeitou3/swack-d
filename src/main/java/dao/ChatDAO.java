@@ -230,34 +230,39 @@ public class ChatDAO extends BaseDAO {
 		}
 	}
 
+	//	/**
+	//	 * スターメッセージ一覧取得
+	//	 * @return starMessageList スターメッセージ一覧
+	//	 * @throws SwackException 独自エラー
+	//	 */
 	//	public ArrayList<ChatLog> starMessageList() throws SwackException {
 	//		String sql = "SELECT * FROM CHATLOGT WHERE STARFLG= TRUE";
-	//		
-	//		//ダイレクトルーム一覧を作成
-	//				ArrayList<ChatLog> starMessageList = new ArrayList<ChatLog>();
 	//
-	//				try (Connection conn = dataSource.getConnection()) {
-	//					PreparedStatement pst = conn.prepareStatement(sql);
+	//		//スターメッセージ一覧のリストを作成
+	//		ArrayList<ChatLog> starMessageList = new ArrayList<ChatLog>();
 	//
-	//					ResultSet rs = pst.executeQuery();
-	//					while (rs.next()) {
-	//						int chatLogId = rs.getInt("CHATLOGID");
-	//						String roomId = rs.getString("roomId");
-	//						String userId = rs.getString("USERID");
-	//						String userName = rs.getString("USERNAME");
-	//						String message = rs.getString("MESSAGE");
-	//						Timestamp createdAt = rs.getTimestamp("CREATED_AT");
-	//						Boolean starFlg = rs.getBoolean("STARFLG");
+	//		try (Connection conn = dataSource.getConnection()) {
+	//			PreparedStatement pst = conn.prepareStatement(sql);
 	//
-	//						ChatLog chatLog = new ChatLog(chatLogId, roomId, userId, userName, message, createdAt, starFlg);
-	//						starMessageList.add(chatLog);
-	//					}
+	//			ResultSet rs = pst.executeQuery();
+	//			while (rs.next()) {
+	//				int chatLogId = rs.getInt("CHATLOGID");
+	//				String roomId = rs.getString("roomId");
+	//				String userId = rs.getString("USERID");
+	//				String userName = rs.getString("USERNAME");
+	//				String message = rs.getString("MESSAGE");
+	//				Timestamp createdAt = rs.getTimestamp("CREATED_AT");
+	//				Boolean starFlg = rs.getBoolean("STARFLG");
 	//
-	//				} catch (Exception e) {
-	//					throw new SwackException(ERR_DB_PROCESS, e);
-	//				}
-	//				//ダイレクトルーム一覧を返す
-	//				return starMessageList;
+	//				ChatLog chatLog = new ChatLog(chatLogId, roomId, userId, userName, message, createdAt, starFlg);
+	//				starMessageList.add(chatLog);
+	//			}
+	//
+	//		} catch (Exception e) {
+	//			throw new SwackException(ERR_DB_PROCESS, e);
+	//		}
+	//		//スターメッセージ一覧を返す
+	//		return starMessageList;
 	//
 	//	}
 

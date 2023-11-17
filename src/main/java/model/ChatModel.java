@@ -81,4 +81,14 @@ public class ChatModel {
 	public void updateChatlog(String massage, String chatlogId) throws SwackException {
 		new ChatDAO().updateChatlog(massage, chatlogId);
 	}
+
+	//	/**
+	//	 * スターメッセージ一覧取得
+	//	 * @return starMessageList スターメッセージ一覧
+	//	 * @throws SwackException 独自エラー
+	//	 */
+	//	public ArrayList<ChatLog> starMessageList() throws SwackException {
+	//		return new ChatDAO().starMessageList();;
+	//
+	//	}
 }
