@@ -410,7 +410,7 @@ public class UsersDAO extends BaseDAO {
 	 * @throws SwackException 独自エラー
 	 */
 	public List<User> lockedUserList() throws SwackException {
-		String sql = "SELECT UESRNAME, USERID FROM USERS WHERE LOCKED = TRUE;";
+		String sql = "SELECT USERNAME, USERID FROM USERS WHERE LOCKED = TRUE;";
 		//アカウントロックされているユーザのリスト作成
 		List<User> lockedUserList = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
