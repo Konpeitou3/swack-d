@@ -68,7 +68,7 @@ public class ChatModel {
 	 * @param chatlogId チャット履歴ID
 	 * @throws SwackException 独自エラー
 	 */
-	public void deleteChatlog(String chatlogId) throws SwackException {
+	public void deleteChatlog(int chatlogId) throws SwackException {
 		new ChatDAO().deleteChatlog(chatlogId);
 	}
 
