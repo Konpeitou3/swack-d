@@ -31,7 +31,9 @@ public class DeleteMessageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int chatlogId = 1;//TODO chatlogidをもらう
+		String Id = request.getParameter("chatLogId");
+		int chatlogId = Integer.parseInt(Id);
+		//TODO chatlogidをもらう
 		try {
 			new ChatModel().deleteChatlog(chatlogId);
 		} catch (SwackException e) {
