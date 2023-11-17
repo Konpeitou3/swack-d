@@ -192,4 +192,42 @@ public class ChatDAO extends BaseDAO {
 		}
 	}
 
+	/**
+	 * チャット削除
+	 * @param chatlogId チャット履歴ID
+	 * @throws SwackException 独自エラー
+	 */
+	public void deleteChatlog(String chatlogId) throws SwackException {
+		String sql = "DELETE FROM CHATLOG WHERE CHATLOGID =?";
+
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, chatlogId);
+
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+	}
+
+	/**
+	 * メッセージ編集
+	 * @param massage メッセージ
+	 * @param chatlogId チャット履歴ID
+	 * @throws SwackException 独自エラー
+	 */
+	public void updateChatlog(String massage, String chatlogId) throws SwackException {
+		String sql = "UPDATE CHATLOG SET MESSAGE=?, CREATED_AT= CURRENT_TIMESTAMP WHERE CHATLOGID= ?";
+
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, massage);
+			pStmt.setString(2, chatlogId);
+
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+	}
+
 }

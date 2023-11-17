@@ -62,4 +62,23 @@ public class ChatModel {
 	public void saveChatLog(String roomId, String userId, String message) throws SwackException {
 		new ChatDAO().saveChatlog(roomId, userId, message);
 	}
+
+	/**
+	 * チャット削除
+	 * @param chatlogId チャット履歴ID
+	 * @throws SwackException 独自エラー
+	 */
+	public void deleteChatlog(String chatlogId) throws SwackException {
+		new ChatDAO().deleteChatlog(chatlogId);
+	}
+
+	/**
+	 * メッセージ編集
+	 * @param massage メッセージ
+	 * @param chatlogId チャット履歴ID
+	 * @throws SwackException 独自エラー
+	 */
+	public void updateChatlog(String massage, String chatlogId) throws SwackException {
+		new ChatDAO().updateChatlog(massage, chatlogId);
+	}
 }
