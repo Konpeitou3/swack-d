@@ -149,3 +149,9 @@
 .pointer {
 	cursor: pointer;
 }
+
+.buttonimage a button {
+	 padding: 0;
+  	 border: none;
+   	 background: transparent;
+}

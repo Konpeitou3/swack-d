@@ -7,15 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const elInputTypeText = document.querySelector("input[type=text]");
   const elMessageForm = document.getElementById("messageForm");
   const elLogArea = document.getElementById("logArea");
-  const Admin = document.getElementById("Admin");
+  const Admin = document.getElementById("Admin").value;
   const button = document.getElementById("Adminbutton");
-
-	if(Admin == false){
+  
+  console.log(Admin);
+	if(Admin == 'false'){
 		console.log('true');
-		button.disabled = false;
+		button.disabled = true;
 	}else{
 		console.log('false');
-		button.disabled = true;
+		button.disabled = false;
 	}
   // ログ表示部の最下部へ(110はheader+footerのheight)
   elLogArea.scrollTop = elLogArea.scrollHeight + 110;

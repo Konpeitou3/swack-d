@@ -104,10 +104,10 @@
 					<!-- 管理者用ボタン -->
 					<a href="DeleteUserServlet?roomId=${room.roomId}"> <img
 						src="images/Delete-Account.svg" class="reload pointer delete"
-						id="Adminbutton" disabled /> <a hidden="${Admin }" id="Admin"></a>
+						id="Adminbutton" disabled /> <input type="hidden" id="Admin" value="${Admin}">
 					</a> <a href="AccountUnrockServlet"> <img
 						src="images/Delete-Account.svg" class="reload pointer delete"
-						id="Adminbutton" disabled /> <a hidden="${Admin }" id="Admin"></a>
+						id="Adminbutton" disabled /> <input type="hidden" id="Admin" value="${Admin}">
 					</a>
 				</h2>
 				<hr>
@@ -141,7 +141,7 @@
 									${chatLog.userName}
 									<!-- 投稿時刻 -->
 									<span class="log-time">[${chatLog.createdAt}]</span>
-									<a class="btn btn-outline-danger" href="DeleteMessageServlet" role="button">×</a>
+									<a class="btn btn-outline-danger" href="DeleteMessageServlet?chatLogId=${chatLog.chatLogId}" role="button">×</a>
 								</p>
 								<!-- 投稿内容 -->
 								<p>${chatLog.message}</p>
