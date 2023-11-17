@@ -1,12 +1,19 @@
 package servlet;
 
+import static parameter.Messages.*;
+
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bean.User;
+import exception.SwackException;
+import model.UserModel;
 
 /**
  * Servlet implementation class AccountUnrock
@@ -29,6 +36,19 @@ public class AccountUnrock extends HttpServlet {
 			throws ServletException, IOException {
 
 		//TODO アカウントロック中のリストをJSPに渡す
+		UserModel userModel = new UserModel();
+		try {
+			List<User> lockeduserlist = userModel.lockedUserList();
+			request.setAttribute("lockeduserlist", lockeduserlist);
+		} catch (SwackException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMsg", ERR_SYSTEM);
+			request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
+			return;
+		}
+		request.getRequestDispatcher("/WEB-INF/jsp/unlock.jsp").forward(request, response);
+		return;
+
 	}
 
 	/**
@@ -36,7 +56,20 @@ public class AccountUnrock extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
+
+		//ユーザーIDの取得
+		String userId = request.getParameter("userId");
+		UserModel userModel = new UserModel();
+		try {
+			userModel.updateLockedFalse(userId);
+		} catch (SwackException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMsg", ERR_SYSTEM);
+			request.getRequestDispatcher("/WEB-INF/jsp/unlock.jsp").forward(request, response);
+			return;
+		}
+
+		request.getRequestDispatcher("/WEB-INF/jsp/unlock.jsp").forward(request, response);
 	}
 
 }
