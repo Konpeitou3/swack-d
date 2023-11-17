@@ -17,8 +17,13 @@ public class Room implements Serializable {
 	private int memberCount;
 	/** ダイレクトチャットか */
 	private boolean directed;
+	/** プライベートチャットか */
+	private boolean privated;
 
-	public Room() {
+	public Room(String roomId, String roomName, Boolean privated) {
+		this.roomId = roomId;
+		this.roomName = roomName;
+		this.privated = privated;
 	}
 
 	public Room(String roomId, String roomName, int memberCount, boolean directed) {
@@ -51,6 +56,10 @@ public class Room implements Serializable {
 
 	public boolean isDirected() {
 		return directed;
+	}
+
+	public boolean isPrivated() {
+		return privated;
 	}
 
 }

@@ -111,7 +111,7 @@ public class ChatDAO extends BaseDAO {
 	 * @throws SwackException 独自エラー
 	 */
 	public ArrayList<Room> getRoomList(String userId) throws SwackException {
-		String sql = "SELECT R.ROOMID, R.ROOMNAME FROM JOINROOM J JOIN ROOMS R ON J.ROOMID = R.ROOMID "
+		String sql = "SELECT R.ROOMID, R.ROOMNAME, R.PRIVATED FROM JOINROOM J JOIN ROOMS R ON J.ROOMID = R.ROOMID "
 				+ "WHERE J.USERID = ? AND R.DIRECTED = false ORDER BY R.ROOMNAME ASC";
 		//ルーム一覧リスト作成
 		ArrayList<Room> roomlist = new ArrayList<Room>();
@@ -124,7 +124,8 @@ public class ChatDAO extends BaseDAO {
 			while (rs.next()) {
 				String roomId = rs.getString("ROOMID");
 				String roomName = rs.getString("ROOMNAME");
-				roomlist.add(new Room(roomId, roomName));
+				Boolean privated = rs.getBoolean("PRIVATED");
+				roomlist.add(new Room(roomId, roomName, privated));
 			}
 
 		} catch (Exception e) {

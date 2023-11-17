@@ -145,7 +145,7 @@ public class UsersDAO extends BaseDAO {
 	 * @throws SwackException 独自エラー
 	 */
 	public List<User> getUserList(String MyUserId) throws SwackException {
-		String sql = "SELECT USERID ,USERNAME FROM USERS WHERE USERID <> ?;";
+		String sql = "SELECT USERID ,USERNAME FROM USERS WHERE USERID <> ? AND USERID <> 'U0000';";
 		//招待用名前リストを作成
 		List<User> OtherUsers = new ArrayList<User>();
 		try (Connection conn = dataSource.getConnection()) {
