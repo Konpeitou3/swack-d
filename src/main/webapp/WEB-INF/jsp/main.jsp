@@ -96,19 +96,18 @@
 				</c:if>
 
 				<h2>
+				<div class="buttonimage">
 					<!-- ルーム名 -->
 					${room.roomName}(${room.memberCount})
 					<!-- 再読み込み -->
-					<img src="images/reload.svg" class="reload pointer"
-						onclick="doReload();" />
-					<!-- 管理者用ボタン -->
-					<a href="DeleteUserServlet?roomId=${room.roomId}"> <img
-						src="images/Delete-Account.svg" class="reload pointer delete"
-						id="Adminbutton" disabled /> <input type="hidden" id="Admin" value="${Admin}">
-					</a> <a href="AccountUnrockServlet"> <img
-						src="images/Delete-Account.svg" class="reload pointer delete"
-						id="Adminbutton" disabled /> <input type="hidden" id="Admin" value="${Admin}">
-					</a>
+					<input type="hidden" id="Admin" value="${Admin}">
+					<!-- 強制退会ボタン -->
+					<a href="DeleteUserServlet"><input type="image" src="images/Delete-Account.svg" class="delete" id="Adminbutton" disabled/></a>
+					<!-- アカウントロック解除ボタン -->
+					<c:if test="${Admin }">
+					<a href="AccountUnrockServlet"><input type="image" src="images/Delete-Account.svg" class="delete" id="AccountUnlockbutton"/></a>
+					</c:if>
+					</div>
 				</h2>
 				<hr>
 
