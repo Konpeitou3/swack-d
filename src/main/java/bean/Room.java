@@ -20,12 +20,25 @@ public class Room implements Serializable {
 	/** プライベートチャットか */
 	private boolean privated;
 
+	/**
+	 * リファクタリング
+	 * @param roomId ルームID
+	 * @param roomName ルーム名
+	 * @param privated プライベートチャットか
+	 */
 	public Room(String roomId, String roomName, Boolean privated) {
 		this.roomId = roomId;
 		this.roomName = roomName;
 		this.privated = privated;
 	}
 
+	/**
+	 * リファクタリング
+	 * @param roomId ルームID
+	 * @param roomName ルーム名
+	 * @param memberCount 参加メンバー数
+	 * @param directed ダイレクトチャットか
+	 */
 	public Room(String roomId, String roomName, int memberCount, boolean directed) {
 		this.roomId = roomId;
 		this.roomName = roomName;
@@ -33,6 +46,10 @@ public class Room implements Serializable {
 		this.directed = directed;
 	}
 
+	/**
+	 * リファクタリング
+	 * @param roomName ルーム名
+	 */
 	public Room(String roomName) {
 		this.roomName = roomName;
 	}
@@ -42,22 +59,27 @@ public class Room implements Serializable {
 		this(roomId, roomName, 0, false);
 	}
 
+	/** ゲッター */
 	public String getRoomId() {
 		return roomId;
 	}
 
+	/** ゲッター */
 	public String getRoomName() {
 		return roomName;
 	}
 
+	/** ゲッター */
 	public int getMemberCount() {
 		return memberCount;
 	}
 
+	/** ゲッター */
 	public boolean isDirected() {
 		return directed;
 	}
 
+	/** ゲッター */
 	public boolean isPrivated() {
 		return privated;
 	}

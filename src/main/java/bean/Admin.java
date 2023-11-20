@@ -17,28 +17,38 @@ public class Admin implements Serializable {
 		// for JSP
 	}
 
+	/**
+	 * コンストラクタ
+	 * @param roomId ルームID
+	 * @param userId ユーザID
+	 */
 	public Admin(String roomId, String userId) {
 		this.roomId = roomId;
 		this.userId = userId;
 	}
 
+	// 確認出力用
 	@Override
 	public String toString() {
 		return "Admin [ roomId=" + roomId + ", userId" + userId + "]";
 	}
 
+	/** ゲッター */
 	public String getRoomId() {
 		return roomId;
 	}
 
+	/** セッター */
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
 
+	/** ゲッター */
 	public String getUserId() {
 		return userId;
 	}
 
+	/** セッター */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

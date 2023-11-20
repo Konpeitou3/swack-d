@@ -17,15 +17,27 @@ public class OtherUsers implements Serializable {
 		// for JSP
 	}
 
+	/**
+	 * リファクタリング
+	 * @param userId ユーザID
+	 * @param userName ユーザ名
+	 */
 	public OtherUsers(String userId, String userName) {
 		this.userId = userId;
 		this.userName = userName;
 	}
 
+	/** ゲッター */
+	public String getUserId() {
+		return userId;
+	}
+
+	/** ゲッター */
 	public String getUserName() {
 		return userName;
 	}
 
+	// 結果出力用
 	@Override
 	public String toString() {
 		return "User [ userName=" + userName + "]";

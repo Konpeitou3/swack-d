@@ -26,6 +26,15 @@ public class ChatLog implements Serializable {
 		// for JSP
 	}
 
+	/**
+	 * コンストラクタ
+	 * @param chatLogId チャットログID
+	 * @param roomId ルームID
+	 * @param userId ユーザID
+	 * @param userName ユーザ名
+	 * @param message メッセージ
+	 * @param createdAt 投稿日時
+	 */
 	public ChatLog(int chatLogId, String roomId, String userId, String userName, String message, Timestamp createdAt) {
 		this.chatLogId = chatLogId;
 		this.roomId = roomId;
@@ -35,30 +44,37 @@ public class ChatLog implements Serializable {
 		this.createdAt = createdAt;
 	}
 
+	/** ゲッター */
 	public int getChatLogId() {
 		return chatLogId;
 	}
 
+	/** ゲッター */
 	public String getRoomId() {
 		return roomId;
 	}
 
+	/** ゲッター */
 	public String getUserId() {
 		return userId;
 	}
 
+	/** ゲッター */
 	public String getUserName() {
 		return userName;
 	}
 
+	/** ゲッター */
 	public String getMessage() {
 		return message;
 	}
 
+	/** ゲッター */
 	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
+	// 結果出力用
 	@Override
 	public String toString() {
 		return "ChatLog [chatLogId=" + chatLogId + ", roomId=" + roomId + ", userId=" + userId + ", userName="
