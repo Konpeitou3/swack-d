@@ -12,10 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
   console.log(Admin);
 	if(Admin == 'false'){
-		console.log('true');
 		button.disabled = true;
 	}else{
-		console.log('false');
 		button.disabled = false;
 	}
   // ログ表示部の最下部へ(110はheader+footerのheight)

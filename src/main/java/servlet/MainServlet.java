@@ -44,8 +44,6 @@ public class MainServlet extends LoginCheckServlet {
 		boolean Admin = false;
 		boolean RoomAdmin = false;
 
-		System.out.println(Admin);
-
 		if (user.getUserId().equals("U0000")) {
 			Admin = true;
 		}
@@ -79,7 +77,6 @@ public class MainServlet extends LoginCheckServlet {
 			return;
 		}
 		request.setAttribute("RoomAdmin", RoomAdmin);
-		System.out.println(Admin);
 		request.setAttribute("Admin", Admin);
 		request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
 

@@ -101,11 +101,10 @@
 				</c:if>
 
 				<h2>
-					<div class="buttonimage">
 						<!-- ルーム名 -->
 						${room.roomName}(${room.memberCount})
 						<!-- 再読み込み -->
-						<input type="image" src="images/reload.svg" onclick="doReload()">
+						<input type="image" src="images/reload.svg" class="reload" onclick="doReload()">
 					<input type="hidden" id="Admin" value="${Admin}">
 					<!-- 強制退会ボタン -->
 					<a href="DeleteUserServlet"><input type="image" src="images/Delete-Account.svg" class="delete" id="Adminbutton" disabled/></a>
@@ -113,7 +112,6 @@
 					<c:if test="${Admin }">
 					<a href="AccountUnrockServlet"><input type="image" src="images/Delete-Account.svg" class="delete" id="AccountUnlockbutton"/></a>
 					</c:if>
-					</div>
 				</h2>
 				<hr>
 
