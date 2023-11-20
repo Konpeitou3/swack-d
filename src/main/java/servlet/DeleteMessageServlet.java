@@ -31,15 +31,19 @@ public class DeleteMessageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		//チャットログIDを画面から受け取る
 		String Id = request.getParameter("chatLogId");
 		int chatlogId = Integer.parseInt(Id);
-		//TODO chatlogidをもらう
+
 		try {
+			//コメントを削除する
 			new ChatModel().deleteChatlog(chatlogId);
+
 		} catch (SwackException e) {
 			e.printStackTrace();
 		}
-		// signup.jspに遷移
+		// Main.jspに遷移
 		request.getRequestDispatcher("MainServlet").forward(request, response);
 		return;
 	}

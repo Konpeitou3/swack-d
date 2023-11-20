@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import bean.User;
 import exception.SwackException;
 import model.CreateRoomModel;
+import model.JoinRoomModel;
 
 /**
  * Servlet implementation class CreateRoomServlet
@@ -70,6 +71,7 @@ public class CreateRoomServlet extends HttpServlet {
 
 		// 値受け取り（招待先）
 		String[] selectUser = request.getParameterValues("selectUser");
+		System.out.println(selectUser);
 
 		//値受け取り（ユーザーID）
 		HttpSession session = request.getSession();
@@ -104,6 +106,12 @@ public class CreateRoomServlet extends HttpServlet {
 			} else {
 				//request.setAttribute("succsessMsg", CREATE_ROOM_SUCCESS);
 				//GET処理にリダイレクト
+
+				//TODO while selectUser分回す
+				for (String selectuser : selectUser) {
+					new JoinRoomModel().joinRoom(roomId, selectuser);
+				}
+				//TODO joinRoomModel().joinRoom(roomid,userid)を実行する
 				response.sendRedirect("MainServlet?roomId=" + roomId);
 				return;
 			}

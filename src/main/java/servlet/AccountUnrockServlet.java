@@ -35,18 +35,27 @@ public class AccountUnrockServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//TODO アカウントロック中のリストをJSPに渡す
+		// インスタンス生成
 		UserModel userModel = new UserModel();
+
 		try {
+			// アカウントロックされているユーザーを受け取る
 			List<User> lockeduserlist = userModel.lockedUserList();
-			System.out.println(lockeduserlist);
+
+			// アカウントロック中のリストをJSPに渡す
 			request.setAttribute("lockeduserlist", lockeduserlist);
+
 		} catch (SwackException e) {
 			e.printStackTrace();
+
+			//システムエラー表示
 			request.setAttribute("errorMsg", ERR_SYSTEM);
+
+			//メイン画面に遷移
 			request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
 			return;
 		}
+		//リストを受け取れた場合、アカウントロック解除画面に遷移
 		request.getRequestDispatcher("/WEB-INF/jsp/unlock.jsp").forward(request, response);
 		return;
 
@@ -60,17 +69,25 @@ public class AccountUnrockServlet extends HttpServlet {
 
 		//ユーザーIDの取得
 		String userId = request.getParameter("userId");
-		System.out.println(userId);
+
+		//インスタンス生成
 		UserModel userModel = new UserModel();
+
 		try {
+			// アカウントロックを解除する
 			userModel.updateLockedFalse(userId);
 		} catch (SwackException e) {
 			e.printStackTrace();
+
+			// システムエラー表示
 			request.setAttribute("errorMsg", ERR_SYSTEM);
+
+			// アカウントロック画面表示
 			request.getRequestDispatcher("/WEB-INF/jsp/unlock.jsp").forward(request, response);
 			return;
 		}
 
+		// アカウントロック画面表示
 		request.getRequestDispatcher("/WEB-INF/jsp/unlock.jsp").forward(request, response);
 	}
 
