@@ -1,5 +1,7 @@
 package servlet;
 
+import static parameter.Messages.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -37,7 +39,6 @@ public class DeleteUserServlet extends HttpServlet {
 		//ルームIDをセッションに保存
 		HttpSession session = request.getSession();
 		session.setAttribute("roomId", roomId);
-		User user = (User) session.getAttribute("user");
 
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
 
@@ -46,40 +47,43 @@ public class DeleteUserServlet extends HttpServlet {
 
 			// アドミン以外のユーザーIDのリストをJSPに値を渡す
 			request.setAttribute("notAdminUserList", notAdminUserList);
-			System.out.println(notAdminUserList);
 
 		} catch (SwackException e) {
 			e.printStackTrace();
 		}
+		//ルーム退会画面に遷移
 		request.getRequestDispatcher("/WEB-INF/jsp/deleteuser.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 画面から取得
+		// 画面からルーム退会させるユーザーを取得
 		String[] selectUser = request.getParameterValues("selectUser");
 
 		//セッションからルームIDを取得
 		HttpSession session = request.getSession();
 		String roomId = (String) session.getAttribute("roomId");
 
-		//選択された人数分Incertを実行
+		//選択された人数分ルーム退会を実行
 		for (String userId : selectUser) {
 			UserModel userModel = new UserModel();
 			int result;
 			try {
 				result = userModel.delete(userId);
 				if (result != 1) {
-					System.out.println("エラーが発生");
+					request.setAttribute("errorMsg", ERR_SYSTEM);
+					request.getRequestDispatcher("/WEB-INF/jsp/deleteuser.jsp").forward(request, response);
 					return;
 				}
 			} catch (SwackException e) {
-				// 自動生成された catch ブロック
 				e.printStackTrace();
+				request.setAttribute("errorMsg", ERR_SYSTEM);
+				request.getRequestDispatcher("/WEB-INF/jsp/deleteuser.jsp").forward(request, response);
+				return;
 			}
 
 		}
-
+		//ルームIDを渡して、メイン画面に遷移
 		response.sendRedirect("MainServlet?roomId=" + roomId);
 	}
 
