@@ -26,7 +26,6 @@ public class JoinMemberServlet extends HttpServlet {
 	 */
 	public JoinMemberServlet() {
 		super();
-		//  Auto-generated constructor stub
 	}
 
 	/**
@@ -41,12 +40,11 @@ public class JoinMemberServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("roomId", roomId);
 		User user = (User) session.getAttribute("user");
-		//  管理者以外のユーザー一覧を取得
-		//TODO モデル書き換え
+
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
 		try {
+			//参加していないユーザーを受け取る
 			List<User> userList = joinRoomModel.getUserList(roomId, user.getUserId());
-			System.out.println(userList);
 			request.setAttribute("usersList", userList);
 			request.getRequestDispatcher("/WEB-INF/jsp/joinmember.jsp").forward(request, response);
 			return;
