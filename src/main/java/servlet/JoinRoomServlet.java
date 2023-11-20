@@ -74,13 +74,13 @@ public class JoinRoomServlet extends HttpServlet {
 
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
 		try {
+			// 新規ルーム参加を実行する
 			int result = joinRoomModel.joinRoom(select_roomId, user.getUserId());
-			if (result != 1) {
-				System.out.println("エラー");
-			}
 		} catch (SwackException e) {
 			e.printStackTrace();
+			// ログイン失敗エラーを出力する
 			request.setAttribute("errorMsg", ERR_LOGIN_PARAM_MISTAKE);
+			// 再起処理
 			request.getRequestDispatcher("/WEB-INF/jsp/joinroom.jsp").forward(request, response);
 			return;
 		}
