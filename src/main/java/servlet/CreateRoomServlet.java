@@ -84,11 +84,6 @@ public class CreateRoomServlet extends HttpServlet {
 		String flag = request.getParameter("setting");
 		Boolean directed = false;
 		Boolean privated = null;
-		/*if (selectUser.length == 1) {
-			directed = true;
-		} else {
-			directed = false;
-		}*/
 		if (flag == null) {
 			privated = false;
 		} else {

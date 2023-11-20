@@ -144,7 +144,7 @@
 									${chatLog.userName}
 									<!-- 投稿時刻 -->
 									<span class="log-time">[${chatLog.createdAt}]</span>
-									<a class="btn btn-outline-danger" href="DeleteMessageServlet?chatLogId=${chatLog.chatLogId}" role="button">×</a>
+									<a class="btn btn-outline-danger messagebtn" href="DeleteMessageServlet?chatLogId=${chatLog.chatLogId}" role="button">×</a>
 								</p>
 								<!-- 投稿内容 -->
 								<p>${chatLog.message}</p>

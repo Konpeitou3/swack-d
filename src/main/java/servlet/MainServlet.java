@@ -17,7 +17,6 @@ import bean.Room;
 import bean.User;
 import exception.SwackException;
 import model.ChatModel;
-import model.JoinRoomModel;
 import model.RoomAdminModel;
 
 @WebServlet("/MainServlet")
@@ -37,7 +36,6 @@ public class MainServlet extends LoginCheckServlet {
 		System.out.println(user);
 		String userId = user.getUserId();
 
-		JoinRoomModel joinRoomModel = new JoinRoomModel();
 		//管理者確認
 		RoomAdminModel roomAdminModel = new RoomAdminModel();
 		//管理者であればtrueを返す　初期値false
@@ -63,6 +61,7 @@ public class MainServlet extends LoginCheckServlet {
 			request.setAttribute("directList", directList);
 			request.setAttribute("chatLogList", chatLogList);
 
+			//ルームの管理者ならtrueを返す
 			for (Admin admin : RoomAdminList) {
 				if (userId.equals(admin.getUserId())) {
 					request.setAttribute("RoomAdminList", RoomAdminList);
