@@ -102,11 +102,18 @@ public class CreateRoomServlet extends HttpServlet {
 				//request.setAttribute("succsessMsg", CREATE_ROOM_SUCCESS);
 				//GET処理にリダイレクト
 
-				//TODO while selectUser分回す
+				CreateRoomModel createRoomMdel = new CreateRoomModel();
+				String maxroomid = createRoomMdel.maxRoomSelect();
+				System.out.println(maxroomid);
+				// while selectUser分回す
+				System.out.println(selectUser);
 				for (String selectuser : selectUser) {
-					new JoinRoomModel().joinRoom(roomId, selectuser);
+					System.out.println(selectuser);
+
+					new JoinRoomModel().joinRoom(maxroomid, selectuser);
+
 				}
-				//TODO joinRoomModel().joinRoom(roomid,userid)を実行する
+				// joinRoomModel().joinRoom(roomid,userid)を実行する
 				response.sendRedirect("MainServlet?roomId=" + roomId);
 				return;
 			}

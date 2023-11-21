@@ -38,4 +38,16 @@ public class CreateRoomModel {
 		return result;
 	}
 
+	/**
+	 * 最後に登録されたルームIDを取得
+	 * @return result ルームID
+	 * @throws SwackException
+	 */
+	public String maxRoomSelect()
+			throws SwackException {
+		RoomDAO roomDAO = new RoomDAO();
+		String result = roomDAO.maxRoomSelect();
+		return result;
+	}
+
 }

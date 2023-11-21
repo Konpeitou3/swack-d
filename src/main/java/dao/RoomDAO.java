@@ -95,23 +95,11 @@ public class RoomDAO extends BaseDAO {
 
 		//自動採番
 		String roomid = maxRoomSelect();
-		System.out.println("nextuserid:" + roomid);
+		System.out.println("nextroomid:" + roomid);
 		//結果用
 		int result;
 
-		//ルーム作成者のインサート
-		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
-		try (Connection conn = dataSource.getConnection()) {
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, roomid);
-			pStmt.setString(2, createduserid);
-			pStmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new SwackException(ERR_DB_PROCESS, e);
-		}
-
-		sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
 		try (Connection conn2 = dataSource.getConnection()) {
 			PreparedStatement pStmt2 = conn2.prepareStatement(sql);
 			pStmt2.setString(1, roomid);
@@ -124,6 +112,18 @@ public class RoomDAO extends BaseDAO {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e2);
+		}
+
+		//ルーム作成者のインサート
+		sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, roomid);
+			pStmt.setString(2, createduserid);
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 		//成功の場合1を返す
 		return result;
