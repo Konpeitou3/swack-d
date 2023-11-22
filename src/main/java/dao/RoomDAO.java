@@ -49,18 +49,18 @@ public class RoomDAO extends BaseDAO {
 	 */
 	public String maxRoomSelect() throws SwackException {
 		String sql = "SELECT MAX(ROOMID) AS MAXROOMID FROM ROOMS ;";
-		String userId = null;
+		String roomId = null;
 		String newId = null;
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
-				userId = rs.getString("MAXROOMID");
+				roomId = rs.getString("MAXROOMID");
 			}
 
-			// "U****" の部分を取得
-			String numberPart = userId.substring(1); // "****" 部分を取得
+			// "R****" の部分を取得
+			String numberPart = roomId.substring(1); // "****" 部分を取得
 
 			try {
 				// "****" 部分を整数に変換してプラス1し、文字列に戻す
@@ -136,14 +136,17 @@ public class RoomDAO extends BaseDAO {
 	 * @return result 成功の場合1を返す
 	 * @throws SwackException 独自エラー
 	 */
-	public int DirectInsert(String roomname, String createduserid, Boolean directed, Boolean privated)
+	public int DirectInsert(String createduserid, Boolean directed, Boolean privated)
 			throws SwackException {
 
 		//自動採番
 		String roomid = maxRoomSelect();
-		System.out.println("nextuserid:" + roomid);
+		System.out.println("nextroomid:" + roomid);
 		//実行用
 		int result;
+
+		String roomname = directRoomnameCreate();
+		System.out.println("roomname:" + roomname);
 
 		//ルーム作成者のインサート
 		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
@@ -157,7 +160,7 @@ public class RoomDAO extends BaseDAO {
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 
-		String sql2 = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
+		String sql2 = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,PU0001,U0002,?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql2);
 			pStmt.setString(1, roomid);
@@ -174,6 +177,11 @@ public class RoomDAO extends BaseDAO {
 		}
 		//成功の場合1を返す
 		return result;
+	}
+
+	private String directRoomnameCreate() {
+		// TODO P+そのダイレクトチャットの参加ユーザID1+,+そのダイレクトチャットの参加ユーザID2を作成
+		return null;
 	}
 
 	/**
