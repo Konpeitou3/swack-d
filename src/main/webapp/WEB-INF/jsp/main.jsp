@@ -70,7 +70,13 @@
 				<!-- プルダウンメニュー -->
 				<details open>
 					<!-- メニュー名 -->
-					<summary> ダイレクト </summary>
+					<summary> ダイレクト 
+					
+					<!-- ダイレクトルーム作成 -->
+						<a href="CreateDirectRoomServlet?roomId=${room.roomId}">
+							<button>＋</button>
+						</a>
+						</summary>
 
 					<!-- ダイレクトルームリスト -->
 					<c:forEach var="direct" items="${directList}">
