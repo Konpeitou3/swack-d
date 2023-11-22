@@ -107,7 +107,7 @@
 						<input type="image" src="images/reload.svg" class="reload" onclick="doReload()">
 					<input type="hidden" id="Admin" value="${Admin}">
 					<!-- 強制退会ボタン -->
-					<a href="DeleteUserServlet"><input type="image" src="images/Delete-Account.svg" class="delete" id="Adminbutton" disabled/></a>
+					<a href="DeleteUserServlet?roomId=${room.roomId}"><input type="image" src="images/Delete-Account.svg" class="delete" id="Adminbutton" disabled/></a>
 					<!-- アカウントロック解除ボタン -->
 					<c:if test="${Admin }">
 					<a href="AccountUnrockServlet"><input type="image" src="images/Delete-Account.svg" class="delete" id="AccountUnlockbutton"/></a>

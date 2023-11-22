@@ -51,7 +51,7 @@ pageEncoding="UTF-8"%>
               <span class="users-note"
                 >ロックを解除するアカウントを選んでください。</span
               >
-            </div>S
+            </div>
 
             <div class="member-form-btn">
               <a href="MainServlet?roomId=${roomId}"
