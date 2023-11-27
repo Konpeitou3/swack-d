@@ -18,7 +18,7 @@ import model.JoinRoomModel;
  * Servlet implementation class JoinMemberServlet
  */
 @WebServlet("/JoinMemberServlet")
-public class JoinMemberServlet extends HttpServlet {
+public class JoinMemberServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

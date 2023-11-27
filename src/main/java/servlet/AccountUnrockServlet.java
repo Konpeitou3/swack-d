@@ -19,7 +19,7 @@ import model.UserModel;
  * Servlet implementation class AccountUnrock
  */
 @WebServlet("/AccountUnrockServlet")
-public class AccountUnrockServlet extends HttpServlet {
+public class AccountUnrockServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

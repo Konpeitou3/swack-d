@@ -21,7 +21,7 @@ import model.JoinRoomModel;
  * Servlet implementation class CreateRoomServlet
  */
 @WebServlet("/CreateRoomServlet")
-public class CreateRoomServlet extends HttpServlet {
+public class CreateRoomServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

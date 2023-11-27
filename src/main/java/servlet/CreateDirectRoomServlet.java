@@ -20,7 +20,7 @@ import model.UserModel;
  * Servlet implementation class CreateDirectRoomServlet
  */
 @WebServlet("/CreateDirectRoomServlet")
-public class CreateDirectRoomServlet extends HttpServlet {
+public class CreateDirectRoomServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
