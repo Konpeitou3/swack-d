@@ -97,8 +97,7 @@ public class CreateDirectRoomServlet extends LoginCheckServlet {
 				//request.setAttribute("succsessMsg", CREATE_ROOM_SUCCESS);
 				//GET処理にリダイレクト
 
-				CreateRoomModel createRoomMdel = new CreateRoomModel();
-				String maxroomid = createRoomMdel.maxRoomSelect();
+				String maxroomid = createRoomModel.RoomSelect();
 				System.out.println(maxroomid);
 				// while selectUser分回す
 				System.out.println(selectUser);
