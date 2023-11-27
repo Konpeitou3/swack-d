@@ -64,7 +64,7 @@ public class SignUpServlet extends HttpServlet {
 
 		//ユーザー名チェック
 		if (b1 == true || b2 == true || b3 == true || b4 == true || b5 == true) {
-			System.out.println("クロスサイトスクリプティングの可能性あり");
+			System.out.println("１．クロスサイトスクリプティングの可能性あり");
 			errorMsg.append("不正なユーザー名です。変更してください。");
 			request.setAttribute("errorMsg", errorMsg);
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
@@ -73,15 +73,15 @@ public class SignUpServlet extends HttpServlet {
 		String mailAddress = request.getParameter("mailAddress");
 		String tryMailAddress = mailAddress.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
 				.replace(">", "&gt;").replace("'", "&#39;");
-		boolean b1_2 = tryUserName.contains("&amp;");
-		boolean b2_2 = tryUserName.contains("&quot;");
-		boolean b3_2 = tryUserName.contains("&lt;");
-		boolean b4_2 = tryUserName.contains("&gt;");
-		boolean b5_2 = tryUserName.contains("&#39;");
+		boolean b1_2 = tryMailAddress.contains("&amp;");
+		boolean b2_2 = tryMailAddress.contains("&quot;");
+		boolean b3_2 = tryMailAddress.contains("&lt;");
+		boolean b4_2 = tryMailAddress.contains("&gt;");
+		boolean b5_2 = tryMailAddress.contains("&#39;");
 
 		//メールアドレスチェック
 		if (b1_2 == true || b2_2 == true || b3_2 == true || b4_2 == true || b5_2 == true) {
-			System.out.println("クロスサイトスクリプティングの可能性あり");
+			System.out.println("２．クロスサイトスクリプティングの可能性あり");
 			errorMsg.append("不正なメールアドレスです。変更してください。");
 			request.setAttribute("errorMsg", errorMsg);
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
@@ -90,15 +90,15 @@ public class SignUpServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String tryPassword = password.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
 				.replace(">", "&gt;").replace("'", "&#39;");
-		boolean b1_3 = tryUserName.contains("&amp;");
-		boolean b2_3 = tryUserName.contains("&quot;");
-		boolean b3_3 = tryUserName.contains("&lt;");
-		boolean b4_3 = tryUserName.contains("&gt;");
-		boolean b5_3 = tryUserName.contains("&#39;");
+		boolean b1_3 = tryPassword.contains("&amp;");
+		boolean b2_3 = tryPassword.contains("&quot;");
+		boolean b3_3 = tryPassword.contains("&lt;");
+		boolean b4_3 = tryPassword.contains("&gt;");
+		boolean b5_3 = tryPassword.contains("&#39;");
 
 		//パスワードチェック
 		if (b1_3 == true || b2_3 == true || b3_3 == true || b4_3 == true || b5_3 == true) {
-			System.out.println("クロスサイトスクリプティングの可能性あり");
+			System.out.println("３．クロスサイトスクリプティングの可能性あり");
 			errorMsg.append("不正なパスワードです。変更してください。");
 			request.setAttribute("errorMsg", errorMsg);
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
