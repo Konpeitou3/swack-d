@@ -103,7 +103,6 @@ public class CreateDirectRoomServlet extends LoginCheckServlet {
 				System.out.println(selectUser);
 				for (String selectuser : selectUser) {
 					System.out.println(selectuser);
-
 					new JoinRoomModel().joinRoom(maxroomid, selectuser);
 
 				}

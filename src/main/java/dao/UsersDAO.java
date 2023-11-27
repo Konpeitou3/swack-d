@@ -430,4 +430,41 @@ public class UsersDAO extends BaseDAO {
 		//アカウントロックされているユーザのリストを返す
 		return lockedUserList;
 	}
+
+	/**
+	 * 新規ユーザーID選択
+	 * @return newId 新規登録でつけるID
+	 * @throws SwackException 独自エラー
+	 */
+	public String Select() throws SwackException {
+		String sql = "SELECT MAX(USERID) AS MAXID FROM USERS ;";
+		String userId = null;
+		String newId = null;
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.next()) {
+				userId = rs.getString("MAXID");
+			}
+
+			// "U****" の部分を取得
+			String numberPart = userId.substring(1); // "****" 部分を取得
+
+			try {
+				// 新しい文字列を生成
+				newId = "U" + numberPart;
+
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				throw new SwackException(ERR_USERID_ADD, e);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		//新規登録でつけるIDを返す
+		return newId;
+	}
 }

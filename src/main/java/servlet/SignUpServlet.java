@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.User;
+import dao.JoinRoomDAO;
+import dao.RoomDAO;
 import dao.UsersDAO;
 import exception.SwackException;
 
@@ -141,6 +143,22 @@ public class SignUpServlet extends HttpServlet {
 			int result = usersDao.insert(tryUserName, tryMailAddress, tryPassword);
 			if (result == 1) {
 				//正常にアカウントをDBに登録できたら
+				RoomDAO roomDao = new RoomDAO();
+				JoinRoomDAO joinroomDao = new JoinRoomDAO();
+				String maxUserId = usersDao.Select();
+				String chatb = maxUserId.substring(1);
+				int max = Integer.parseInt(chatb);
+				int i;
+				for (i = 1; i < max; i++) {
+					String chata = String.format("%04d", i);
+					String roomname = "PU" + chata + ",U" + chatb;
+					roomDao.DirectInsert(roomname, "U0000", true, true);
+					String roomid = roomDao.RoomSelect();
+					String usera = "U" + chata;
+					String userb = "U" + chatb;
+					joinroomDao.JoinRoom(roomid, usera);
+					joinroomDao.JoinRoom(roomid, userb);
+				}
 				//login.jspに遷移
 				request.setAttribute("successMsg", NEW_USERS_CREATE_SUCCSESS);
 				request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);

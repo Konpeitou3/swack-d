@@ -173,7 +173,7 @@ public class RoomDAO extends BaseDAO {
 	 * @return result 成功の場合1を返す
 	 * @throws SwackException 独自エラー
 	 */
-	public int DirectInsert(String createduserid, Boolean directed, Boolean privated)
+	public int DirectInsert(String roomname, String createduserid, Boolean directed, Boolean privated)
 			throws SwackException {
 
 		//自動採番
@@ -182,24 +182,11 @@ public class RoomDAO extends BaseDAO {
 		//実行用
 		int result;
 
-		String roomname = directRoomnameCreate();
 		System.out.println("roomname:" + roomname);
 
-		//ルーム作成者のインサート
-		String sql = "INSERT INTO joinroom (roomid, userid) VALUES(?,?);";
+		String sql = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,?,?,?,?);";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, roomid);
-			pStmt.setString(2, createduserid);
-			pStmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new SwackException(ERR_DB_PROCESS, e);
-		}
-
-		String sql2 = "INSERT INTO rooms (roomid, roomname,createduserid,directed,privated) VALUES(?,PU0001,U0002,?,?,?,?);";
-		try (Connection conn = dataSource.getConnection()) {
-			PreparedStatement pStmt = conn.prepareStatement(sql2);
 			pStmt.setString(1, roomid);
 			pStmt.setString(2, roomname);
 			pStmt.setString(3, createduserid);
@@ -208,17 +195,17 @@ public class RoomDAO extends BaseDAO {
 
 			result = pStmt.executeUpdate();
 
+			String sql2 = "INSERT INTO roomadmins(roomid, userid) VALUES (?,'U0000');";
+			PreparedStatement pStmt2 = conn.prepareStatement(sql2);
+			pStmt2.setString(1, roomid);
+			result = pStmt2.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SwackException(ERR_DB_PROCESS, e);
 		}
 		//成功の場合1を返す
 		return result;
-	}
-
-	private String directRoomnameCreate() {
-		// TODO P+そのダイレクトチャットの参加ユーザID1+,+そのダイレクトチャットの参加ユーザID2を作成
-		return null;
 	}
 
 	/**
