@@ -27,7 +27,7 @@
 		<!-- ヘッダー -->
 		<header class="header">
 			<!-- ユーザー名表示 -->
-			<div>${user.userName}</div>
+			<div><c:out value="${user.userName}"/></div>
 			<!-- ログアウト処理 -->
 			<form action="LogoutServlet" id="logoutForm" method="get">
 				<input type="submit" value="ログアウト" onclick="logout();">
@@ -57,7 +57,7 @@
 						<a class="list-name" href="MainServlet?roomId=${room.roomId}">
 							<c:if test="${room.privated}">&#128274;</c:if> 
 							<c:if test="${!room.privated}">#</c:if> 
-							${room.roomName}
+							<c:out value="${room.roomName}"/>
 						</a>
 						<br>
 					</c:forEach>
@@ -83,7 +83,7 @@
 						<a class="list-name" href="MainServlet?roomId=${direct.roomId}">
 							<c:if test="${room.privated}">&#128274;</c:if> 
 							<c:if test="${!room.privated}">#</c:if> 
-							${direct.roomName}</a>
+							<c:out value="${direct.roomName}"/></a>
 						<br>
 					</c:forEach>
 
@@ -108,7 +108,7 @@
 
 				<h2>
 						<!-- ルーム名 -->
-						${room.roomName}(${room.memberCount})
+						<c:out value="${room.roomName}"/>(${room.memberCount})
 						<!-- 再読み込み -->
 						<input type="image" src="images/reload.svg" class="reload" onclick="doReload()">
 					<input type="hidden" id="Admin" value="${Admin}">
@@ -147,13 +147,13 @@
 								<!-- 投稿主情報 -->
 								<p class="log-name">
 									<!-- 投稿主のユーザー名 -->
-									${chatLog.userName}
+									<c:out value="${chatLog.userName}"/>
 									<!-- 投稿時刻 -->
 									<span class="log-time">[${chatLog.createdAt}]</span>
 									<a class="btn btn-outline-danger messagebtn" href="DeleteMessageServlet?chatLogId=${chatLog.chatLogId}" role="button">×</a>
 								</p>
 								<!-- 投稿内容 -->
-								<p>${chatLog.message}</p>
+								<p><c:out value="${chatLog.message}"/></p>
 							</div>
 						</div>
 					</c:forEach>
