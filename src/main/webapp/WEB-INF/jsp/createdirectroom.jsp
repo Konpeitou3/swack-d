@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%>
               <label class="control-label">チャット相手を選択</label>
               <select id="names" class="form-select" name="selectUser" multiple>
               <c:forEach var="user" items="${usersList}">
-  				<option value="${user.userId}">${user.userName}</option>            
+  				<option value="${user.userId}"><c:out value="${user.userName}"/></option>            
               
               </c:forEach>
               </select>
