@@ -43,10 +43,10 @@ public class CreateRoomModel {
 	 * @return result ルームID
 	 * @throws SwackException
 	 */
-	public String maxRoomSelect()
+	public String RoomSelect()
 			throws SwackException {
 		RoomDAO roomDAO = new RoomDAO();
-		String result = roomDAO.maxRoomSelect();
+		String result = roomDAO.RoomSelect();
 		return result;
 	}
 

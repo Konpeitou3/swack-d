@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +15,7 @@ import exception.SwackException;
 import model.JoinRoomModel;
 
 @WebServlet("/LeavingTheRoomServlet")
-public class LeavingTheRoomServlet extends HttpServlet {
+public class LeavingTheRoomServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	public LeavingTheRoomServlet() {

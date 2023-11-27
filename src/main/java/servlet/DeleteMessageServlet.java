@@ -15,7 +15,7 @@ import model.ChatModel;
  * Servlet implementation class DeleteMessageServlet
  */
 @WebServlet("/DeleteMessageServlet")
-public class DeleteMessageServlet extends HttpServlet {
+public class DeleteMessageServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

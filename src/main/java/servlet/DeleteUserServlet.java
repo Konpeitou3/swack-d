@@ -21,7 +21,7 @@ import model.UserModel;
  * Servlet implementation class DeleteUserServlet
  */
 @WebServlet("/DeleteUserServlet")
-public class DeleteUserServlet extends HttpServlet {
+public class DeleteUserServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	public DeleteUserServlet() {

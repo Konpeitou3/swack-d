@@ -22,7 +22,7 @@ import model.OtherRoomListModel;
  * Servlet implementation class JoinRoomServlet
  */
 @WebServlet("/JoinRoomServlet")
-public class JoinRoomServlet extends HttpServlet {
+public class JoinRoomServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

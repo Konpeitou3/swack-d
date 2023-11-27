@@ -84,6 +84,43 @@ public class RoomDAO extends BaseDAO {
 	}
 
 	/**
+	 * 新規ルームID取得
+	 * @return newId 新規ルームでつけるID
+	 * @throws SwackException 独自エラー
+	 */
+	public String RoomSelect() throws SwackException {
+		String sql = "SELECT MAX(ROOMID) AS MAXROOMID FROM ROOMS ;";
+		String roomId = null;
+		String newId = null;
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.next()) {
+				roomId = rs.getString("MAXROOMID");
+			}
+
+			// "R****" の部分を取得
+			String numberPart = roomId.substring(1); // "****" 部分を取得
+
+			try {
+				// 新しい文字列を生成
+				newId = "R" + numberPart;
+
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				throw new SwackException(ERR_USERID_ADD, e);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SwackException(ERR_DB_PROCESS, e);
+		}
+		//新規ルームでつけるIDを返す
+		return newId;
+	}
+
+	/**
 	 * 新規ルーム作成
 	 * @param mailAddress メールアドレス
 	 * @param password パスワード

@@ -21,7 +21,7 @@ import model.JoinRoomModel;
  * Servlet implementation class CreateRoomServlet
  */
 @WebServlet("/CreateRoomServlet")
-public class CreateRoomServlet extends HttpServlet {
+public class CreateRoomServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -102,8 +102,7 @@ public class CreateRoomServlet extends HttpServlet {
 				//request.setAttribute("succsessMsg", CREATE_ROOM_SUCCESS);
 				//GET処理にリダイレクト
 
-				CreateRoomModel createRoomMdel = new CreateRoomModel();
-				String maxroomid = createRoomMdel.maxRoomSelect();
+				String maxroomid = createRoomModel.RoomSelect();
 				System.out.println(maxroomid);
 				// while selectUser分回す
 				System.out.println(selectUser);
