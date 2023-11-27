@@ -49,27 +49,71 @@ public class SignUpServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 値を受け取る
-		String userName = request.getParameter("userName");
-		System.out.println(userName);
-
-		String mailAddress = request.getParameter("mailAddress");
-		System.out.println(mailAddress);
-
-		String password = request.getParameter("password");
-		System.out.println(password);
-
-		//入力値判定
 		StringBuilder errorMsg = new StringBuilder();
 
-		if (userName == null || userName.length() == 0) {
+		// 値を受け取る
+		String userName = request.getParameter("userName");
+		//サニタイジング
+		String tryUserName = userName.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
+				.replace(">", "&gt;").replace("'", "&#39;");
+		boolean b1 = tryUserName.contains("&amp;");
+		boolean b2 = tryUserName.contains("&quot;");
+		boolean b3 = tryUserName.contains("&lt;");
+		boolean b4 = tryUserName.contains("&gt;");
+		boolean b5 = tryUserName.contains("&#39;");
+
+		//ユーザー名チェック
+		if (b1 == true || b2 == true || b3 == true || b4 == true || b5 == true) {
+			System.out.println("クロスサイトスクリプティングの可能性あり");
+			errorMsg.append("不正なユーザー名です。変更してください。");
+			request.setAttribute("errorMsg", errorMsg);
+			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+		}
+
+		String mailAddress = request.getParameter("mailAddress");
+		String tryMailAddress = mailAddress.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
+				.replace(">", "&gt;").replace("'", "&#39;");
+		boolean b1_2 = tryUserName.contains("&amp;");
+		boolean b2_2 = tryUserName.contains("&quot;");
+		boolean b3_2 = tryUserName.contains("&lt;");
+		boolean b4_2 = tryUserName.contains("&gt;");
+		boolean b5_2 = tryUserName.contains("&#39;");
+
+		//メールアドレスチェック
+		if (b1_2 == true || b2_2 == true || b3_2 == true || b4_2 == true || b5_2 == true) {
+			System.out.println("クロスサイトスクリプティングの可能性あり");
+			errorMsg.append("不正なメールアドレスです。変更してください。");
+			request.setAttribute("errorMsg", errorMsg);
+			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+		}
+
+		String password = request.getParameter("password");
+		String tryPassword = password.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
+				.replace(">", "&gt;").replace("'", "&#39;");
+		boolean b1_3 = tryUserName.contains("&amp;");
+		boolean b2_3 = tryUserName.contains("&quot;");
+		boolean b3_3 = tryUserName.contains("&lt;");
+		boolean b4_3 = tryUserName.contains("&gt;");
+		boolean b5_3 = tryUserName.contains("&#39;");
+
+		//パスワードチェック
+		if (b1_3 == true || b2_3 == true || b3_3 == true || b4_3 == true || b5_3 == true) {
+			System.out.println("クロスサイトスクリプティングの可能性あり");
+			errorMsg.append("不正なパスワードです。変更してください。");
+			request.setAttribute("errorMsg", errorMsg);
+			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+		}
+
+		//入力値判定
+
+		if (tryUserName == null || tryUserName.length() == 0) {
 			errorMsg.append("ユーザ名が入力されていません<br>");
 		}
-		if (mailAddress == null || mailAddress.length() == 0) {
+		if (tryMailAddress == null || tryMailAddress.length() == 0) {
 			errorMsg.append("メールアドレスが入力されていません<br>");
 		}
 		//パスワードチェック
-		if (password == null || password.length() == 0) {
+		if (tryPassword == null || tryPassword.length() == 0) {
 			errorMsg.append("パスワードが入力されていません<br>");
 		}
 		if (errorMsg.length() > 0) {
@@ -85,7 +129,7 @@ public class SignUpServlet extends HttpServlet {
 			List<User> mailaddressList = usersDao.getMailAddressList();
 			for (User user : mailaddressList) {
 				System.out.println(user.getMailAddress());
-				if ((mailAddress.equals(user.getMailAddress())) == true) {
+				if ((tryMailAddress.equals(user.getMailAddress())) == true) {
 					//入力されたメールアドレスがすでに登録済みの場合
 					System.out.println("エラー");
 					request.setAttribute("errorMsg", ERR_USERS_ISREGISTERED);
@@ -94,7 +138,7 @@ public class SignUpServlet extends HttpServlet {
 					return;
 				}
 			}
-			int result = usersDao.insert(userName, mailAddress, password);
+			int result = usersDao.insert(tryUserName, tryMailAddress, tryPassword);
 			if (result == 1) {
 				//正常にアカウントをDBに登録できたら
 				//login.jspに遷移
