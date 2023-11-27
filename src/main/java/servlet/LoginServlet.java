@@ -26,6 +26,10 @@ import model.UserModel;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * roomId セッションから取得
+	 * user ユーザー情報をセッションから取得
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,10 +38,14 @@ public class LoginServlet extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
 			if (roomId == null) {
+				//ルーム情報がセッションになかったら
+				// 初期ルームをeveryoneにする
 				roomId = "R0000";
+				//MainServletに遷移
 				response.sendRedirect("MainServlet?roomId=" + roomId);
 				return;
 			} else {
+				//MainServletに遷移
 				response.sendRedirect("MainServlet?roomId=" + roomId);
 				return;
 			}
@@ -51,12 +59,27 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		StringBuilder errorMsg = new StringBuilder();
 		// パラメータ取得
 		String mailAddress = request.getParameter("mailAddress");
 		String password = request.getParameter("password");
+		String tryPassword = password.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;")
+				.replace(">", "&gt;").replace("'", "&#39;");
+		boolean b1_3 = tryPassword.contains("&amp;");
+		boolean b2_3 = tryPassword.contains("&quot;");
+		boolean b3_3 = tryPassword.contains("&lt;");
+		boolean b4_3 = tryPassword.contains("&gt;");
+		boolean b5_3 = tryPassword.contains("&#39;");
+
+		//パスワードチェック
+		if (b1_3 == true || b2_3 == true || b3_3 == true || b4_3 == true || b5_3 == true) {
+			System.out.println("１．クロスサイトスクリプティングの可能性あり");
+			errorMsg.append("不正なパスワードです。");
+			request.setAttribute("errorMsg", errorMsg);
+			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+		}
 
 		// パラメータチェック
-		StringBuilder errorMsg = new StringBuilder();
 		if (mailAddress == null || mailAddress.length() == 0) {
 			errorMsg.append("メールアドレスが入っていません<br>");
 		}
