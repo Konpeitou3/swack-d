@@ -152,8 +152,10 @@ public class SignUpServlet extends HttpServlet {
 				for (i = 1; i < max; i++) {
 					String chata = String.format("%04d", i);
 					String roomname = "PU" + chata + ",U" + chatb;
-					roomDao.DirectInsert(roomname, "U0000", true, true);
+					int result2 = roomDao.DirectInsert(roomname, "U0000", true, true);
+					System.out.println(result2);
 					String roomid = roomDao.RoomSelect();
+					System.out.println(roomid);
 					String usera = "U" + chata;
 					String userb = "U" + chatb;
 					joinroomDao.JoinRoom(roomid, usera);
