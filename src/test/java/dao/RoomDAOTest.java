@@ -47,7 +47,7 @@ public class RoomDAOTest {
 	//インサートテスト
 	@Test
 	void testDirectInsertT() throws SwackException {
-		int userT = roomDAO.DirectInsert("U9997", false, false);
+		int userT = roomDAO.DirectInsert("PU0001,U9997", "U9997", false, false);
 		System.out.println(userT);
 		assertNotNull(userT);
 	}

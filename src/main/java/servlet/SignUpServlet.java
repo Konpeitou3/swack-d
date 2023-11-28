@@ -145,7 +145,7 @@ public class SignUpServlet extends HttpServlet {
 				//正常にアカウントをDBに登録できたら
 				RoomDAO roomDao = new RoomDAO();
 				JoinRoomDAO joinroomDao = new JoinRoomDAO();
-				String maxUserId = usersDao.Select();
+				String maxUserId = usersDao.selectuserId();
 				String chatb = maxUserId.substring(1);
 				int max = Integer.parseInt(chatb);
 				int i;

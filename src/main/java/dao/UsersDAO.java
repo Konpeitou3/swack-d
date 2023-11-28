@@ -436,7 +436,7 @@ public class UsersDAO extends BaseDAO {
 	 * @return newId 新規登録でつけるID
 	 * @throws SwackException 独自エラー
 	 */
-	public String Select() throws SwackException {
+	public String selectuserId() throws SwackException {
 		String sql = "SELECT MAX(USERID) AS MAXID FROM USERS ;";
 		String userId = null;
 		String newId = null;
