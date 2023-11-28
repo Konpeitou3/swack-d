@@ -19,7 +19,7 @@ import model.UserModel;
  * Servlet implementation class PasswordUpdateServlet
  */
 @WebServlet("/PasswordUpdateServlet")
-public class PasswordUpdateServlet extends LoginCheckServlet {
+public class PasswordUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
