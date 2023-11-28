@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
         <div class="col-md-12 member-form">
           <h3>ルームからユーザーを退会させる</h3>
 
-          <form action="JoinMemberServlet" method="post">
+          <form action="DeleteUserServlet" method="post">
             <input type="hidden" name="roomId" value="${roomId}" />
             <div class="form-group">
               <label class="control-label">退会させるユーザーを選ぶ </label>
