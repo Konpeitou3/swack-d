@@ -45,7 +45,7 @@ pageEncoding="UTF-8"%>
               </c:if>
               <select id="users" class="form-select" name="selectUser" multiple>
               <c:forEach var="user" items="${notAdminUserList}">
-  				<option value="${user.userId}">${user.userName}</option>            
+  				<option value="${user.userId}"><c:out value="${user.userName}"/></option>            
               </c:forEach>
               </select>
               <span class="users-note">
