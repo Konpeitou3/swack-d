@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%>
             <input type="hidden" name="roomId" value="${roomId}" />
             <div class="form-group">
               <label class="control-label">ロックを解除するユーザーを選ぶ</label>
-              <c:if test="${empty usersList}">
+              <c:if test="${empty lockeduserlist}">
               <span class="not-found-user"> ※ロックがかかっているユーザーがいません</span>
               </c:if>
               <select id="users" class="form-select" name="userId" multiple>
