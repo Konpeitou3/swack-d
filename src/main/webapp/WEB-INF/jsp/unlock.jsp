@@ -27,7 +27,7 @@ pageEncoding="UTF-8"%>
     
 
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/ .css" />
+    <link rel="stylesheet" href="css/unlock.css" />
   </head>
 
   <body>
@@ -39,7 +39,7 @@ pageEncoding="UTF-8"%>
           <form action="AccountUnrockServlet" method="post" name="userId" value="${userId}">
             <input type="hidden" name="roomId" value="${roomId}" />
             <div class="form-group">
-              <label class="control-label">招待の送信先:(任意) </label>
+              <label class="control-label">ロックを解除するユーザーを選ぶ</label>
               <c:if test="${empty usersList}">
               <span class="not-found-user"> ※ロックがかかっているユーザーがいません</span>
               </c:if>
