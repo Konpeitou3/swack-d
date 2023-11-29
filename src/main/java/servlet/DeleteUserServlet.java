@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import bean.User;
 import exception.SwackException;
 import model.JoinRoomModel;
-import model.UserModel;
 
 /**
  * Servlet implementation class DeleteUserServlet
@@ -66,10 +65,10 @@ public class DeleteUserServlet extends LoginCheckServlet {
 
 		//選択された人数分ルーム退会を実行
 		for (String userId : selectUser) {
-			UserModel userModel = new UserModel();
+			JoinRoomModel joinRoomModel = new JoinRoomModel();
 			int result;
 			try {
-				result = userModel.delete(userId);
+				result = joinRoomModel.LeavingTheRoom(roomId, userId);
 				if (result != 1) {
 					request.setAttribute("errorMsg", ERR_SYSTEM);
 					request.getRequestDispatcher("/WEB-INF/jsp/deleteuser.jsp").forward(request, response);
