@@ -32,6 +32,7 @@ public class MainServlet extends LoginCheckServlet {
 			roomId = "R0000";
 		}
 		HttpSession session = request.getSession();
+		session.setAttribute("roomId", roomId);
 		User user = (User) session.getAttribute("user");
 		String userId = user.getUserId();
 
