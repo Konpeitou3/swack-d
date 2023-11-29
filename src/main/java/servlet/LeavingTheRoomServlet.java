@@ -18,10 +18,6 @@ import model.JoinRoomModel;
 public class LeavingTheRoomServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
-	public LeavingTheRoomServlet() {
-		super();
-	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

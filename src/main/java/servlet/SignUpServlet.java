@@ -25,14 +25,6 @@ public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SignUpServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -66,7 +58,6 @@ public class SignUpServlet extends HttpServlet {
 
 		//ユーザー名チェック
 		if (b1 == true || b2 == true || b3 == true || b4 == true || b5 == true) {
-			System.out.println("１．クロスサイトスクリプティングの可能性あり");
 			errorMsg.append("不正なユーザー名です。変更してください。");
 			request.setAttribute("errorMsg", errorMsg);
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
@@ -83,7 +74,6 @@ public class SignUpServlet extends HttpServlet {
 
 		//メールアドレスチェック
 		if (b1_2 == true || b2_2 == true || b3_2 == true || b4_2 == true || b5_2 == true) {
-			System.out.println("２．クロスサイトスクリプティングの可能性あり");
 			errorMsg.append("不正なメールアドレスです。変更してください。");
 			request.setAttribute("errorMsg", errorMsg);
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
@@ -100,7 +90,6 @@ public class SignUpServlet extends HttpServlet {
 
 		//パスワードチェック
 		if (b1_3 == true || b2_3 == true || b3_3 == true || b4_3 == true || b5_3 == true) {
-			System.out.println("３．クロスサイトスクリプティングの可能性あり");
 			errorMsg.append("不正なパスワードです。変更してください。");
 			request.setAttribute("errorMsg", errorMsg);
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
@@ -130,10 +119,8 @@ public class SignUpServlet extends HttpServlet {
 			UsersDAO usersDao = new UsersDAO();
 			List<User> mailaddressList = usersDao.getMailAddressList();
 			for (User user : mailaddressList) {
-				System.out.println(user.getMailAddress());
 				if ((tryMailAddress.equals(user.getMailAddress())) == true) {
 					//入力されたメールアドレスがすでに登録済みの場合
-					System.out.println("エラー");
 					request.setAttribute("errorMsg", ERR_USERS_ISREGISTERED);
 					//signup.jspにリダイレクト
 					request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
@@ -152,10 +139,8 @@ public class SignUpServlet extends HttpServlet {
 				for (i = 1; i < max; i++) {
 					String chata = String.format("%04d", i);
 					String roomname = "PU" + chata + ",U" + chatb;
-					int result2 = roomDao.DirectInsert(roomname, "U0000", true, true);
-					System.out.println(result2);
+					result = roomDao.DirectInsert(roomname, "U0000", true, true);
 					String roomid = roomDao.RoomSelect();
-					System.out.println(roomid);
 					String usera = "U" + chata;
 					String userb = "U" + chatb;
 					joinroomDao.JoinRoom(roomid, usera);

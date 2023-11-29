@@ -33,7 +33,6 @@ public class MainServlet extends LoginCheckServlet {
 		}
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		System.out.println(user);
 		String userId = user.getUserId();
 
 		//管理者確認

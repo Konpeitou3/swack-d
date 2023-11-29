@@ -16,20 +16,9 @@ import model.CreateRoomModel;
 import model.JoinRoomModel;
 import model.UserModel;
 
-/**
- * Servlet implementation class CreateDirectRoomServlet
- */
 @WebServlet("/CreateDirectRoomServlet")
 public class CreateDirectRoomServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CreateDirectRoomServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -67,12 +56,10 @@ public class CreateDirectRoomServlet extends LoginCheckServlet {
 
 		// 値受け取り（招待先）
 		String[] selectUser = request.getParameterValues("selectUser");
-		System.out.println(selectUser);
 
 		//値受け取り（ユーザーID）
 		HttpSession session = request.getSession();
 		String roomId = (String) session.getAttribute("roomId");
-		System.out.println(roomId);
 		User user = (User) session.getAttribute("user");
 		String createduserid = user.getUserId();
 
@@ -98,11 +85,8 @@ public class CreateDirectRoomServlet extends LoginCheckServlet {
 				//GET処理にリダイレクト
 
 				String maxroomid = createRoomModel.RoomSelect();
-				System.out.println(maxroomid);
 				// while selectUser分回す
-				System.out.println(selectUser);
 				for (String selectuser : selectUser) {
-					System.out.println(selectuser);
 					new JoinRoomModel().joinRoom(maxroomid, selectuser);
 
 				}

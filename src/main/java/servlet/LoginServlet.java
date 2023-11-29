@@ -73,7 +73,6 @@ public class LoginServlet extends HttpServlet {
 
 		//パスワードチェック
 		if (b1_3 == true || b2_3 == true || b3_3 == true || b4_3 == true || b5_3 == true) {
-			System.out.println("１．クロスサイトスクリプティングの可能性あり");
 			errorMsg.append("不正なパスワードです。");
 			request.setAttribute("errorMsg", errorMsg);
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
@@ -104,7 +103,6 @@ public class LoginServlet extends HttpServlet {
 				try {
 					// ログインチェック
 					User user2 = new LoginModel().checkLogin(mailAddress, password);
-					System.out.println(user2);
 					UserModel userModel = new UserModel();
 					//アカウントロックチェック
 					if (user1.isLocked() == true) {
@@ -123,8 +121,6 @@ public class LoginServlet extends HttpServlet {
 						//ログインテーブルの件数取得、5件取得したらaccountロック
 						LoginModel loginModel = new LoginModel();
 						List<FailedLog> LogCount = loginModel.lastLoginCheck(user1.getUserId());
-						System.out.println(LogCount);
-						System.out.println(LogCount.size());
 						if (LogCount.size() == 5) {
 							userModel.updateLockedTrue(user1.getUserId());
 						}

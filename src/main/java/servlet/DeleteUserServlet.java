@@ -23,10 +23,6 @@ import model.JoinRoomModel;
 public class DeleteUserServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
-	public DeleteUserServlet() {
-		super();
-	}
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

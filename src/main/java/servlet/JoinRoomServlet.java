@@ -26,14 +26,6 @@ public class JoinRoomServlet extends LoginCheckServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public JoinRoomServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,7 +38,6 @@ public class JoinRoomServlet extends LoginCheckServlet {
 		OtherRoomListModel otherRoomListModel = new OtherRoomListModel();
 		try {
 			List<Room> roomList = otherRoomListModel.getOtherRoomList(user.getUserId());
-			System.out.println(roomList);
 			request.setAttribute("roomList", roomList);
 			request.getRequestDispatcher("/WEB-INF/jsp/joinroom.jsp").forward(request, response);
 			return;
@@ -64,18 +55,17 @@ public class JoinRoomServlet extends LoginCheckServlet {
 			throws ServletException, IOException {
 		//String roomId = request.getParameter("roomId");
 		String select_roomId = request.getParameter("selectRoom");
-		System.out.println(select_roomId);
 
 		//セッションからユーザー情報を取得
 		HttpSession get_session = request.getSession();
 		User user = (User) get_session.getAttribute("user");
 		String roomId = (String) get_session.getAttribute("roomId");
-		System.out.println(roomId);
 
 		JoinRoomModel joinRoomModel = new JoinRoomModel();
 		try {
 			// 新規ルーム参加を実行する
 			int result = joinRoomModel.joinRoom(select_roomId, user.getUserId());
+			System.out.println(result);
 		} catch (SwackException e) {
 			e.printStackTrace();
 			// ログイン失敗エラーを出力する
