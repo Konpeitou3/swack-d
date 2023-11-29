@@ -158,3 +158,30 @@
 .messagebtn{
 	margin-top: 10px;
 }
+
+        #heart {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #heart.clicked {
+            color: red;
+        }
+        
+                #star {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #star.clicked {
+            color: Yellow;
+        }
+        
+                #head {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #head.clicked {
+            color: blue;
+        }

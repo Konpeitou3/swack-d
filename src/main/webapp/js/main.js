@@ -71,3 +71,17 @@ function logout() {
 function doReload() {
     window.location.reload();
 }
+
+        function changeHeartColor() {
+            var heart = document.getElementById("heart");
+            heart.classList.toggle("clicked");
+        }
+
+        function changeStarColor() {
+            var heart = document.getElementById("star");
+            heart.classList.toggle("clicked");
+        }
+        function changeHeadColor() {
+            var heart = document.getElementById("head");
+            heart.classList.toggle("clicked");
+        }

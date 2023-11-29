@@ -154,6 +154,9 @@
 								</p>
 								<!-- 投稿内容 -->
 								<p><c:out value="${chatLog.message}"/></p>
+								<span id="heart" onclick="changeHeartColor(this)">❤️</span>
+								<span id="star" onclick="changeStarColor(this)">★</span>
+								<span id="head" onclick="changeHeadColor(this)">😐</span>
 							</div>
 						</div>
 					</c:forEach>
